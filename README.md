@@ -79,7 +79,29 @@ button{
 
 </div>
 
-<script>
+function baslat(){
+
+let a=document.getElementById("o1").value;
+let b=document.getElementById("o2").value;
+let c=document.getElementById("o3").value;
+let d=document.getElementById("o4").value;
+
+document.body.innerHTML=`
+<h1>🎲 Allı Güllü Okey</h1>
+
+<div class="kart">${a} - 0</div>
+<div class="kart">${b} - 0</div>
+<div class="kart">${c} - 0</div>
+<div class="kart">${d} - 0</div>
+
+<br>
+
+<button onclick="location.reload()">
+Yeni Oyun
+</button>
+`;
+
+}
 
 function baslat(){
 
