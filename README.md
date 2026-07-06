@@ -78,13 +78,53 @@ Oyunu Başlat
 
 <h2 style="text-align:center;">Oyuncular</h2>
 
+<div class="kart">
+<div id="k1"></div>
+<h2 id="p1">0</h2>
+<button onclick="puanEkle(1,5)">+5</button>
+<button onclick="puanEkle(1,-5)">-5</button>
+</div>
+
+<div class="kart">
+<div id="k2"></div>
+<h2 id="p2">0</h2>
+<button onclick="puanEkle(2,5)">+5</button>
+<button onclick="puanEkle(2,-5)">-5</button>
+</div>
+
+<div class="kart">
+<div id="k3"></div>
+<h2 id="p3">0</h2>
+<button onclick="puanEkle(3,5)">+5</button>
+<button onclick="puanEkle(3,-5)">-5</button>
+</div>
+
+<div class="kart">
+<div id="k4"></div>
+<h2 id="p4">0</h2>
+<button onclick="puanEkle(4,5)">+5</button>
+<button onclick="puanEkle(4,-5)">-5</button>
+</div>
+
+</div>
+
+<h2 style="text-align:center;">Oyuncular</h2>
+
 <div class="kart" id="k1"></div>
 <div class="kart" id="k2"></div>
 <div class="kart" id="k3"></div>
 <div class="kart" id="k4"></div>
 
 </div>
+let puan=[0,0,0,0];
 
+function puanEkle(no,deger){
+
+puan[no-1]+=deger;
+
+document.getElementById("p"+no).innerHTML=puan[no-1];
+
+}
 <script>
 
 function baslat(){
