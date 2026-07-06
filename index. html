@@ -2,51 +2,85 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Allı Güllü Okey Skor</title>
 
 <style>
 body{
-margin:0;
 background:#0f172a;
 color:white;
 font-family:Arial;
+margin:0;
 padding:20px;
+}
+.card{
+background:#1e293b;
+padding:20px;
+border-radius:12px;
+max-width:500px;
+margin:auto;
 }
 h1{
 text-align:center;
 }
-input{
-width:95%;
+input,select{
+width:100%;
 padding:12px;
 margin:8px 0;
 font-size:18px;
 border-radius:8px;
 border:none;
+box-sizing:border-box;
 }
 button{
 width:100%;
-padding:15px;
-font-size:20px;
+padding:14px;
+margin-top:15px;
 background:#16a34a;
 color:white;
+font-size:20px;
 border:none;
 border-radius:10px;
-margin-top:15px;
 }
 </style>
 </head>
 
 <body>
 
+<div class="card">
+
 <h1>🎲 Allı Güllü Okey</h1>
 
-<input placeholder="Oyuncu 1">
-<input placeholder="Oyuncu 2">
-<input placeholder="Oyuncu 3">
-<input placeholder="Oyuncu 4">
+<input id="p1" placeholder="1. Oyuncu">
 
-<button>Oyunu Başlat</button>
+<input id="p2" placeholder="2. Oyuncu">
+
+<input id="p3" placeholder="3. Oyuncu">
+
+<input id="p4" placeholder="4. Oyuncu">
+
+<select id="oyun">
+<option>Tekli</option>
+<option>Eşli</option>
+</select>
+
+<select id="renk">
+<option value="6">Mavi</option>
+<option value="5">Siyah</option>
+<option value="4">Kırmızı</option>
+<option value="3">Sarı</option>
+<option value="10">Sahte Okey</option>
+</select>
+
+<button onclick="basla()">Oyunu Başlat</button>
+
+</div>
+
+<script>
+function basla(){
+alert("İlk ekran hazır. Sıradaki adımda skor giriş ekranını ekleyeceğiz.");
+}
+</script>
 
 </body>
 </html>
