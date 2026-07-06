@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Allı Güllü Okey Skor</title>
+
+<style>
+body{
+margin:0;
+background:#0f172a;
+color:white;
+font-family:Arial;
+padding:20px;
+}
+h1{
+text-align:center;
+}
+input{
+width:95%;
+padding:12px;
+margin:8px 0;
+font-size:18px;
+border-radius:8px;
+border:none;
+}
+button{
+width:100%;
+padding:15px;
+font-size:20px;
+background:#16a34a;
+color:white;
+border:none;
+border-radius:10px;
+margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎲 Allı Güllü Okey</h1>
+
+<input placeholder="Oyuncu 1">
+<input placeholder="Oyuncu 2">
+<input placeholder="Oyuncu 3">
+<input placeholder="Oyuncu 4">
+
+<button>Oyunu Başlat</button>
+
+</body>
+</html>
