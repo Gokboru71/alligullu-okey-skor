@@ -7,52 +7,56 @@
 <title>Allı Güllü Okey Skor</title>
 
 <style>
+
 body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#0f172a;
-    color:white;
-    padding:20px;
+margin:0;
+background:#0f172a;
+font-family:Arial,sans-serif;
+color:white;
+padding:20px;
 }
 
 h1{
-    text-align:center;
+text-align:center;
+margin-bottom:25px;
 }
 
 input{
-    width:100%;
-    padding:15px;
-    margin:10px 0;
-    font-size:18px;
-    border:none;
-    border-radius:10px;
-    box-sizing:border-box;
+width:100%;
+padding:15px;
+font-size:18px;
+margin:10px 0;
+border:none;
+border-radius:10px;
+box-sizing:border-box;
 }
 
 button{
-    width:100%;
-    padding:15px;
-    font-size:20px;
-    border:none;
-    border-radius:10px;
-    background:#16a34a;
-    color:white;
-    font-weight:bold;
+width:100%;
+padding:15px;
+font-size:20px;
+background:#16a34a;
+color:white;
+border:none;
+border-radius:10px;
+font-weight:bold;
+margin-top:15px;
 }
 
 #oyuncular{
-    display:none;
-    margin-top:30px;
-    text-align:center;
+display:none;
+margin-top:30px;
 }
 
 .kart{
-    background:#1e293b;
-    padding:15px;
-    border-radius:10px;
-    margin:10px 0;
-    font-size:22px;
+background:#1e293b;
+padding:15px;
+border-radius:10px;
+margin:12px 0;
+text-align:center;
+font-size:24px;
 }
+
 </style>
 
 </head>
@@ -66,11 +70,13 @@ button{
 <input id="o3" placeholder="3. Oyuncu">
 <input id="o4" placeholder="4. Oyuncu">
 
-<button onclick="baslat()">Oyunu Başlat</button>
+<button onclick="baslat()">
+Oyunu Başlat
+</button>
 
 <div id="oyuncular">
 
-<h2>Oyuncular</h2>
+<h2 style="text-align:center;">Oyuncular</h2>
 
 <div class="kart" id="k1"></div>
 <div class="kart" id="k2"></div>
@@ -79,29 +85,7 @@ button{
 
 </div>
 
-function baslat(){
-
-let a=document.getElementById("o1").value;
-let b=document.getElementById("o2").value;
-let c=document.getElementById("o3").value;
-let d=document.getElementById("o4").value;
-
-document.body.innerHTML=`
-<h1>🎲 Allı Güllü Okey</h1>
-
-<div class="kart">${a} - 0</div>
-<div class="kart">${b} - 0</div>
-<div class="kart">${c} - 0</div>
-<div class="kart">${d} - 0</div>
-
-<br>
-
-<button onclick="location.reload()">
-Yeni Oyun
-</button>
-`;
-
-}
+<script>
 
 function baslat(){
 
