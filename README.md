@@ -523,9 +523,19 @@ ${player.stats.games} oyun
 
 </div>
 
-<div>
+<div style="display:flex;gap:6px;">
 
-✏️ 🗑️
+<button
+onclick="editPlayer(${player.id})"
+style="width:45px;padding:8px;">
+✏️
+</button>
+
+<button
+onclick="deletePlayer(${player.id})"
+style="width:45px;padding:8px;">
+🗑️
+</button>
 
 </div>
 
@@ -655,6 +665,42 @@ function savePlayer(){
         });
 
     }
+
+function editPlayer(id){
+
+    const player = app.players.find(p => p.id === id);
+
+    if(!player) return;
+
+    openPlayerModal(player);
+
+}
+
+function deletePlayer(id){
+
+    const player = app.players.find(p=>p.id===id);
+
+    if(!player) return;
+
+    const answer = confirm(
+
+        `"${player.name}" adlı oyuncu silinsin mi?`
+
+    );
+
+    if(!answer) return;
+
+    app.players = app.players.filter(
+
+        p=>p.id!==id
+
+    );
+
+    save();
+
+    renderPlayers();
+
+}
 
     save();
 
