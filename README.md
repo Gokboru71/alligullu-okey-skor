@@ -232,6 +232,35 @@ sayfa.innerHTML=`
 <br><br>
 
 <button id="devamEt">OYUNU BAŞLAT</button>
+<hr>
+
+<h3>Elde Kalan Sayılar</h3>
+
+Takım / Oyuncu 1
+
+<input
+id="puan1"
+type="number"
+placeholder="0">
+
+Takım / Oyuncu 2
+
+<input
+id="puan2"
+type="number"
+placeholder="0">
+
+<button
+onclick="hesapla()">
+
+HESAPLA
+
+</button>
+
+<div
+id="hesapSonucu">
+
+</div>
 `;
 <hr>
 
@@ -250,7 +279,37 @@ sayfa.innerHTML=`
 <button onclick="renkSec(10,'Sahte Okey')" style="background:#8E24AA">🃏 Sahte Okey</button>
 
 </div>
+<hr>
 
+<h3>Bitiş Türü</h3>
+
+<button onclick="bitisSec('Normal')">
+Normal Bitiş
+</button>
+
+<button onclick="bitisSec('Okey')">
+Okey Attı
+</button>
+
+<button onclick="bitisSec('Konken')">
+Konken
+</button>
+
+<button onclick="bitisSec('Konken Okey')">
+Konkenden Okey
+</button>
+
+<button onclick="bitisSec('Renk')">
+RENK
+</button>
+
+<br><br>
+
+<div id="bitisBilgi">
+
+Henüz bitiş seçilmedi.
+
+</div>
 <br>
 
 <div id="secilenRenk">
@@ -266,7 +325,7 @@ Henüz seçim yapılmadı.
 let carpan=0;
 
 let acilanRenk="";
-
+let bitisTuru="";
 function renkSec(c,r){
 
 carpan=c;
@@ -285,8 +344,75 @@ document.getElementById("secilenRenk").innerHTML=
 `;
 
 }
+function bitisSec(secim){
+
+bitisTuru=secim;
+
+document.getElementById("bitisBilgi").innerHTML=
+
+`
+<b>Bitiş :</b>
+
+${secim}
+
+`;
+
+}
 </script>
 
 </body>
 
 </html>
+function hesapla(){
+
+let a=
+
+Number(
+
+document
+
+.getElementById("puan1").value
+
+);
+
+let b=
+
+Number(
+
+document
+
+.getElementById("puan2").value
+
+);
+
+let sonuc1=a*carpan;
+
+let sonuc2=b*carpan;
+
+document
+
+.getElementById("hesapSonucu")
+
+.innerHTML=
+
+`
+
+Takım 1 :
+
+${sonuc1}
+
+<br>
+
+Takım 2 :
+
+${sonuc2}
+
+<br><br>
+
+Bitiş :
+
+${bitisTuru}
+
+`;
+
+}
