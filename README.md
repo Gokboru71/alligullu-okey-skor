@@ -590,10 +590,79 @@ function renderAvatarGrid(){
 function selectAvatar(avatar){
 
     selectedAvatar = avatar;
-
+0
     renderAvatarGrid();
 
 } 
+
+function savePlayer(){
+
+    const name = document.getElementById("playerName")
+        .value
+        .trim();
+
+    if(name===""){
+
+        alert("Lütfen oyuncu adı giriniz.");
+
+        return;
+
+    }
+
+    const duplicate = app.players.find(p =>
+        p.name.toLowerCase() === name.toLowerCase() &&
+        p.id !== editingPlayerId
+    );
+
+    if(duplicate){
+
+        alert("Bu isimde bir oyuncu zaten var.");
+
+        return;
+
+    }
+
+    if(editingPlayerId){
+
+        const player = app.players.find(p=>p.id===editingPlayerId);
+
+        player.name = name;
+
+        player.avatar = selectedAvatar;
+
+    }else{
+
+        app.players.push({
+
+            id:Date.now(),
+
+            avatar:selectedAvatar,
+
+            name:name,
+
+            stats:{
+                games:0,
+                wins:0,
+                normal:0,
+                okey:0,
+                konken:0,
+                konkenOkey:0,
+                renk:0,
+                reward:0,
+                penalty:0
+            }
+
+        });
+
+    }
+
+    save();
+
+    renderPlayers();
+
+    closePlayerModal();
+
+}
 
 initialize();
 
