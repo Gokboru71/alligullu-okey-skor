@@ -157,6 +157,18 @@ Henüz oyun oluşturulmadı.
 
 <div class="card">
 
+<h2>Yeni El</h2>
+
+<div id="handArea">
+
+Önce oyun başlatın.
+
+</div>
+
+</div>
+
+<div class="card">
+
 <h2>Skor Tablosu</h2>
 
 <div id="scoreArea">
@@ -343,9 +355,51 @@ if(app.history.length==0){
 
 document.getElementById("historyArea").innerHTML="Henüz el oynanmadı.";
 
+}else{
+
+let html="<table>";
+
+html+="<tr>";
+
+html+="<th>#</th>";
+
+html+="<th>Kazanan</th>";
+
+html+="<th>Tür</th>";
+
+html+="<th>Renk</th>";
+
+html+="</tr>";
+
+app.history.forEach((h,i)=>{
+
+html+=`
+
+<tr>
+
+<td>${i+1}</td>
+
+<td>${app.players[h.winner].name}</td>
+
+<td>${h.flower}</td>
+
+<td>${h.color}</td>
+
+</tr>
+
+`;
+
+});
+
+html+="</table>";
+
+document.getElementById("historyArea").innerHTML=html;
+
 }
 
 renderPlayerEditor();
+
+renderHandEntry();  
     
 }
 
@@ -433,6 +487,86 @@ b.innerHTML+=`<option value="${i}">${p.name}</option>`;
 }
 
 function saveTeams(){
+
+function renderHandEntry(){
+
+if(app.players.length==0){
+
+document.getElementById("handArea").innerHTML="Önce oyun başlatın.";
+
+return;
+
+}
+
+let html="";
+
+html+="<label>Kazanan</label>";
+
+html+="<select id='winner'>";
+
+app.players.forEach((p,i)=>{
+
+html+=`<option value="${i}">${p.name}</option>`;
+
+});
+
+html+="</select><br><br>";
+
+html+="<label>Oyun</label>";
+
+html+="<select id='flower'>";
+
+html+="<option value='alli'>Allı</option>";
+
+html+="<option value='gullu'>Güllü</option>";
+
+html+="</select><br><br>";
+
+html+="<label>Renk</label>";
+
+html+="<select id='color'>";
+
+html+="<option value='kirmizi'>Kırmızı</option>";
+
+html+="<option value='mavi'>Mavi</option>";
+
+html+="<option value='yesil'>Yeşil</option>";
+
+html+="<option value='siyah'>Siyah</option>";
+
+html+="</select><br><br>";
+
+html+="<button onclick='saveHand()'>";
+
+html+="Eli Kaydet";
+
+html+="</button>";
+
+document.getElementById("handArea").innerHTML=html;
+
+}
+
+function saveHand(){
+
+let hand={
+
+winner:parseInt(document.getElementById("winner").value),
+
+flower:document.getElementById("flower").value,
+
+color:document.getElementById("color").value,
+
+date:new Date().toLocaleString()
+
+};
+
+app.history.push(hand);
+
+app.save();
+
+render();
+
+}
 
 let a=parseInt(document.getElementById("teamA1").value);
 
