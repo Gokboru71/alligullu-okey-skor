@@ -292,6 +292,26 @@ Henüz seçim yapılmadı.
 
 <div id="bitisBilgi">
 
+<hr>
+
+<h3>📝 Elde Kalan Taşlar</h3>
+
+<input id="k1" type="number" placeholder="1. Oyuncu">
+
+<input id="k2" type="number" placeholder="2. Oyuncu">
+
+<input id="k3" type="number" placeholder="3. Oyuncu">
+
+<input id="k4" type="number" placeholder="4. Oyuncu">
+
+<br><br>
+
+<button onclick="cezaHesapla()">
+📋 CEZALARI HESAPLA
+</button>
+
+<div id="sonucKutusu"></div>
+
 Henüz bitiş seçilmedi.
 
 </div>
@@ -339,6 +359,39 @@ const konkenCeza={
 };
 function bitisSec(t){
 function puanHesapla(){
+function cezaHesapla(){
+
+let a=Number(document.getElementById("k1").value)||0;
+let b=Number(document.getElementById("k2").value)||0;
+let c=Number(document.getElementById("k3").value)||0;
+let d=Number(document.getElementById("k4").value)||0;
+
+let p1=a*carpan;
+let p2=b*carpan;
+let p3=c*carpan;
+let p4=d*carpan;
+
+document.getElementById("sonucKutusu").innerHTML=`
+
+<h3>Cezalar</h3>
+
+1. Oyuncu : ${p1}
+
+<br>
+
+2. Oyuncu : ${p2}
+
+<br>
+
+3. Oyuncu : ${p3}
+
+<br>
+
+4. Oyuncu : ${p4}
+
+`;
+
+}
 
 if(acilanRenk==""){
 alert("Önce açılan okey rengini seç.");
