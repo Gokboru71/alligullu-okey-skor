@@ -262,13 +262,21 @@ Henüz bitiş seçilmedi.
 
 <h3>📝 Elde Kalan Taşlar</h3>
 
-<input id="k1" type="number" placeholder="1. Oyuncu">
+<h3>📝 Kaybeden Takımın Taşları</h3>
 
-<input id="k2" type="number" placeholder="2. Oyuncu">
+<div id="kaybedenAlan">
 
-<input id="k3" type="number" placeholder="3. Oyuncu">
+<label id="isim1">1. Kaybeden Oyuncu</label>
 
-<input id="k4" type="number" placeholder="4. Oyuncu">
+<input id="kalan1" type="number" placeholder="Elde kalan taş">
+
+<br><br>
+
+<label id="isim2">2. Kaybeden Oyuncu</label>
+
+<input id="kalan2" type="number" placeholder="Elde kalan taş">
+
+</div>
 
 <br><br>
 
