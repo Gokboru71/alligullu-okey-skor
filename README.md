@@ -3,421 +3,470 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Allı Güllü Okey Pro</title>
 
 <style>
+
+:root{
+    --green:#0f6b3e;
+    --green2:#16834e;
+    --wood:#7a4d1d;
+    --bg:#eef2f3;
+    --card:#ffffff;
+    --text:#222;
+    --radius:18px;
+}
+
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,Helvetica,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-background:#eceff1;
-color:#222;
+    background:var(--bg);
+    color:var(--text);
 }
 
 header{
-background:#1e88e5;
-color:white;
-padding:18px;
-text-align:center;
-font-size:24px;
-font-weight:bold;
+    background:linear-gradient(90deg,var(--green),var(--green2));
+    color:#fff;
+    padding:20px;
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
 }
 
-.container{
-max-width:900px;
-margin:auto;
-padding:15px;
+.page{
+    display:none;
+    padding:15px;
+}
+
+.page.active{
+    display:block;
 }
 
 .card{
-background:white;
-border-radius:12px;
-padding:15px;
-margin-bottom:15px;
-box-shadow:0 2px 8px rgba(0,0,0,.15);
-}
-
-h2{
-margin-bottom:10px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:10px;
-}
-
-input,select,button{
-width:100%;
-padding:12px;
-border-radius:8px;
-border:1px solid #bbb;
-font-size:16px;
+    background:var(--card);
+    border-radius:var(--radius);
+    padding:15px;
+    margin-bottom:15px;
+    box-shadow:0 5px 12px rgba(0,0,0,.12);
 }
 
 button{
-background:#1e88e5;
-color:white;
-border:none;
-cursor:pointer;
+    width:100%;
+    border:none;
+    border-radius:12px;
+    padding:15px;
+    margin-top:10px;
+    background:var(--green);
+    color:white;
+    font-size:17px;
+    cursor:pointer;
 }
 
 button:hover{
-background:#1565c0;
+    background:var(--green2);
 }
 
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:10px;
+.playerCard{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:12px;
+    border-radius:12px;
+    background:#f5f5f5;
+    margin-bottom:10px;
 }
 
-th,td{
-padding:10px;
-border-bottom:1px solid #ddd;
-text-align:center;
+.avatar{
+    font-size:34px;
+    margin-right:10px;
 }
 
-.hidden{
-display:none;
+.playerLeft{
+    display:flex;
+    align-items:center;
 }
 
-footer{
-text-align:center;
-padding:20px;
-color:#777;
-font-size:13px;
+.small{
+    color:#777;
+    font-size:13px;
 }
+
 </style>
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
 
+.modal.show{
+    display:flex;
+}
+
+.modalContent{
+    background:#fff;
+    width:100%;
+    max-width:420px;
+    border-radius:18px;
+    padding:20px;
+}
+
+.avatarGrid{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:8px;
+    margin:15px 0;
+}
+
+.avatarItem{
+    font-size:28px;
+    border:2px solid #ddd;
+    border-radius:12px;
+    text-align:center;
+    padding:10px;
+    cursor:pointer;
+}
+
+.avatarItem.selected{
+    border-color:#0f6b3e;
+    background:#e8f5e9;
+}
+
+.modal input{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    font-size:16px;
+}
 </head>
 
+<div class="modal" id="playerModal">
+
+<div class="modalContent">
+
+<h2 id="modalTitle">Oyuncu</h2>
+
+<input id="playerName" placeholder="Oyuncu adı">
+
+<div id="avatarGrid" class="avatarGrid"></div>
+
+<button onclick="savePlayer()">Kaydet</button>
+
+<button onclick="closePlayerModal()">İptal</button>
+
+</div>
+
+</div>
 <body>
 
 <header>
-Allı Güllü Okey Pro
+
+🀄 ALLI GÜLLÜ OKEY PRO
+
 </header>
 
-<div class="container">
+<!-- ANA MENÜ -->
+
+<div class="page active" id="homePage">
 
 <div class="card">
 
-<h2>Yeni Oyun</h2>
+<h2>Hoş Geldiniz</h2>
 
-<div class="grid">
+<p class="small">
+Profesyonel Allı Güllü Okey skor takip sistemi
+</p>
 
-<div>
-<label>Oyun Türü</label>
-<select id="gameType">
-<option value="tek">Herkes Tek</option>
-<option value="esli">Eşli</option>
-</select>
-</div>
+<button onclick="openPage('playersPage')">
+👥 Oyuncular
+</button>
 
-<div>
-<label>Oyuncu Sayısı</label>
-<select id="playerCount">
-<option>4</option>
-</select>
-</div>
+<button onclick="openPage('gamePage')">
+🎮 Yeni Oyun
+</button>
 
-<div>
-<label>Başlangıç Puanı</label>
-<input
-id="startScore"
-type="number"
-value="0">
-</div>
+<button onclick="openPage('historyPage')">
+📜 Geçmiş
+</button>
 
-</div>
-
-<br>
-
-<button onclick="createGame()">
-Yeni Oyun Başlat
+<button onclick="openPage('statsPage')">
+🏆 İstatistikler
 </button>
 
 </div>
+
+</div>
+
+<!-- OYUNCULAR -->
+
+<div class="page" id="playersPage">
 
 <div class="card">
 
 <h2>Oyuncular</h2>
 
-<div id="playersArea">
+<div id="playerList"></div>
 
-Henüz oyun oluşturulmadı.
+<button onclick="openPlayerModal()">
+➕ Oyuncu Ekle
+</button>
+
+<button onclick="openPage('homePage')">
+⬅ Ana Menü
+</button>
 
 </div>
 
 </div>
+
+<!-- YENİ OYUN -->
+
+<div class="page" id="gamePage">
 
 <div class="card">
 
-<h2>Yeni El</h2>
+<h2>Yeni Oyun</h2>
 
-<div id="handArea">
+<p>
+Bu ekran sonraki güncellemede hazırlanacak.
+</p>
 
-Önce oyun başlatın.
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h2>Skor Tablosu</h2>
-
-<div id="scoreArea">
-
-Oyun bekleniyor.
+<button onclick="openPage('homePage')">
+⬅ Ana Menü
+</button>
 
 </div>
 
 </div>
+
+<!-- GEÇMİŞ -->
+
+<div class="page" id="historyPage">
 
 <div class="card">
 
 <h2>Geçmiş</h2>
 
-<div id="historyArea">
+<p>
+Henüz oyun oynanmadı.
+</p>
 
-Henüz kayıt yok.
+<button onclick="openPage('homePage')">
+⬅ Ana Menü
+</button>
 
 </div>
 
 </div>
 
+<!-- İSTATİSTİK -->
+
+<div class="page" id="statsPage">
+
+<div class="card">
+
+<h2>İstatistikler</h2>
+
+<p>
+Henüz veri bulunmuyor.
+</p>
+
+<button onclick="openPage('homePage')">
+⬅ Ana Menü
+</button>
+
 </div>
 
-<footer>
-
-Allı Güllü Okey Pro
-
-</footer>
+</div>
 
 <script>
 
-class AlliGulluOkey{
+const STORAGE_KEY="alliGulluOkeyPro";
 
-constructor(){
+/* Uygulama */
 
-this.players=[];
+const app={
 
-this.history=[];
+players:[],
 
-this.settings={
+games:[],
 
-gameType:"tek",
-playerCount:4,
-startScore:0
+settings:{}
 
 };
 
-this.load();
+/* Varsayılan oyuncular */
+
+const defaultPlayers=[
+
+["😀","Ahmet"],
+["😎","Mehmet"],
+["🧔","Hasan"],
+["👩","Ayşe"],
+["👨","Ali"],
+["👩‍🦰","Elif"],
+["👨‍🦳","Kemal"],
+["🤠","Murat"]
+
+];
+
+const avatars=[
+"😀","😎","🧔","👩","👨","👩‍🦰",
+"👨‍🦳","🤠","🧑","👩‍🦱","👨‍🦱","👩‍🦳",
+"🧓","👴","👵","🥸","🤓","🧒",
+"👦","👧","🧑‍🦰","🧑‍🦳","🧑‍🦲","🧑‍🦱"
+];
+
+let editingPlayerId=null;
+let selectedAvatar="😀";
+
+/* Sayfa Aç */
+
+function openPage(id){
+
+document.querySelectorAll(".page").forEach(p=>{
+
+p.classList.remove("active");
+
+});
+
+document.getElementById(id).classList.add("active");
 
 }
 
-save(){
+/* İlk Kurulum */
+
+function initialize(){
+
+const saved=localStorage.getItem(STORAGE_KEY);
+
+if(saved){
+
+Object.assign(app,JSON.parse(saved));
+
+}else{
+
+createDefaultPlayers();
+
+save();
+
+}
+
+renderPlayers();
+
+}
+
+/* Varsayılan Oyuncular */
+
+function createDefaultPlayers(){
+
+app.players=[];
+
+defaultPlayers.forEach((p,index)=>{
+
+app.players.push({
+
+id:Date.now()+index,
+
+avatar:p[0],
+
+name:p[1],
+
+stats:{
+
+games:0,
+
+wins:0,
+
+normal:0,
+
+okey:0,
+
+konken:0,
+
+konkenOkey:0,
+
+renk:0,
+
+reward:0,
+
+penalty:0
+
+}
+
+});
+
+});
+
+}
+
+/* Kaydet */
+
+function save(){
 
 localStorage.setItem(
-"alliGulluOkey",
-JSON.stringify(this)
+
+STORAGE_KEY,
+
+JSON.stringify(app)
+
 );
 
 }
 
-load(){
+/* Oyuncuları Listele */
 
-let d=localStorage.getItem("alliGulluOkey");
+function renderPlayers(){
 
-if(!d)
-return;
+const list=document.getElementById("playerList");
 
-let obj=JSON.parse(d);
+list.innerHTML="";
 
-this.players=obj.players||[];
+app.players.forEach(player=>{
 
-this.history=obj.history||[];
+list.innerHTML+=`
 
-this.settings=obj.settings||this.settings;
+<div class="playerCard">
 
-}
+<div class="playerLeft">
 
-newGame(type,count,start){
+<div class="avatar">
 
-this.players=[];
+${player.avatar}
 
-this.history=[];
+</div>
 
-this.settings={
+<div>
 
-gameType:type,
-playerCount:count,
-startScore:start
+<b>${player.name}</b>
 
-};
+<br>
 
-for(let i=1;i<=count;i++){
+<span class="small">
 
-this.players.push({
+${player.stats.games} oyun
 
-id:i,
+</span>
 
-name:"Oyuncu "+i,
+</div>
 
-score:start,
+</div>
 
-penalty:0,
+<div>
 
-partner:null
+✏️ 🗑️
 
-});
-
-}
-
-this.save();
-
-render();
-
-}
-
-}
-
-const app=new AlliGulluOkey();
-
-function createGame(){
-
-let type=document.getElementById("gameType").value;
-
-let count=parseInt(document.getElementById("playerCount").value);
-
-let start=parseInt(document.getElementById("startScore").value);
-
-app.newGame(type,count,start);
-
-}
-
-function render(){
-
-let html="<table>";
-
-html+="<tr>";
-
-html+="<th>Oyuncu</th>";
-
-html+="<th>Puan</th>";
-
-html+="<th>Ceza</th>";
-
-html+="<th>Eşi</th>";
-
-html+="</tr>";
-
-app.players.forEach(p=>{
-
-let partner="-";
-
-if(p.partner!=null){
-
-partner=app.players[p.partner].name;
-
-}
-
-html+=`
-
-<tr>
-
-<td>${p.name}</td>
-
-<td>${p.score}</td>
-
-<td>${p.penalty}</td>
-
-<td>${partner}</td>
-
-</tr>
-
-`;
-
-});
-
-html+="</table>";
-
-document.getElementById("playersArea").innerHTML=html;
-
-document.getElementById("scoreArea").innerHTML=html;
-
-if(app.history.length==0){
-
-document.getElementById("historyArea").innerHTML="Henüz el oynanmadı.";
-
-}else{
-
-let html="<table>";
-
-html+="<tr>";
-
-html+="<th>#</th>";
-
-html+="<th>Kazanan</th>";
-
-html+="<th>Tür</th>";
-
-html+="<th>Renk</th>";
-
-html+="</tr>";
-
-app.history.forEach((h,i)=>{
-
-html+=`
-
-<tr>
-
-<td>${i+1}</td>
-
-<td>${app.players[h.winner].name}</td>
-
-<td>${h.flower}</td>
-
-<td>${h.color}</td>
-
-</tr>
-
-`;
-
-});
-
-html+="</table>";
-
-document.getElementById("historyArea").innerHTML=html;
-
-}
-
-renderPlayerEditor();
-
-renderHandEntry();  
-    
-}
-
-function renderPlayerEditor(){
-
-if(app.players.length==0) return;
-
-let html="<h3>Oyuncu Bilgileri</h3>";
-
-app.players.forEach((p,i)=>{
-
-html+=`
-
-<div style="margin-bottom:12px;border:1px solid #ddd;padding:10px;border-radius:8px;">
-
-<input
-value="${p.name}"
-onchange="changeName(${i},this.value)">
+</div>
 
 </div>
 
@@ -425,188 +474,9 @@ onchange="changeName(${i},this.value)">
 
 });
 
-if(app.settings.gameType=="esli"){
-
-html+="<hr><h3>Eşleştirme</h3>";
-
-html+=`
-<select id="teamA1"></select>
-
-<select id="teamA2"></select>
-
-<br><br>
-
-<button onclick="saveTeams()">
-
-Takımları Kaydet
-
-</button>
-`;
-
 }
 
-document.getElementById("playersArea").innerHTML=html;
-
-fillTeamSelects();
-
-}
-
-function changeName(index,value){
-
-app.players[index].name=value;
-
-app.save();
-
-render();
-
-}
-
-function fillTeamSelects(){
-
-if(app.settings.gameType!="esli")
-return;
-
-let a=document.getElementById("teamA1");
-
-let b=document.getElementById("teamA2");
-
-if(!a) return;
-
-a.innerHTML="";
-
-b.innerHTML="";
-
-app.players.forEach((p,i)=>{
-
-a.innerHTML+=`<option value="${i}">${p.name}</option>`;
-
-b.innerHTML+=`<option value="${i}">${p.name}</option>`;
-
-});
-
-}
-
-function saveTeams(){
-
-function renderHandEntry(){
-
-if(app.players.length==0){
-
-document.getElementById("handArea").innerHTML="Önce oyun başlatın.";
-
-return;
-
-}
-
-let html="";
-
-html+="<label>Kazanan</label>";
-
-html+="<select id='winner'>";
-
-app.players.forEach((p,i)=>{
-
-html+=`<option value="${i}">${p.name}</option>`;
-
-});
-
-html+="</select><br><br>";
-
-html+="<label>Oyun</label>";
-
-html+="<select id='flower'>";
-
-html+="<option value='alli'>Allı</option>";
-
-html+="<option value='gullu'>Güllü</option>";
-
-html+="</select><br><br>";
-
-html+="<label>Renk</label>";
-
-html+="<select id='color'>";
-
-html+="<option value='kirmizi'>Kırmızı</option>";
-
-html+="<option value='mavi'>Mavi</option>";
-
-html+="<option value='yesil'>Yeşil</option>";
-
-html+="<option value='siyah'>Siyah</option>";
-
-html+="</select><br><br>";
-
-html+="<button onclick='saveHand()'>";
-
-html+="Eli Kaydet";
-
-html+="</button>";
-
-document.getElementById("handArea").innerHTML=html;
-
-}
-
-function saveHand(){
-
-let hand={
-
-winner:parseInt(document.getElementById("winner").value),
-
-flower:document.getElementById("flower").value,
-
-color:document.getElementById("color").value,
-
-date:new Date().toLocaleString()
-
-};
-
-app.history.push(hand);
-
-app.save();
-
-render();
-
-}
-
-let a=parseInt(document.getElementById("teamA1").value);
-
-let b=parseInt(document.getElementById("teamA2").value);
-
-if(a==b){
-
-alert("Aynı oyuncu seçilemez.");
-
-return;
-
-}
-
-app.players.forEach(p=>p.partner=null);
-
-app.players[a].partner=b;
-
-app.players[b].partner=a;
-
-let others=[];
-
-app.players.forEach((p,i)=>{
-
-if(i!=a && i!=b)
-
-others.push(i);
-
-});
-
-app.players[others[0]].partner=others[1];
-
-app.players[others[1]].partner=others[0];
-
-app.save();
-
-alert("Takımlar kaydedildi.");
-
-}
-    
-render();
+initialize();
 
 </script>
 
