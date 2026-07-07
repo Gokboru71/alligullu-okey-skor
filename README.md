@@ -665,9 +665,7 @@ ${text}`
     save();
 
     renderTable();
-
 }
-
 
 /* Varsayılan Oyuncular */
 
@@ -808,11 +806,6 @@ function openPlayerModal(player = null){
         .classList.add("show");
 
 }
-save();
-
-renderPlayers();
-
-renderTable();
     
 function closePlayerModal(){
 
