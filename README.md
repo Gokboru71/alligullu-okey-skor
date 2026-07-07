@@ -333,6 +333,10 @@ function renkSec(c,r){
 }
 let bitisTuru="";
 let puanlar=[0,0,0,0];
+let takim1Toplam=0;
+let takim2Toplam=0;
+
+let gecmisEller=[];    
 
 const normalCeza={
 "Sarı":30,
@@ -388,6 +392,13 @@ let p1=a*katsayi;
 let p2=b*katsayi;
 let p3=c*katsayi;
 let p4=d*katsayi;
+if(oyunTuru=="EŞLİ"){
+
+takim1Toplam+=p1+p2;
+
+takim2Toplam+=p3+p4;
+
+}
 
 document.getElementById("sonucKutusu").innerHTML=`
 
@@ -414,6 +425,24 @@ document.getElementById("sonucKutusu").innerHTML=`
 <hr>
 
 <b>Toplam Ceza :</b> ${p1+p2+p3+p4}
+
+<hr>
+
+<h3>Takımlar</h3>
+
+1. Takım :
+${takim1Toplam}
+
+<br><br>
+
+2. Takım :
+${takim2Toplam}
+
+<hr>
+
+<b>Fark :</b>
+
+${Math.abs(takim1Toplam-takim2Toplam)}
 
 `;
 
