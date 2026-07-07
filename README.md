@@ -693,11 +693,21 @@ function renderTable(){
 
             <div class="score">0</div>
 
-            <button
-                style="margin-top:6px;padding:4px 8px;font-size:12px;"
-                onclick="chooseSeat(${index})">
-                Değiştir
-            </button>
+            <div style="display:flex;gap:4px;justify-content:center;margin-top:6px;">
+
+    <button
+        style="padding:4px 6px;font-size:11px;width:auto;"
+        onclick="chooseSeat(${index})">
+        🔄
+    </button>
+
+    <button
+        style="padding:4px 6px;font-size:11px;width:auto;"
+        onclick="clearSeat(${index})">
+        ❌
+    </button>
+
+</div>
         `;
 
     });
@@ -800,6 +810,16 @@ function selectSeatPlayer(playerId){
 
 }
 
+function clearSeat(index){
+
+    app.tableSeats[index] = null;
+
+    save();
+
+    renderTable();
+
+}
+    
 /* Varsayılan Oyuncular */
 
 function createDefaultPlayers(){
@@ -1070,6 +1090,10 @@ function deletePlayer(id){
 
     app.players = app.players.filter(p => p.id !== id);
 
+    app.tableSeats = app.tableSeats.map(seat =>
+    seat === id ? null : seat
+);
+    
     save();
 
     renderPlayers();
@@ -1087,9 +1111,10 @@ function startNewTable(){
     renderTable();
 
     renderGameInfo();
-    
-}
-    
+
+    alert("Lütfen dört oyuncuyu masaya yerleştirin.");
+
+}    
     
 initialize();
 
