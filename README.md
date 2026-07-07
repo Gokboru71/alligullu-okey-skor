@@ -164,7 +164,23 @@ oyunTuru="EŞLİ";
 
 sayfa.classList.remove("hidden");
 
-sayfa.innerHTML="<h2>Eşli modu seçildi.</h2>";
+sayfa.innerHTML=`
+<h2>👥 EŞLİ OYUN</h2>
+
+<input id="a1" placeholder="Takım A - Oyuncu 1">
+
+<input id="a2" placeholder="Takım A - Oyuncu 2">
+
+<br><br>
+
+<input id="b1" placeholder="Takım B - Oyuncu 1">
+
+<input id="b2" placeholder="Takım B - Oyuncu 2">
+
+<br><br>
+
+<button id="devamEt">OYUNU BAŞLAT</button>
+`;
 
 }
 
@@ -178,7 +194,21 @@ oyunTuru="HERKES TEK";
 
 sayfa.classList.remove("hidden");
 
-sayfa.innerHTML="<h2>Herkes Tek modu seçildi.</h2>";
+sayfa.innerHTML=`
+<h2>🧍 HERKES TEK</h2>
+
+<input id="p1" placeholder="1. Oyuncu">
+
+<input id="p2" placeholder="2. Oyuncu">
+
+<input id="p3" placeholder="3. Oyuncu">
+
+<input id="p4" placeholder="4. Oyuncu">
+
+<br><br>
+
+<button id="devamEt">OYUNU BAŞLAT</button>
+`;
 
 }
 
