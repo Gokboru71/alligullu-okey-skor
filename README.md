@@ -515,7 +515,9 @@ players:[],
 
 games:[],
 
-settings:{}
+settings:{},
+
+tableSeats:[null,null,null,null]
 
 };
 
@@ -582,49 +584,106 @@ renderPlayers();
 
 function renderTable(){
 
-    const seats=[
-
+    const seats = [
         document.getElementById("seat1"),
-
         document.getElementById("seat2"),
-
         document.getElementById("seat3"),
-
         document.getElementById("seat4")
-
     ];
 
-    seats.forEach(s=>s.innerHTML="");
+    seats.forEach((seat,index)=>{
 
-    for(let i=0;i<4;i++){
+        const playerId = app.tableSeats[index];
 
-        if(!app.players[i]) continue;
+        if(playerId === null){
 
-        const p=app.players[i];
+            seat.innerHTML = `
+                <button onclick="chooseSeat(${index})">
+                    ➕<br>Oyuncu Seç
+                </button>
+            `;
 
-        seats[i].innerHTML=`
+            return;
+        }
 
-            <div class="avatar">
+        const player = app.players.find(p=>p.id===playerId);
 
-                ${p.avatar}
+        if(!player){
 
-            </div>
+            seat.innerHTML = `
+                <button onclick="chooseSeat(${index})">
+                    ➕<br>Oyuncu Seç
+                </button>
+            `;
 
-            <div class="name">
+            return;
+        }
 
-                ${p.name}
+        seat.innerHTML = `
+            <div class="avatar">${player.avatar}</div>
 
-            </div>
+            <div class="name">${player.name}</div>
 
-            <div class="score">
+            <div class="score">0</div>
 
-                0
-
-            </div>
-
+            <button
+                style="margin-top:6px;padding:4px 8px;font-size:12px;"
+                onclick="chooseSeat(${index})">
+                Değiştir
+            </button>
         `;
 
+    });
+
+}
+
+function chooseSeat(index){
+
+    const available = app.players.filter(player =>
+        !app.tableSeats.includes(player.id)
+    );
+
+    if(available.length===0){
+
+        alert("Masaya oturacak başka oyuncu yok.");
+
+        return;
+
     }
+
+    let text = "";
+
+    available.forEach((player,i)=>{
+
+        text += `${i+1} - ${player.avatar} ${player.name}\n`;
+
+    });
+
+    const secim = prompt(
+`Koltuğa oturacak oyuncunun numarasını giriniz:
+
+${text}`
+    );
+
+    if(secim===null) return;
+
+    const s = Number(secim)-1;
+
+    if(s<0 || s>=available.length){
+
+        alert("Geçersiz seçim.");
+
+        return;
+
+    }
+
+    app.tableSeats[index] = available[s].id;
+
+    save();
+
+    renderTable();
+
+}
 
 }
 
