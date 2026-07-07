@@ -572,7 +572,7 @@ games:[],
 
 settings:{},
 
-tableSeats:[null,null,null,null]
+tableSeats:[null,null,null,null],
 
 game:{
     mode:"team",
@@ -794,6 +794,8 @@ function selectSeatPlayer(playerId){
 
     renderTable();
 
+    renderGameInfo();
+    
     closePlayerSheet();
 
 }
