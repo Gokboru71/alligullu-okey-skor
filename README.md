@@ -571,7 +571,22 @@ let oyuncu4 = oyunTuru=="EŞLİ"
     : document.getElementById("p4").value;
     
 let biten = Number(document.getElementById("bitenOyuncu").value);
+let oyuncu1 = oyunTuru=="EŞLİ"
+? document.getElementById("t1").value
+: document.getElementById("p1").value;
 
+let oyuncu2 = oyunTuru=="EŞLİ"
+? document.getElementById("t2").value
+: document.getElementById("p2").value;
+
+let oyuncu3 = oyunTuru=="EŞLİ"
+? document.getElementById("t3").value
+: document.getElementById("p3").value;
+
+let oyuncu4 = oyunTuru=="EŞLİ"
+? document.getElementById("t4").value
+: document.getElementById("p4").value;
+    
 let katsayi=carpan;
 
 if(bitisTuru=="Normal"){
