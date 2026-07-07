@@ -620,6 +620,8 @@ save();
 
 renderPlayers();
 
+renderTable();
+
 }
 
 function renderTable(){
@@ -978,8 +980,13 @@ function savePlayer(){
 
     }
 
+    save();
 
-    closePlayerModal();
+renderPlayers();
+
+renderTable();
+
+closePlayerModal();
 
 }
 
@@ -1009,6 +1016,8 @@ function deletePlayer(id){
     renderPlayers();
 
 renderTable();
+    
+}
 
 function startNewTable(){
 
