@@ -693,10 +693,6 @@ function deletePlayer(id){
 
 }
 
-    save();
-
-    renderPlayers();
-
     closePlayerModal();
 
 }
