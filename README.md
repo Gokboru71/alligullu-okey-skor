@@ -547,6 +547,22 @@ let b=Number(document.getElementById("k2").value)||0;
 let c=Number(document.getElementById("k3").value)||0;
 let d=Number(document.getElementById("k4").value)||0;
 
+let oyuncu1 = oyunTuru=="EŞLİ"
+    ? document.getElementById("t1").value
+    : document.getElementById("p1").value;
+
+let oyuncu2 = oyunTuru=="EŞLİ"
+    ? document.getElementById("t2").value
+    : document.getElementById("p2").value;
+
+let oyuncu3 = oyunTuru=="EŞLİ"
+    ? document.getElementById("t3").value
+    : document.getElementById("p3").value;
+
+let oyuncu4 = oyunTuru=="EŞLİ"
+    ? document.getElementById("t4").value
+    : document.getElementById("p4").value;
+    
 let biten = Number(document.getElementById("bitenOyuncu").value);
 
 let katsayi=carpan;
