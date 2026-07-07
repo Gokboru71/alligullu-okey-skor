@@ -58,3 +58,35 @@ localStorage.setItem('ag_mode',mod);
 </script>
 </body>
 </html>
+<!DOCTYPE html><html lang='tr'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Part3</title><style>
+body{margin:0;background:#0f172a;color:#fff;font-family:Arial;padding:20px}
+.card{max-width:700px;margin:auto;background:#1e293b;padding:20px;border-radius:16px}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.tile{padding:18px;border-radius:12px;text-align:center;font-weight:bold;cursor:pointer;border:3px solid transparent}
+.sel{border-color:#fff}
+.info{margin-top:20px;background:#0f172a;padding:12px;border-radius:10px}
+button{width:100%;padding:14px;margin-top:20px;border:none;border-radius:10px;background:#16a34a;color:#fff;font-size:18px}
+</style></head><body><div class='card'><h2>Part 3 - Okey Açılışı</h2><div class='grid'>
+<div class='tile' style='background:#2563eb' onclick='sec("Mavi",6,this)'>🟦<br>13</div>
+<div class='tile' style='background:#111827' onclick='sec("Siyah",5,this)'>⬛<br>13</div>
+<div class='tile' style='background:#dc2626' onclick='sec("Kırmızı",4,this)'>🟥<br>13</div>
+<div class='tile' style='background:#ca8a04' onclick='sec("Sarı",3,this)'>🟨<br>13</div>
+<div class='tile' style='background:#7c3aed' onclick='sec("Sahte Okey",10,this)'>🃏</div>
+</div>
+<div class='info'>
+<div>Seçilen: <b id='renk'>-</b></div>
+<div>Çarpan: <b id='carpan'>-</b></div>
+</div>
+<button onclick='ileri()'>Part 4'e Geç</button>
+</div>
+<script>
+function sec(ad,c,e){
+document.querySelectorAll('.tile').forEach(x=>x.classList.remove('sel'));
+e.classList.add('sel');
+document.getElementById('renk').textContent=ad;
+document.getElementById('carpan').textContent='x'+c;
+localStorage.setItem('ag_renk',ad);
+localStorage.setItem('ag_carpan',c);
+}
+function ileri(){alert('Part 4: Normal Bitiş / Okey / Konken / Renk ekranı');}
+</script></body></html>
