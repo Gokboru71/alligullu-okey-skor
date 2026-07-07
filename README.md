@@ -179,6 +179,11 @@ sayfa.innerHTML=`
 <br><br>
 
 <button id="devamEt">OYUNU BAŞLAT</button>
+<br><br>
+
+<button onclick="puanHesapla()">
+🧮 PUANI HESAPLA
+</button>
 <hr>
 
 <h3>🎲 Açılan Okey</h3>
@@ -305,9 +310,47 @@ function renkSec(c,r){
     `;
 }
 let bitisTuru="";
+let puanlar=[0,0,0,0];
 
+const normalCeza={
+"Sarı":30,
+"Kırmızı":40,
+"Siyah":50,
+"Mavi":60,
+"Sahte Okey":100
+};
+
+const okeyCeza={
+"Sarı":300,
+"Kırmızı":400,
+"Siyah":500,
+"Mavi":600,
+"Sahte Okey":1000
+};
+
+const konkenCeza={
+"Sarı":600,
+"Kırmızı":800,
+"Siyah":1000,
+"Mavi":1200,
+"Sahte Okey":2000
+};
 function bitisSec(t){
+function puanHesapla(){
 
+if(acilanRenk==""){
+alert("Önce açılan okey rengini seç.");
+return;
+}
+
+if(bitisTuru==""){
+alert("Bitiş türünü seç.");
+return;
+}
+
+alert("Puan hesaplama motoru hazır.");
+
+}
     bitisTuru=t;
 
     document.getElementById("bitisBilgi").innerHTML=
