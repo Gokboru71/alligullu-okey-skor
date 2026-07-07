@@ -979,5 +979,35 @@ initialize();
 
 </div>
 
+<!-- Oyuncu Ekle / Düzenle Modal -->
+
+<div class="modal" id="playerModal">
+
+    <div class="modalContent">
+
+        <h2 id="modalTitle">Yeni Oyuncu</h2>
+
+        <input
+            type="text"
+            id="playerName"
+            placeholder="Oyuncu adı">
+
+        <div
+            id="avatarGrid"
+            class="avatarGrid">
+        </div>
+
+        <button onclick="savePlayer()">
+            💾 Kaydet
+        </button>
+
+        <button onclick="closePlayerModal()">
+            ❌ Vazgeç
+        </button>
+
+    </div>
+
+</div>
+
 </body>
 </html>
