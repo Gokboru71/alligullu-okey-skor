@@ -470,11 +470,27 @@ Profesyonel Allı Güllü Okey skor takip sistemi
 
 <div class="tableCenter">
 
-<h2>🀄</h2>
+<h2 id="centerMultiplier">
 
-<div>
+×6
 
-ALLI GÜLLÜ
+</h2>
+
+<div id="centerIndicator">
+
+🔵 Mavi
+
+</div>
+
+<div id="centerMode">
+
+👥 Eşli
+
+</div>
+
+<div id="centerHand">
+
+1. EL
 
 </div>
 
@@ -558,6 +574,13 @@ settings:{},
 
 tableSeats:[null,null,null,null]
 
+game:{
+    mode:"team",
+    indicator:"blue",
+    multiplier:6,
+    hand:1
+}
+
 };
 
 /* Varsayılan oyuncular */
@@ -622,6 +645,8 @@ renderPlayers();
 
 renderTable();
 
+renderGameInfo();
+
 }
 
 function renderTable(){
@@ -676,6 +701,38 @@ function renderTable(){
         `;
 
     });
+
+}
+
+function renderGameInfo(){
+
+    const colors={
+
+        yellow:"🟡 Sarı",
+
+        red:"🔴 Kırmızı",
+
+        black:"⚫ Siyah",
+
+        blue:"🔵 Mavi",
+
+        fake:"🃏 Sahte Okey"
+
+    };
+
+    document.getElementById("centerMultiplier").textContent=
+        "×"+app.game.multiplier;
+
+    document.getElementById("centerIndicator").textContent=
+        colors[app.game.indicator];
+
+    document.getElementById("centerMode").textContent=
+        app.game.mode==="team"
+        ?"👥 Eşli"
+        :"👤 Herkes Tek";
+
+    document.getElementById("centerHand").textContent=
+        app.game.hand+". EL";
 
 }
 
@@ -1026,6 +1083,8 @@ function startNewTable(){
     save();
 
     renderTable();
+
+    renderGameInfo();
     
 }
     
