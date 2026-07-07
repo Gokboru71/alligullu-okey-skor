@@ -80,6 +80,22 @@ cursor:pointer;
 
 }
 
+select{
+
+width:100%;
+
+padding:16px;
+
+font-size:20px;
+
+border-radius:10px;
+
+margin-top:10px;
+
+margin-bottom:10px;
+
+}
+
 #esli{
 
 background:#16a34a;
@@ -212,6 +228,17 @@ Henüz seçim yapılmadı.
 </div>
 <hr>
 
+<h3>👑 Kim Bitti?</h3>
+
+<select id="bitenOyuncu">
+<option value="1">1. Oyuncu</option>
+<option value="2">2. Oyuncu</option>
+<option value="3">3. Oyuncu</option>
+<option value="4">4. Oyuncu</option>
+</select>
+
+<hr>
+
 <h3>🏁 Bitiş Türü</h3>
 
 <button onclick="bitisSec('Normal')">Normal</button>
@@ -308,6 +335,17 @@ sayfa.innerHTML=`
 <div id="secilenRenk">
 Henüz seçim yapılmadı.
 </div>
+<hr>
+
+<h3>👑 Kim Bitti?</h3>
+
+<select id="bitenOyuncu">
+<option value="1">1. Oyuncu</option>
+<option value="2">2. Oyuncu</option>
+<option value="3">3. Oyuncu</option>
+<option value="4">4. Oyuncu</option>
+</select>
+
 <hr>
 
 <h3>🏁 Bitiş Türü</h3>
@@ -482,6 +520,8 @@ let b=Number(document.getElementById("k2").value)||0;
 let c=Number(document.getElementById("k3").value)||0;
 let d=Number(document.getElementById("k4").value)||0;
 
+let biten = Number(document.getElementById("bitenOyuncu").value);
+
 let katsayi=carpan;
 
 if(bitisTuru=="Normal"){
@@ -504,6 +544,31 @@ let p1=a*katsayi;
 let p2=b*katsayi;
 let p3=c*katsayi;
 let p4=d*katsayi;
+
+// EŞLİ oyununda biten oyuncunun ortağı ceza almaz
+if(oyunTuru=="EŞLİ"){
+
+    if(biten==1){
+        p1=0;
+        p2=0;
+    }
+
+    if(biten==2){
+        p1=0;
+        p2=0;
+    }
+
+    if(biten==3){
+        p3=0;
+        p4=0;
+    }
+
+    if(biten==4){
+        p3=0;
+        p4=0;
+    }
+
+}
 if(oyunTuru=="EŞLİ"){
 
 takim1Toplam+=p1+p2;
