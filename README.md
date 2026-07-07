@@ -193,3 +193,89 @@ if(bitis==="Normal Bitiş"){
 document.getElementById('sonuc').innerHTML=txt+"<br><br><b>NOT:</b> Part 6'da kazanan takım seçimi, otomatik puan yazımı ve 5 el toplamı eklenecek.";
 }
 </script></body></html>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Part 6</title>
+<style>
+body{margin:0;background:#0f172a;color:#fff;font-family:Arial;padding:20px}
+.card{max-width:900px;margin:auto;background:#1e293b;padding:20px;border-radius:16px}
+.row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+input,select,button{width:100%;padding:12px;border:none;border-radius:8px;box-sizing:border-box;margin:5px 0}
+button{background:#16a34a;color:#fff;font-weight:bold}
+.out{background:#0f172a;padding:10px;border-radius:8px;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="card">
+<h2>Part 6 - Herkes Tek</h2>
+
+<div class="row">
+<input id="p1" placeholder="Oyuncu 1">
+<input id="p2" placeholder="Oyuncu 2">
+<input id="p3" placeholder="Oyuncu 3">
+<input id="p4" placeholder="Oyuncu 4">
+</div>
+
+<h3>Biten Oyuncu</h3>
+<select id="winner">
+<option>Oyuncu 1</option>
+<option>Oyuncu 2</option>
+<option>Oyuncu 3</option>
+<option>Oyuncu 4</option>
+</select>
+
+<h3>Taşı Atan Oyuncu</h3>
+<select id="thrower">
+<option>Oyuncu 1</option>
+<option>Oyuncu 2</option>
+<option>Oyuncu 3</option>
+<option>Oyuncu 4</option>
+</select>
+
+<h3>Bitiş Türü</h3>
+<select id="finish">
+<option>Normal Bitiş</option>
+<option>Okey Attı</option>
+<option>Konken</option>
+<option>Konkenden Okey Attı</option>
+<option>RENK</option>
+</select>
+
+<button onclick="hesapla()">Hesapla</button>
+
+<div class="out" id="sonuc">Sonuç burada görünecek.</div>
+</div>
+
+<script>
+function hesapla(){
+ const winner=document.getElementById('winner').selectedIndex;
+ const thrower=document.getElementById('thrower').selectedIndex;
+ const finish=document.getElementById('finish').value;
+
+ let ceza=0;
+ if(winner!==thrower){
+   ceza=(finish==="Normal Bitiş")?100:200;
+ }
+
+ let txt="";
+ if(finish==="RENK"){
+   txt="🏆 RENK yapıldı. Oyun hemen biter, diğer tüm oyuncular kaybeder.";
+ }else{
+   txt="Taşı atan oyuncuya yazılacak ceza: <b>"+ceza+"</b> puan.";
+ }
+
+ txt+="<hr>";
+ txt+="<b>Part 7'de gelecek:</b><br>";
+ txt+="• 5 el puan tablosu<br>";
+ txt+="• Otomatik toplamlar<br>";
+ txt+="• Fark hesabı<br>";
+ txt+="• Geri al ve el düzenleme";
+
+ document.getElementById('sonuc').innerHTML=txt;
+}
+</script>
+</body>
+</html>
