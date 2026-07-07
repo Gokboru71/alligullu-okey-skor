@@ -181,7 +181,31 @@ sayfa.innerHTML=`
 
 <button id="devamEt">OYUNU BAŞLAT</button>
 `;
+<hr>
 
+<h3>🎲 Açılan Okey</h3>
+
+<div id="renkSec">
+
+<button onclick="renkSec(3,'Sarı')" style="background:#FFD600;color:black">🟨 Sarı</button>
+
+<button onclick="renkSec(4,'Kırmızı')" style="background:#E53935">🟥 Kırmızı</button>
+
+<button onclick="renkSec(5,'Siyah')" style="background:#222">⬛ Siyah</button>
+
+<button onclick="renkSec(6,'Mavi')" style="background:#1565C0">🟦 Mavi</button>
+
+<button onclick="renkSec(10,'Sahte Okey')" style="background:#8E24AA">🃏 Sahte Okey</button>
+
+</div>
+
+<br>
+
+<div id="secilenRenk">
+
+Henüz seçim yapılmadı.
+
+</div>
 }
 
 document
@@ -209,9 +233,58 @@ sayfa.innerHTML=`
 
 <button id="devamEt">OYUNU BAŞLAT</button>
 `;
+<hr>
+
+<h3>🎲 Açılan Okey</h3>
+
+<div id="renkSec">
+
+<button onclick="renkSec(3,'Sarı')" style="background:#FFD600;color:black">🟨 Sarı</button>
+
+<button onclick="renkSec(4,'Kırmızı')" style="background:#E53935">🟥 Kırmızı</button>
+
+<button onclick="renkSec(5,'Siyah')" style="background:#222">⬛ Siyah</button>
+
+<button onclick="renkSec(6,'Mavi')" style="background:#1565C0">🟦 Mavi</button>
+
+<button onclick="renkSec(10,'Sahte Okey')" style="background:#8E24AA">🃏 Sahte Okey</button>
+
+</div>
+
+<br>
+
+<div id="secilenRenk">
+
+Henüz seçim yapılmadı.
+
+</div>
+}
+//========================
+// OKEY RENGİ
+//========================
+
+let carpan=0;
+
+let acilanRenk="";
+
+function renkSec(c,r){
+
+carpan=c;
+
+acilanRenk=r;
+
+document.getElementById("secilenRenk").innerHTML=
+
+`
+<b>Açılan :</b> ${r}
+
+<br>
+
+<b>Çarpan :</b> x${c}
+
+`;
 
 }
-
 </script>
 
 </body>
