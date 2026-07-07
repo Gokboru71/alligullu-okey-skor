@@ -569,6 +569,21 @@ if(oyunTuru=="EŞLİ"){
     }
 
 }
+
+let kazananTakim = "";
+
+if(oyunTuru=="EŞLİ"){
+
+    if(biten==1 || biten==2){
+        kazananTakim="1. Takım";
+    }
+
+    if(biten==3 || biten==4){
+        kazananTakim="2. Takım";
+    }
+
+}
+    
 if(oyunTuru=="EŞLİ"){
 
 takim1Toplam+=p1+p2;
@@ -579,6 +594,9 @@ takim2Toplam+=p3+p4;
 
 document.getElementById("sonucKutusu").innerHTML=`
 <h3>${bitisTuru} Sonucu</h3>
+<b>🏆 Kazanan :</b> ${kazananTakim}
+
+<br><br>
 
 <b>Açılan:</b> ${acilanRenk}<br>
 <b>Çarpan:</b> x${katsayi}
