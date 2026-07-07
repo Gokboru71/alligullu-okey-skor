@@ -321,6 +321,66 @@ button:hover{
     font-size:22px;
 
 }
+
+/* ===== Bottom Sheet ===== */
+
+.bottomSheet{
+
+position:fixed;
+
+left:0;
+
+right:0;
+
+bottom:-100%;
+
+background:white;
+
+border-radius:20px 20px 0 0;
+
+padding:20px;
+
+box-shadow:0 -10px 30px rgba(0,0,0,.25);
+
+transition:.30s;
+
+z-index:2000;
+
+max-height:70vh;
+
+overflow:auto;
+
+}
+
+.bottomSheet.show{
+
+bottom:0;
+
+}
+
+.sheetPlayer{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+padding:14px;
+
+border-bottom:1px solid #eee;
+
+cursor:pointer;
+
+font-size:20px;
+
+}
+
+.sheetPlayer:hover{
+
+background:#f3f3f3;
+
+}
     
 </style>
 
@@ -524,7 +584,8 @@ const avatars=[
 
 let editingPlayerId=null;
 let selectedAvatar="😀";
-
+let currentSeat=-1;
+    
 /* Sayfa Aç */
 
 function openPage(id){
@@ -618,49 +679,22 @@ function renderTable(){
 
 function chooseSeat(index){
 
-    const available = app.players.filter(player =>
-        !app.tableSeats.includes(player.id)
-    );
+currentSeat=index;
 
-    if(available.length===0){
+renderPlayerSheet();
 
-        alert("Masaya oturacak başka oyuncu yok.");
+document
+.getElementById("playerSheet")
+.classList.add("show");
 
-        return;
+}
 
-    }
+function closePlayerSheet(){
 
-    let text = "";
+    document
+        .getElementById("playerSheet")
+        .classList.remove("show");
 
-    available.forEach((player,i)=>{
-
-        text += `${i+1} - ${player.avatar} ${player.name}\n`;
-
-    });
-
-    const secim = prompt(
-`Koltuğa oturacak oyuncunun numarasını giriniz:
-
-${text}`
-    );
-
-    if(secim===null) return;
-
-    const s = Number(secim)-1;
-
-    if(s<0 || s>=available.length){
-
-        alert("Geçersiz seçim.");
-
-        return;
-
-    }
-
-    app.tableSeats[index] = available[s].id;
-
-    save();
-
-    renderTable();
 }
 
 /* Varsayılan Oyuncular */
@@ -968,6 +1002,20 @@ initialize();
         </button>
 
     </div>
+
+</div>
+
+<div id="playerSheet" class="bottomSheet">
+
+<h2>Oyuncu Seç</h2>
+
+<div id="sheetPlayers"></div>
+
+<button onclick="closePlayerSheet()">
+
+Kapat
+
+</button>
 
 </div>
 
