@@ -137,3 +137,59 @@ if(p.length)requestAnimationFrame(a);else x.clearRect(0,0,c.width,c.height);
 })();
 }
 </script></body></html>
+<!DOCTYPE html><html lang="tr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Part 5</title>
+<style>
+body{margin:0;background:#0f172a;color:#fff;font-family:Arial;padding:20px}
+.card{max-width:800px;margin:auto;background:#1e293b;padding:20px;border-radius:16px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+input,button{width:100%;padding:12px;border:none;border-radius:8px;box-sizing:border-box}
+button{background:#16a34a;color:#fff;font-weight:bold;margin-top:15px}
+.out{background:#0f172a;padding:10px;border-radius:8px;margin-top:8px}
+</style></head><body>
+<div class="card">
+<h2>Part 5 - Eşli Puan Motoru</h2>
+<div>Çarpan: <b id="c">-</b> | Bitiş: <b id="b">-</b></div>
+<div class="row">
+<div>
+<h3>Takım A</h3>
+<input id="a" type="number" placeholder="Elde kalan sayı">
+<div class="out">Ceza: <span id="ac">0</span></div>
+</div>
+<div>
+<h3>Takım B</h3>
+<input id="bb" type="number" placeholder="Elde kalan sayı">
+<div class="out">Ceza: <span id="bc">0</span></div>
+</div>
+</div>
+<button onclick="hesapla()">HESAPLA</button>
+<div class="out" id="sonuc">Sonuç burada görünecek.</div>
+</div>
+<script>
+const odul={3:30,4:40,5:50,6:60,10:100};
+const okey={3:300,4:400,5:500,6:600,10:1000};
+document.getElementById('c').textContent='x'+(localStorage.ag_carpan||'-');
+document.getElementById('b').textContent=localStorage.ag_bitis||'-';
+function hesapla(){
+let carpan=parseInt(localStorage.ag_carpan||0);
+let bitis=localStorage.ag_bitis||"";
+let a=Number(document.getElementById('a').value||0);
+let b=Number(document.getElementById('bb').value||0);
+let ac=a*carpan, bc=b*carpan;
+document.getElementById('ac').textContent=ac;
+document.getElementById('bc').textContent=bc;
+let txt="";
+if(bitis==="Normal Bitiş"){
+ txt="Kazanan takımdan "+odul[carpan]+" puan düşülür.";
+}else if(bitis==="Okey Attı"){
+ txt="Kazanan takımdan "+okey[carpan]+" puan düşülür.";
+}else if(bitis==="Konken"){
+ txt="Kazanan: -"+(okey[carpan]*2)+" | Kaybeden çarpanı x"+(carpan*2);
+}else if(bitis==="Konkenden Okey Attı"){
+ txt="Kazanan: -"+(okey[carpan]*2)+" | Kaybeden çarpanı x"+(carpan*4);
+}else if(bitis==="RENK"){
+ txt="🏆 RENK! Oyun biter, rakip kaybeder.";
+}
+document.getElementById('sonuc').innerHTML=txt+"<br><br><b>NOT:</b> Part 6'da kazanan takım seçimi, otomatik puan yazımı ve 5 el toplamı eklenecek.";
+}
+</script></body></html>
