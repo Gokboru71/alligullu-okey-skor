@@ -544,6 +544,8 @@ function cezaHesapla(){
     
 alert("cezaHesapla çalıştı");
 
+alert(document.getElementById("bitenOyuncu"));
+
 document.getElementById("sonucKutusu").innerHTML =
 "HESAPLANDI";
     
