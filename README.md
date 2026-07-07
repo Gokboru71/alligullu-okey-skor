@@ -537,6 +537,64 @@ ${player.stats.games} oyun
 
 }
 
+function openPlayerModal(player = null){
+
+    editingPlayerId = player ? player.id : null;
+
+    selectedAvatar = player ? player.avatar : "😀";
+
+    document.getElementById("playerName").value =
+        player ? player.name : "";
+
+    document.getElementById("modalTitle").textContent =
+        player ? "Oyuncuyu Düzenle" : "Yeni Oyuncu";
+
+    renderAvatarGrid();
+
+    document
+        .getElementById("playerModal")
+        .classList.add("show");
+
+}
+
+function closePlayerModal(){
+
+    document
+        .getElementById("playerModal")
+        .classList.remove("show");
+
+}
+
+function renderAvatarGrid(){
+
+    const grid=document.getElementById("avatarGrid");
+
+    grid.innerHTML="";
+
+    avatars.forEach(a=>{
+
+        grid.innerHTML += `
+        <div
+            class="avatarItem ${selectedAvatar===a?"selected":""}"
+            onclick="selectAvatar('${a}')">
+
+            ${a}
+
+        </div>
+        `;
+
+    });
+
+}
+
+function selectAvatar(avatar){
+
+    selectedAvatar = avatar;
+
+    renderAvatarGrid();
+
+} 
+
 initialize();
 
 </script>
