@@ -198,6 +198,27 @@ sayfa.innerHTML=`
 <div id="secilenRenk">
 Henüz seçim yapılmadı.
 </div>
+<hr>
+
+<h3>🏁 Bitiş Türü</h3>
+
+<button onclick="bitisSec('Normal')">Normal</button>
+
+<button onclick="bitisSec('Okey')">🀄 Okey Attı</button>
+
+<button onclick="bitisSec('Konken')">🃏 Konken</button>
+
+<button onclick="bitisSec('KonkenOkey')">💥 Konkenden Okey</button>
+
+<button onclick="bitisSec('Renk')">🌈 RENK</button>
+
+<br><br>
+
+<div id="bitisBilgi">
+
+Henüz bitiş seçilmedi.
+
+</div>
 `;
 
 }
@@ -246,6 +267,27 @@ sayfa.innerHTML=`
 <div id="secilenRenk">
 Henüz seçim yapılmadı.
 </div>
+<hr>
+
+<h3>🏁 Bitiş Türü</h3>
+
+<button onclick="bitisSec('Normal')">Normal</button>
+
+<button onclick="bitisSec('Okey')">🀄 Okey Attı</button>
+
+<button onclick="bitisSec('Konken')">🃏 Konken</button>
+
+<button onclick="bitisSec('KonkenOkey')">💥 Konkenden Okey</button>
+
+<button onclick="bitisSec('Renk')">🌈 RENK</button>
+
+<br><br>
+
+<div id="bitisBilgi">
+
+Henüz bitiş seçilmedi.
+
+</div>
 `;
 
 }
@@ -261,6 +303,16 @@ function renkSec(c,r){
     <b>Açılan:</b> ${r}<br>
     <b>Çarpan:</b> x${c}
     `;
+}
+let bitisTuru="";
+
+function bitisSec(t){
+
+    bitisTuru=t;
+
+    document.getElementById("bitisBilgi").innerHTML=
+    "<b>Seçilen Bitiş :</b> "+t;
+
 }
 </script>
 
