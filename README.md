@@ -361,9 +361,66 @@ const konkenCeza={
 "Mavi":1200,
 "Sahte Okey":2000
 };
+
 function bitisSec(t){
+
+    bitisTuru=t;
+
+    document.getElementById("bitisBilgi").innerHTML=
+    "<b>Seçilen Bitiş :</b> "+t;
+
+}
+
 function puanHesapla(){
+
+    if(acilanRenk==""){
+        alert("Önce açılan okey rengini seç.");
+        return;
+    }
+
+    if(bitisTuru==""){
+        alert("Bitiş türünü seç.");
+        return;
+    }
+
+    cezaHesapla();
+
+}
+
 function cezaHesapla(){
+
+    let p1=0;
+let p2=0;
+let p3=0;
+let p4=0;
+
+let katsayi=carpan;
+
+if(bitisTuru=="Normal"){
+    katsayi=carpan;
+}
+
+if(bitisTuru=="Okey"){
+    katsayi=carpan*2;
+}
+
+if(bitisTuru=="Konken"){
+    katsayi=carpan*2;
+}
+
+if(bitisTuru=="KonkenOkey"){
+    katsayi=carpan*4;
+}
+
+p1=a*katsayi;
+p2=b*katsayi;
+p3=c*katsayi;
+p4=d*katsayi;
+
+if(oyunTuru=="EŞLİ"){
+    takim1Toplam+=p1+p2;
+    takim2Toplam+=p3+p4;
+}
 
 let a=Number(document.getElementById("k1").value)||0;
 let b=Number(document.getElementById("k2").value)||0;
@@ -401,25 +458,16 @@ takim2Toplam+=p3+p4;
 }
 
 document.getElementById("sonucKutusu").innerHTML=`
-
 <h3>${bitisTuru} Sonucu</h3>
 
-<b>Çarpan :</b> x${katsayi}
+<b>Açılan:</b> ${acilanRenk}<br>
+<b>Çarpan:</b> x${katsayi}
 
 <hr>
 
-1. Oyuncu : ${p1}
-
-<br>
-
-2. Oyuncu : ${p2}
-
-<br>
-
-3. Oyuncu : ${p3}
-
-<br>
-
+1. Oyuncu : ${p1}<br>
+2. Oyuncu : ${p2}<br>
+3. Oyuncu : ${p3}<br>
 4. Oyuncu : ${p4}
 
 <hr>
@@ -430,20 +478,15 @@ document.getElementById("sonucKutusu").innerHTML=`
 
 <h3>Takımlar</h3>
 
-1. Takım :
-${takim1Toplam}
+1. Takım : ${takim1Toplam}
 
 <br><br>
 
-2. Takım :
-${takim2Toplam}
+2. Takım : ${takim2Toplam}
 
 <hr>
 
-<b>Fark :</b>
-
-${Math.abs(takim1Toplam-takim2Toplam)}
-
+<b>Fark :</b> ${Math.abs(takim1Toplam-takim2Toplam)}
 `;
 
 }
