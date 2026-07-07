@@ -6,6 +6,32 @@
 
 <title>Allı Güllü Okey Bro Ağsatim</title>
 
+/* ===== Indicator Sheet ===== */
+
+.colorItem{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:15px;
+
+border-bottom:1px solid #ddd;
+
+cursor:pointer;
+
+font-size:20px;
+
+}
+
+.colorItem:hover{
+
+background:#f5f5f5;
+
+}
+
 <style>
 
 :root{
