@@ -438,10 +438,6 @@ Masayı Oluştur
 
 </button>
 
-<button onclick="openPage('homePage')">
-⬅ Ana Menü
-</button>
-
 </div>
 
 </div>
@@ -944,33 +940,6 @@ renderTable();
 initialize();
 
 </script>
-
-<div class="modal" id="playerModal">
-
-    <div class="modalContent">
-
-        <h2 id="modalTitle">Yeni Oyuncu</h2>
-
-        <input
-            id="playerName"
-            placeholder="Oyuncu adı">
-
-        <div
-            id="avatarGrid"
-            class="avatarGrid">
-        </div>
-
-        <button onclick="savePlayer()">
-            Kaydet
-        </button>
-
-        <button onclick="closePlayerModal()">
-            Vazgeç
-        </button>
-
-    </div>
-
-</div>
 
 <!-- Oyuncu Ekle / Düzenle Modal -->
 
