@@ -326,23 +326,6 @@ button:hover{
 
 </head>
 
-<div class="modal" id="playerModal">
-
-<div class="modalContent">
-
-<h2 id="modalTitle">Oyuncu</h2>
-
-<input id="playerName" placeholder="Oyuncu adı">
-
-<div id="avatarGrid" class="avatarGrid"></div>
-
-<button onclick="savePlayer()">Kaydet</button>
-
-<button onclick="closePlayerModal()">İptal</button>
-
-</div>
-
-</div>
 <body>
 
 <header>
@@ -685,7 +668,6 @@ ${text}`
 
 }
 
-}
 
 /* Varsayılan Oyuncular */
 
@@ -826,7 +808,12 @@ function openPlayerModal(player = null){
         .classList.add("show");
 
 }
+save();
 
+renderPlayers();
+
+renderTable();
+    
 function closePlayerModal(){
 
     document
@@ -860,7 +847,7 @@ function renderAvatarGrid(){
 function selectAvatar(avatar){
 
     selectedAvatar = avatar;
-0
+
     renderAvatarGrid();
 
 } 
