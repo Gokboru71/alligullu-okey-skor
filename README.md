@@ -453,7 +453,22 @@ function bitisSec(t){
 }
 
 function puanHesapla(){
+let oyuncu1 = oyunTuru=="EŞLİ"
+    ? document.getElementById("t1").value
+    : document.getElementById("p1").value;
 
+let oyuncu2 = oyunTuru=="EŞLİ"
+    ? document.getElementById("t2").value
+    : document.getElementById("p2").value;
+
+let oyuncu3 = oyunTuru=="EŞLİ"
+    ? document.getElementById("t3").value
+    : document.getElementById("p3").value;
+
+let oyuncu4 = oyunTuru=="EŞLİ"
+    ? document.getElementById("t4").value
+    : document.getElementById("p4").value;
+    
     if(acilanRenk==""){
         alert("Önce açılan okey rengini seç.");
         return;
@@ -468,6 +483,10 @@ function puanHesapla(){
 
 gecmis.push({
     el: elNo,
+    oyuncu1: oyuncu1,
+    oyuncu2: oyuncu2,
+    oyuncu3: oyuncu3,
+    oyuncu4: oyuncu4,
     renk: acilanRenk,
     bitis: bitisTuru,
     p1: p1,
@@ -623,10 +642,10 @@ document.getElementById("sonucKutusu").innerHTML=`
 
 <hr>
 
-1. Oyuncu : ${p1}<br>
-2. Oyuncu : ${p2}<br>
-3. Oyuncu : ${p3}<br>
-4. Oyuncu : ${p4}
+${oyuncu1} : ${p1}<br>
+${oyuncu2} : ${p2}<br>
+${oyuncu3} : ${p3}<br>
+${oyuncu4} : ${p4}
 
 <hr>
 
