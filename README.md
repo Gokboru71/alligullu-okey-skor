@@ -158,7 +158,6 @@ button:hover{
     background:#dff7e7;
 }
 
-</style>
 .modal{
     position:fixed;
     inset:0;
@@ -209,6 +208,122 @@ button:hover{
     border:1px solid #ccc;
     font-size:16px;
 }
+
+/* ===== OKEY MASASI ===== */
+
+.tableArea{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+}
+
+.okeyTable{
+
+    position:relative;
+
+    width:340px;
+
+    height:340px;
+
+    background:#167a3d;
+
+    border:12px solid #6a3f17;
+
+    border-radius:50%;
+
+    box-shadow:
+    inset 0 0 30px rgba(255,255,255,.15),
+    0 8px 25px rgba(0,0,0,.35);
+
+}
+
+.seat{
+
+    position:absolute;
+
+    width:90px;
+
+    text-align:center;
+
+}
+
+.seat .avatar{
+
+    font-size:42px;
+
+}
+
+.seat .name{
+
+    font-weight:bold;
+
+}
+
+.seat .score{
+
+    color:white;
+
+    font-size:14px;
+
+    margin-top:4px;
+
+}
+
+#seat1{
+
+    bottom:-30px;
+    left:50%;
+    transform:translateX(-50%);
+
+}
+
+#seat2{
+
+    top:-30px;
+    left:50%;
+    transform:translateX(-50%);
+
+}
+
+#seat3{
+
+    right:-30px;
+    top:50%;
+    transform:translateY(-50%);
+
+}
+
+#seat4{
+
+    left:-30px;
+    top:50%;
+    transform:translateY(-50%);
+
+}
+
+.tableCenter{
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    text-align:center;
+
+    color:white;
+
+}
+
+.tableCenter h2{
+
+    font-size:22px;
+
+}
+    
+</style>
+
 </head>
 
 <div class="modal" id="playerModal">
@@ -298,9 +413,47 @@ Profesyonel Allı Güllü Okey skor takip sistemi
 
 <h2>Yeni Oyun</h2>
 
-<p>
-Bu ekran sonraki güncellemede hazırlanacak.
-</p>
+<div class="tableArea">
+
+<div class="okeyTable">
+
+<div class="seat" id="seat1"></div>
+
+<div class="seat" id="seat2"></div>
+
+<div class="seat" id="seat3"></div>
+
+<div class="seat" id="seat4"></div>
+
+<div class="tableCenter">
+
+<h2>🀄</h2>
+
+<div>
+
+ALLI GÜLLÜ
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<br>
+
+<button onclick="renderTable()">
+
+Masayı Oluştur
+
+</button>
+
+<button onclick="openPage('homePage')">
+
+⬅ Ana Menü
+
+</button>
 
 <button onclick="openPage('homePage')">
 ⬅ Ana Menü
@@ -424,6 +577,54 @@ save();
 }
 
 renderPlayers();
+
+}
+
+function renderTable(){
+
+    const seats=[
+
+        document.getElementById("seat1"),
+
+        document.getElementById("seat2"),
+
+        document.getElementById("seat3"),
+
+        document.getElementById("seat4")
+
+    ];
+
+    seats.forEach(s=>s.innerHTML="");
+
+    for(let i=0;i<4;i++){
+
+        if(!app.players[i]) continue;
+
+        const p=app.players[i];
+
+        seats[i].innerHTML=`
+
+            <div class="avatar">
+
+                ${p.avatar}
+
+            </div>
+
+            <div class="name">
+
+                ${p.name}
+
+            </div>
+
+            <div class="score">
+
+                0
+
+            </div>
+
+        `;
+
+    }
 
 }
 
@@ -696,6 +897,8 @@ function deletePlayer(id){
 
     renderPlayers();
 
+renderTable();
+    
 }
     
     
