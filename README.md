@@ -666,6 +666,11 @@ function savePlayer(){
 
     }
 
+
+    closePlayerModal();
+
+}
+
 function editPlayer(id){
 
     const player = app.players.find(p => p.id === id);
@@ -692,11 +697,8 @@ function deletePlayer(id){
     renderPlayers();
 
 }
-
-    closePlayerModal();
-
-}
-
+    
+    
 initialize();
 
 </script>
