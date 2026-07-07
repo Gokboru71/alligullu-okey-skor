@@ -179,7 +179,25 @@ sayfa.innerHTML=`
 <br><br>
 
 <button id="devamEt">OYUNU BAŞLAT</button>
+<hr>
 
+<h3>🎲 Açılan Okey</h3>
+
+<button onclick="renkSec(3,'Sarı')">🟨 Sarı</button>
+
+<button onclick="renkSec(4,'Kırmızı')">🟥 Kırmızı</button>
+
+<button onclick="renkSec(5,'Siyah')">⬛ Siyah</button>
+
+<button onclick="renkSec(6,'Mavi')">🟦 Mavi</button>
+
+<button onclick="renkSec(10,'Sahte Okey')">🃏 Sahte Okey</button>
+
+<br><br>
+
+<div id="secilenRenk">
+Henüz seçim yapılmadı.
+</div>
 `;
 
 }
@@ -209,11 +227,41 @@ sayfa.innerHTML=`
 <br><br>
 
 <button id="devamEt">OYUNU BAŞLAT</button>
+<hr>
 
+<h3>🎲 Açılan Okey</h3>
+
+<button onclick="renkSec(3,'Sarı')">🟨 Sarı</button>
+
+<button onclick="renkSec(4,'Kırmızı')">🟥 Kırmızı</button>
+
+<button onclick="renkSec(5,'Siyah')">⬛ Siyah</button>
+
+<button onclick="renkSec(6,'Mavi')">🟦 Mavi</button>
+
+<button onclick="renkSec(10,'Sahte Okey')">🃏 Sahte Okey</button>
+
+<br><br>
+
+<div id="secilenRenk">
+Henüz seçim yapılmadı.
+</div>
 `;
 
 }
+let carpan=0;
+let acilanRenk="";
 
+function renkSec(c,r){
+
+    carpan=c;
+    acilanRenk=r;
+
+    document.getElementById("secilenRenk").innerHTML=`
+    <b>Açılan:</b> ${r}<br>
+    <b>Çarpan:</b> x${c}
+    `;
+}
 </script>
 
 </body>
