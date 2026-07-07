@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Allı Güllü Okey Pro</title>
+<title>Allı Güllü Okey Bro Ağsatim</title>
 
 <style>
 
@@ -390,7 +390,7 @@ background:#f3f3f3;
 
 <header>
 
-🀄 ALLI GÜLLÜ OKEY PRO
+🀄 ALLI GÜLLÜ OKEY AAĞSATİM
 
 </header>
 
@@ -507,6 +507,42 @@ Profesyonel Allı Güllü Okey skor takip sistemi
 Masayı Hazırla
 
 </button>
+
+<div id="gameOptions" style="display:none;margin-top:15px;">
+
+<h3>Oyun Modu</h3>
+
+<div style="display:flex;gap:10px;">
+
+<button
+id="teamBtn"
+onclick="setGameMode('team')">
+
+👥 Eşli
+
+</button>
+
+<button
+id="soloBtn"
+onclick="setGameMode('solo')">
+
+👤 Herkes Tek
+
+</button>
+
+</div>
+
+<br>
+
+<button
+style="background:#d35400;"
+onclick="startGame()">
+
+▶ Oyunu Başlat
+
+</button>
+
+</div>
 
 <button onclick="openPage('homePage')">
 
@@ -660,6 +696,15 @@ function renderTable(){
 
     seats.forEach((seat,index)=>{
 
+        const ready =
+    app.tableSeats.every(x=>x!==null);
+
+document.getElementById("gameOptions")
+.style.display =
+ready
+? "block"
+: "none";
+        
         const playerId = app.tableSeats[index];
 
         if(playerId === null){
@@ -746,6 +791,30 @@ function renderGameInfo(){
 
 }
 
+function setGameMode(mode){
+
+    app.game.mode=mode;
+
+    save();
+
+    renderGameInfo();
+
+}
+
+function startGame(){
+
+    if(app.tableSeats.includes(null)){
+
+        alert("Önce dört oyuncuyu oturtun.");
+
+        return;
+
+    }
+
+    alert("v0.3.7'de açılan renk ekranı açılacak.");
+
+}
+    
 function chooseSeat(index){
 
 currentSeat=index;
