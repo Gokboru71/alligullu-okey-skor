@@ -179,11 +179,13 @@ sayfa.innerHTML=`
 <br><br>
 
 <button id="devamEt">OYUNU BAŞLAT</button>
+
 <br><br>
 
 <button onclick="puanHesapla()">
 🧮 PUANI HESAPLA
 </button>
+
 <hr>
 
 <h3>🎲 Açılan Okey</h3>
