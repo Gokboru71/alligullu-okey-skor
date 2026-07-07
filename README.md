@@ -486,9 +486,9 @@ ALLI GÜLLÜ
 
 <br>
 
-<button onclick="renderTable()">
+<button onclick="startNewTable()">
 
-Masayı Oluştur
+Masayı Hazırla
 
 </button>
 
@@ -694,6 +694,48 @@ function closePlayerSheet(){
     document
         .getElementById("playerSheet")
         .classList.remove("show");
+
+}
+
+function renderPlayerSheet(){
+
+    const area = document.getElementById("sheetPlayers");
+
+    area.innerHTML = "";
+
+    app.players.forEach(player=>{
+
+        if(app.tableSeats.includes(player.id))
+            return;
+
+        area.innerHTML += `
+            <div class="sheetPlayer"
+                 onclick="selectSeatPlayer(${player.id})">
+
+                <span style="font-size:34px;">
+                    ${player.avatar}
+                </span>
+
+                <span>
+                    ${player.name}
+                </span>
+
+            </div>
+        `;
+
+    });
+
+}
+
+function selectSeatPlayer(playerId){
+
+    app.tableSeats[currentSeat] = playerId;
+
+    save();
+
+    renderTable();
+
+    closePlayerSheet();
 
 }
 
@@ -967,6 +1009,14 @@ function deletePlayer(id){
     renderPlayers();
 
 renderTable();
+
+function startNewTable(){
+
+    app.tableSeats = [null,null,null,null];
+
+    save();
+
+    renderTable();
     
 }
     
