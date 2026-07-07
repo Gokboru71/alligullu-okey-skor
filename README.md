@@ -97,6 +97,67 @@ button:hover{
     font-size:13px;
 }
 
+/* ===== Oyuncu Modal ===== */
+
+.modal{
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.55);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modalContent{
+    width:92%;
+    max-width:420px;
+    background:white;
+    border-radius:18px;
+    padding:20px;
+}
+
+.modalContent h2{
+    margin-bottom:15px;
+}
+
+.modalContent input{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    margin-bottom:15px;
+    font-size:16px;
+}
+
+.avatarGrid{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:8px;
+    margin-bottom:15px;
+}
+
+.avatarItem{
+    font-size:28px;
+    text-align:center;
+    padding:10px;
+    border:2px solid #ddd;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+.avatarItem.selected{
+    border-color:#0f6b3e;
+    background:#dff7e7;
+}
+
 </style>
 .modal{
     position:fixed;
