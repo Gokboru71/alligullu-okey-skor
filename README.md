@@ -571,7 +571,24 @@ if(oyunTuru=="EŞLİ"){
 }
 
 let kazananTakim = "";
+let kazananOdul = 0;
 
+if(bitisTuru=="Normal"){
+    kazananOdul = normalCeza[acilanRenk];
+}
+
+if(bitisTuru=="Okey"){
+    kazananOdul = okeyCeza[acilanRenk];
+}
+
+if(bitisTuru=="Konken"){
+    kazananOdul = konkenCeza[acilanRenk];
+}
+
+if(bitisTuru=="KonkenOkey"){
+    kazananOdul = konkenCeza[acilanRenk];
+}
+    
 if(oyunTuru=="EŞLİ"){
 
     if(biten==1 || biten==2){
@@ -595,6 +612,9 @@ takim2Toplam+=p3+p4;
 document.getElementById("sonucKutusu").innerHTML=`
 <h3>${bitisTuru} Sonucu</h3>
 <b>🏆 Kazanan :</b> ${kazananTakim}
+<br>
+
+🎁 Kazanan Ödülü : -${kazananOdul}
 
 <br><br>
 
