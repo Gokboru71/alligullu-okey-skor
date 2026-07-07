@@ -151,6 +151,11 @@ class="card hidden">
 <script>
 
 let oyunTuru="";
+let gecmis = [];
+
+let elNo = 1;
+
+let sonHamle = null;
 
 const sayfa=document.getElementById("sayfa");
 
@@ -225,6 +230,35 @@ Henüz seçim yapılmadı.
 
 Henüz bitiş seçilmedi.
 
+</div>
+<hr>
+
+<h3>📝 Elde Kalan Taşlar</h3>
+
+<input id="k1" type="number" placeholder="1. Oyuncu">
+
+<input id="k2" type="number" placeholder="2. Oyuncu">
+
+<input id="k3" type="number" placeholder="3. Oyuncu">
+
+<input id="k4" type="number" placeholder="4. Oyuncu">
+
+<br><br>
+
+<button onclick="cezaHesapla()">
+📋 CEZALARI HESAPLA
+</button>
+
+<div id="sonucKutusu">
+Henüz sonuç yok.
+</div>
+
+<hr>
+
+<h3>📜 Geçmiş Eller</h3>
+
+<div id="gecmisKutusu">
+Henüz el oynanmadı.
 </div>
 `;
 
@@ -310,11 +344,20 @@ Henüz seçim yapılmadı.
 📋 CEZALARI HESAPLA
 </button>
 
-<div id="sonucKutusu"></div>
-
+<div id="sonucKutusu">
 Henüz bitiş seçilmedi.
+</div>
+
+<hr>
+
+<h3>📜 Geçmiş Eller</h3>
+
+<div id="gecmisKutusu">
+
+Henüz el oynanmadı.
 
 </div>
+
 `;
 
 }
@@ -385,42 +428,54 @@ function puanHesapla(){
 
     cezaHesapla();
 
+gecmis.push({
+    el: elNo,
+    renk: acilanRenk,
+    bitis: bitisTuru,
+    p1: p1,
+    p2: p2,
+    p3: p3,
+    p4: p4,
+    takim1: takim1Toplam,
+    takim2: takim2Toplam
+});
+
+let html="";
+
+for(let i=0;i<gecmis.length;i++){
+
+    html+=`
+    <div class="card">
+
+    <b>${gecmis[i].el}. EL</b>
+
+    <br>
+
+    ${gecmis[i].renk}
+
+    -
+
+    ${gecmis[i].bitis}
+
+    <hr>
+
+    Takım 1 : ${gecmis[i].takim1}
+
+    <br>
+
+    Takım 2 : ${gecmis[i].takim2}
+
+    </div>
+    `;
+
+}
+
+document.getElementById("gecmisKutusu").innerHTML=html;
+
+elNo++;    
 }
 
 function cezaHesapla(){
-
-    let p1=0;
-let p2=0;
-let p3=0;
-let p4=0;
-
-let katsayi=carpan;
-
-if(bitisTuru=="Normal"){
-    katsayi=carpan;
-}
-
-if(bitisTuru=="Okey"){
-    katsayi=carpan*2;
-}
-
-if(bitisTuru=="Konken"){
-    katsayi=carpan*2;
-}
-
-if(bitisTuru=="KonkenOkey"){
-    katsayi=carpan*4;
-}
-
-p1=a*katsayi;
-p2=b*katsayi;
-p3=c*katsayi;
-p4=d*katsayi;
-
-if(oyunTuru=="EŞLİ"){
-    takim1Toplam+=p1+p2;
-    takim2Toplam+=p3+p4;
-}
 
 let a=Number(document.getElementById("k1").value)||0;
 let b=Number(document.getElementById("k2").value)||0;
@@ -488,26 +543,6 @@ document.getElementById("sonucKutusu").innerHTML=`
 
 <b>Fark :</b> ${Math.abs(takim1Toplam-takim2Toplam)}
 `;
-
-}
-
-if(acilanRenk==""){
-alert("Önce açılan okey rengini seç.");
-return;
-}
-
-if(bitisTuru==""){
-alert("Bitiş türünü seç.");
-return;
-}
-
-alert("Puan hesaplama motoru hazır.");
-
-}
-    bitisTuru=t;
-
-    document.getElementById("bitisBilgi").innerHTML=
-    "<b>Seçilen Bitiş :</b> "+t;
 
 }
 </script>
