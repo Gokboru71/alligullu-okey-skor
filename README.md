@@ -541,7 +541,9 @@ elNo++;
 }
 
 function cezaHesapla(){
-
+    
+alert("cezaHesapla çalıştı");
+    
 let a=Number(document.getElementById("k1").value)||0;
 let b=Number(document.getElementById("k2").value)||0;
 let c=Number(document.getElementById("k3").value)||0;
