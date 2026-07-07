@@ -366,14 +366,36 @@ let b=Number(document.getElementById("k2").value)||0;
 let c=Number(document.getElementById("k3").value)||0;
 let d=Number(document.getElementById("k4").value)||0;
 
-let p1=a*carpan;
-let p2=b*carpan;
-let p3=c*carpan;
-let p4=d*carpan;
+let katsayi=carpan;
+
+if(bitisTuru=="Normal"){
+    katsayi=carpan;
+}
+
+if(bitisTuru=="Okey"){
+    katsayi=carpan*2;
+}
+
+if(bitisTuru=="Konken"){
+    katsayi=carpan*2;
+}
+
+if(bitisTuru=="KonkenOkey"){
+    katsayi=carpan*4;
+}
+
+let p1=a*katsayi;
+let p2=b*katsayi;
+let p3=c*katsayi;
+let p4=d*katsayi;
 
 document.getElementById("sonucKutusu").innerHTML=`
 
-<h3>Cezalar</h3>
+<h3>${bitisTuru} Sonucu</h3>
+
+<b>Çarpan :</b> x${katsayi}
+
+<hr>
 
 1. Oyuncu : ${p1}
 
@@ -388,6 +410,10 @@ document.getElementById("sonucKutusu").innerHTML=`
 <br>
 
 4. Oyuncu : ${p4}
+
+<hr>
+
+<b>Toplam Ceza :</b> ${p1+p2+p3+p4}
 
 `;
 
