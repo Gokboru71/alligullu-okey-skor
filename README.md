@@ -90,3 +90,50 @@ localStorage.setItem('ag_carpan',c);
 }
 function ileri(){alert('Part 4: Normal Bitiş / Okey / Konken / Renk ekranı');}
 </script></body></html>
+<!DOCTYPE html>
+<html lang="tr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Part 4</title>
+<style>
+body{margin:0;background:#0f172a;color:#fff;font-family:Arial;padding:20px}
+.card{max-width:760px;margin:auto;background:#1e293b;padding:20px;border-radius:16px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+button{padding:16px;border:none;border-radius:10px;font-size:18px;font-weight:bold;color:#fff;cursor:pointer}
+.normal{background:#2563eb}.okey{background:#16a34a}.konken{background:#9333ea}.kokey{background:#dc2626}.renk{background:#f59e0b;color:#111}
+#sonuc{margin-top:20px;background:#0f172a;padding:15px;border-radius:10px}
+canvas{position:fixed;left:0;top:0;pointer-events:none}
+</style></head><body>
+<canvas id="c"></canvas>
+<div class="card">
+<h2>Part 4 - Bitiş Türü</h2>
+<div class="grid">
+<button class="normal" onclick="sec('Normal Bitiş')">Normal Bitiş</button>
+<button class="okey" onclick="sec('Okey Attı')">Okey Attı</button>
+<button class="konken" onclick="sec('Konken')">Konken</button>
+<button class="kokey" onclick="sec('Konkenden Okey Attı')">Konkenden Okey Attı</button>
+<button class="renk" style="grid-column:1/3" onclick="renk()">🌈 RENK</button>
+</div>
+<div id="sonuc">Seçim yapılmadı.</div>
+</div>
+<script>
+function sec(t){
+localStorage.setItem("ag_bitis",t);
+document.getElementById("sonuc").innerHTML="<b>Seçilen:</b> "+t+"<br>Part 5'te bu seçime göre puan motoru çalışacak.";
+}
+function renk(){
+localStorage.setItem("ag_bitis","RENK");
+document.getElementById("sonuc").innerHTML="<h2>🏆 RENK YAPILDI</h2><p>Oyun biter. Rakip kaybeder.</p>";
+fire();
+}
+function fire(){
+const c=document.getElementById("c"),x=c.getContext("2d");
+c.width=innerWidth;c.height=innerHeight;
+let p=[];
+for(let i=0;i<180;i++)p.push({x:innerWidth/2,y:innerHeight/2,vx:(Math.random()-.5)*10,vy:(Math.random()-.5)*10,l:80});
+(function a(){
+x.clearRect(0,0,c.width,c.height);
+p.forEach(o=>{x.fillStyle=`hsl(${Math.random()*360},100%,60%)`;x.fillRect(o.x,o.y,4,4);o.x+=o.vx;o.y+=o.vy;o.vy+=.08;o.l--;});
+p=p.filter(o=>o.l>0);
+if(p.length)requestAnimationFrame(a);else x.clearRect(0,0,c.width,c.height);
+})();
+}
+</script></body></html>
