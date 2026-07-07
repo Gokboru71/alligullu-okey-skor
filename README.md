@@ -544,7 +544,8 @@ function cezaHesapla(){
     
 alert("cezaHesapla çalıştı");
 
-alert(document.getElementById("sonucKutusu"));
+document.getElementById("sonucKutusu").innerHTML =
+"HESAPLANDI";
     
 let a=Number(document.getElementById("k1").value)||0;
 let b=Number(document.getElementById("k2").value)||0;
