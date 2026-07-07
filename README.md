@@ -678,23 +678,14 @@ function editPlayer(id){
 
 function deletePlayer(id){
 
-    const player = app.players.find(p=>p.id===id);
+    const player = app.players.find(p => p.id === id);
 
     if(!player) return;
 
-    const answer = confirm(
+    if(!confirm(`"${player.name}" adlı oyuncu silinsin mi?`))
+        return;
 
-        `"${player.name}" adlı oyuncu silinsin mi?`
-
-    );
-
-    if(!answer) return;
-
-    app.players = app.players.filter(
-
-        p=>p.id!==id
-
-    );
+    app.players = app.players.filter(p => p.id !== id);
 
     save();
 
