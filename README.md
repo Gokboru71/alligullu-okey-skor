@@ -908,7 +908,9 @@ renderHandEntry();
 function calculateHand(){
 
     const winner =
-        document.querySelector('input[name="winner"]:checked');
+        document.querySelector(
+            'input[name="winner"]:checked'
+        );
 
     if(!winner){
         alert("Biten oyuncuyu seçiniz.");
@@ -922,11 +924,16 @@ function calculateHand(){
             'input[name="finish'+winnerSeat+'"]:checked'
         ).value;
 
+    const multiplier = app.game.multiplier;
+
     let finishMultiplier = 1;
 
     switch(finish){
 
         case "okey":
+            finishMultiplier = 2;
+            break;
+
         case "konken":
             finishMultiplier = 2;
             break;
@@ -938,41 +945,55 @@ function calculateHand(){
         case "renk":
             finishMultiplier = Infinity;
             break;
+
     }
-
-    const multiplier = app.game.multiplier;
-
-    const teamA = [1,3];
-    const teamB = [2,4];
-
-    const winnerTeam =
-        teamA.includes(winnerSeat) ? "A" : "B";
-
-    const loserSeats =
-        winnerTeam==="A" ? teamB : teamA;
-
-    let report="";
-
-    report += "🏆 Kazanan\n\n";
 
     const winnerPlayer =
         app.players.find(
             p=>p.id===app.tableSeats[winnerSeat]
         );
 
-    report += winnerPlayer.name+"\n";
-    report += finish+"\n\n";
+    let loserSeats=[];
+
+    // 1 veya 3 kazandı
+    if(winnerSeat===0 || winnerSeat===2){
+
+        loserSeats=[1,3];
+
+    }
+
+    // 2 veya 4 kazandı
+    else{
+
+        loserSeats=[0,2];
+
+    }
 
     let totalPenalty=0;
 
+    let report="";
+
+    report +=
+`🏆 Kazanan
+
+${winnerPlayer.avatar} ${winnerPlayer.name}
+
+Bitiş : ${finish}
+
+---------------------
+
+`;
+
     loserSeats.forEach(seat=>{
 
-        const player =
+        const player=
             app.players.find(
                 p=>p.id===app.tableSeats[seat]
             );
 
-        const stones =
+        if(!player) return;
+
+        const stones=
             Number(
                 document.getElementById(
                     "stone"+seat
@@ -987,7 +1008,7 @@ function calculateHand(){
 
         }else{
 
-            penalty =
+            penalty=
                 stones *
                 multiplier *
                 finishMultiplier;
@@ -997,29 +1018,32 @@ function calculateHand(){
         }
 
         report +=
-player.name+"\n";
-        report +=
-"Taş : "+stones+"\n";
-        report +=
-"Ceza : "+penalty+"\n\n";
+
+`${player.avatar} ${player.name}
+
+Taş : ${stones}
+
+Ceza : ${penalty}
+
+---------------------
+
+`;
 
     });
 
     if(finishMultiplier===Infinity){
 
         report +=
-"🎉 RENK YAPILDI\n";
-        report +=
-"OYUN BİTTİ";
+`🎉 RENK YAPILDI
+
+OYUN SONA ERDİ`;
 
     }else{
 
         report +=
-"-----------------\n";
-        report +=
-"TAKIM CEZASI\n";
-        report +=
-totalPenalty;
+`TOPLAM TAKIM CEZASI
+
+${totalPenalty}`;
 
     }
 
