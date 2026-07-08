@@ -994,6 +994,51 @@ value="${index}">
 
 Bu oyuncu bitti
 
+<hr style="margin:12px 0;">
+
+<b>Bitiş Türü</b>
+
+<label>
+<input type="radio"
+name="finish${index}"
+value="normal"
+checked>
+
+Normal
+</label>
+
+<label>
+<input type="radio"
+name="finish${index}"
+value="okey">
+
+Okey
+</label>
+
+<label>
+<input type="radio"
+name="finish${index}"
+value="konken">
+
+Konken (7 Çift)
+</label>
+
+<label>
+<input type="radio"
+name="finish${index}"
+value="konkenOkey">
+
+Konkenden Okey
+</label>
+
+<label>
+<input type="radio"
+name="finish${index}"
+value="renk">
+
+Renk
+</label>
+
 </label>
 
 </div>
