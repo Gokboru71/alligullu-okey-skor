@@ -908,166 +908,122 @@ renderHandEntry();
 function calculateHand(){
 
     const winner =
-    document.querySelector(
-        'input[name="winner"]:checked'
-    );
+        document.querySelector('input[name="winner"]:checked');
 
     if(!winner){
-
         alert("Biten oyuncuyu seçiniz.");
-
         return;
-
     }
 
-    const winnerIndex =
-        Number(winner.value);
+    const winnerSeat = Number(winner.value);
 
-    const result=[];
-
-    app.tableSeats.forEach((id,index)=>{
-
-        const player=
-        app.players.find(p=>p.id===id);
-
-        const stones=
-        Number(
-            document.getElementById(
-                "stone"+index
-            ).value
-        );
-
-        const finish=
+    const finish =
         document.querySelector(
-            `input[name="finish${index}"]:checked`
+            'input[name="finish'+winnerSeat+'"]:checked'
         ).value;
 
-        result.push({
+    let finishMultiplier = 1;
 
-            playerId:id,
+    switch(finish){
 
-            playerName:player.name,
+        case "okey":
+        case "konken":
+            finishMultiplier = 2;
+            break;
 
-            stones:stones,
+        case "konkenOkey":
+            finishMultiplier = 4;
+            break;
 
-            winner:index===winnerIndex,
+        case "renk":
+            finishMultiplier = Infinity;
+            break;
+    }
 
-            finish:finish
+    const multiplier = app.game.multiplier;
 
-        });
-});
+    const teamA = [0,2];
+    const teamB = [1,3];
 
-    console.log(result);
+    const winnerTeam =
+        teamA.includes(winnerSeat) ? "A" : "B";
 
-    let multiplier = app.game.multiplier;
+    const loserSeats =
+        winnerTeam==="A" ? teamB : teamA;
 
-let finishMultiplier = 1;
+    let report="";
 
-const winnerData = result.find(x=>x.winner);
+    report += "🏆 Kazanan\n\n";
 
-switch(winnerData.finish){
+    const winnerPlayer =
+        app.players.find(
+            p=>p.id===app.tableSeats[winnerSeat]
+        );
 
-    case "okey":
-        finishMultiplier = 2;
-        break;
+    report += winnerPlayer.name+"\n";
+    report += finish+"\n\n";
 
-    case "konken":
-        finishMultiplier = 2;
-        break;
+    let totalPenalty=0;
 
-    case "konkenOkey":
-        finishMultiplier = 4;
-        break;
+    loserSeats.forEach(seat=>{
 
-    case "renk":
-        finishMultiplier = Infinity;
-        break;
+        const player =
+            app.players.find(
+                p=>p.id===app.tableSeats[seat]
+            );
 
-}
+        const stones =
+            Number(
+                document.getElementById(
+                    "stone"+seat
+                ).value
+            );
 
-    let report = "";
+        let penalty;
 
-let totalPenalty = 0;
+        if(finishMultiplier===Infinity){
 
-const winnerPos =
-    result.findIndex(x=>x.winner);
+            penalty="∞";
 
-const partnerSeat = [2,3,0,1];
-    
-};
+        }else{
 
-result.forEach((player,index)=>{
+            penalty =
+                stones *
+                multiplier *
+                finishMultiplier;
 
-    if(player.winner){
+            totalPenalty += penalty;
+
+        }
 
         report +=
-`🏆 ${player.playerName}
+player.name+"\n";
+        report +=
+"Taş : "+stones+"\n";
+        report +=
+"Ceza : "+penalty+"\n\n";
 
-${player.finish}
-
------------------
-
-`;
-
-        return;
-
-    }
-
-    if(app.game.mode==="team"){
-
-    const partner =
-        partnerSeat[winnerPos];
-
-    if(index===partner){
-
-        continue;
-
-    }
-
-    }
-
-    const penalty =
-        player.stones *
-        multiplier *
-        finishMultiplier;
-
-    totalPenalty += penalty;
-
-    report +=
-
-`${player.playerName}
-
-Taş : ${player.stones}
-
-Ceza : ${penalty}
-
------------------
-
-`;
-
-});
+    });
 
     if(finishMultiplier===Infinity){
 
-    report +=
-
+        report +=
 "🎉 RENK YAPILDI\n";
+        report +=
+"OYUN BİTTİ";
 
-}
+    }else{
 
-if(app.game.mode==="team"){
+        report +=
+"-----------------\n";
+        report +=
+"TAKIM CEZASI\n";
+        report +=
+totalPenalty;
 
-    report +=
+    }
 
-`TOPLAM TAKIM CEZASI
-
-${totalPenalty}
-
-`;
-
-}
-    
-alert(report);
+    alert(report);
 
 }
 
