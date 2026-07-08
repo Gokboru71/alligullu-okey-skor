@@ -28,6 +28,22 @@ font-weight:bold;
 
 }
 
+.finishGroup{
+
+margin-top:12px;
+
+}
+
+.finishGroup label{
+
+display:block;
+
+padding:6px 0;
+
+font-size:15px;
+
+}
+
 <style>
 
 :root{
@@ -893,9 +909,7 @@ function calculateHand(){
 
     const winner =
     document.querySelector(
-
-'input[name="winner"]:checked'
-
+        'input[name="winner"]:checked'
     );
 
     if(!winner){
@@ -906,10 +920,48 @@ function calculateHand(){
 
     }
 
+    const winnerIndex =
+        Number(winner.value);
+
+    const result=[];
+
+    app.tableSeats.forEach((id,index)=>{
+
+        const player=
+        app.players.find(p=>p.id===id);
+
+        const stones=
+        Number(
+            document.getElementById(
+                "stone"+index
+            ).value
+        );
+
+        const finish=
+        document.querySelector(
+            `input[name="finish${index}"]:checked`
+        ).value;
+
+        result.push({
+
+            playerId:id,
+
+            playerName:player.name,
+
+            stones:stones,
+
+            winner:index===winnerIndex,
+
+            finish:finish
+
+        });
+
+    });
+
+    console.log(result);
+
     alert(
-
-"v0.4.1'de puan motoru başlayacak."
-
+        "v0.4.2'de puan motoru başlayacak."
     );
 
 }
