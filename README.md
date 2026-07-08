@@ -6,6 +6,8 @@
 
 <title>Allı Güllü Okey Bro Ağsatim</title>
 
+<style>
+
 #handEntry input[type=number]{
 
 width:100%;
@@ -43,8 +45,6 @@ padding:6px 0;
 font-size:15px;
 
 }
-
-<style>
 
 :root{
     --green:#0f6b3e;
