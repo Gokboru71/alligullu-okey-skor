@@ -988,14 +988,26 @@ switch(winnerData.finish){
 
     let report = "";
 
-result.forEach(player=>{
+let totalPenalty = 0;
+
+const winnerIndex =
+    result.findIndex(x=>x.winner);
+
+const partner = {
+
+    0:2,
+    1:3,
+    2:0,
+    3:1
+
+};
+
+result.forEach((player,index)=>{
 
     if(player.winner){
 
         report +=
 `🏆 ${player.playerName}
-
-BİTTİ
 
 ${player.finish}
 
@@ -1007,10 +1019,20 @@ ${player.finish}
 
     }
 
+    if(
+        app.game.mode==="team"
+        &&
+        partner[winnerIndex]===index
+    ){
+        return;
+    }
+
     const penalty =
         player.stones *
         multiplier *
         finishMultiplier;
+
+    totalPenalty += penalty;
 
     report +=
 
@@ -1034,6 +1056,18 @@ Ceza : ${penalty}
 
 }
 
+if(app.game.mode==="team"){
+
+    report +=
+
+`TOPLAM TAKIM CEZASI
+
+${totalPenalty}
+
+`;
+
+}
+    
 alert(report);
 
 }
