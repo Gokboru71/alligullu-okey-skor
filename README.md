@@ -960,9 +960,81 @@ function calculateHand(){
 
     console.log(result);
 
-    alert(
-        "v0.4.2'de puan motoru başlayacak."
-    );
+    let multiplier = app.game.multiplier;
+
+let finishMultiplier = 1;
+
+const winnerData = result.find(x=>x.winner);
+
+switch(winnerData.finish){
+
+    case "okey":
+        finishMultiplier = 2;
+        break;
+
+    case "konken":
+        finishMultiplier = 2;
+        break;
+
+    case "konkenOkey":
+        finishMultiplier = 4;
+        break;
+
+    case "renk":
+        finishMultiplier = Infinity;
+        break;
+
+}
+
+    let report = "";
+
+result.forEach(player=>{
+
+    if(player.winner){
+
+        report +=
+`🏆 ${player.playerName}
+
+BİTTİ
+
+${player.finish}
+
+-----------------
+
+`;
+
+        return;
+
+    }
+
+    const penalty =
+        player.stones *
+        multiplier *
+        finishMultiplier;
+
+    report +=
+
+`${player.playerName}
+
+Taş : ${player.stones}
+
+Ceza : ${penalty}
+
+-----------------
+
+`;
+
+});
+
+    if(finishMultiplier===Infinity){
+
+    report +=
+
+"🎉 RENK YAPILDI\n";
+
+}
+
+alert(report);
 
 }
 
