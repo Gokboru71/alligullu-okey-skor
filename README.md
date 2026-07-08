@@ -992,13 +992,8 @@ let totalPenalty = 0;
 const winnerPos =
     result.findIndex(x=>x.winner);
 
-const partner = {
-
-    0:2,
-    1:3,
-    2:0,
-    3:1
-
+const partnerSeat = [2,3,0,1];
+    
 };
 
 result.forEach((player,index)=>{
@@ -1018,12 +1013,17 @@ ${player.finish}
 
     }
 
-    if(
-        app.game.mode==="team"
-        &&
-        partner[winnerPos]===index
-    ){
-        return;
+    if(app.game.mode==="team"){
+
+    const partner =
+        partnerSeat[winnerPos];
+
+    if(index===partner){
+
+        continue;
+
+    }
+
     }
 
     const penalty =
