@@ -958,16 +958,24 @@ function calculateHand(){
     // 1 veya 3 kazandı
     if(winnerSeat===0 || winnerSeat===2){
 
-        loserSeats=[1,3];
+    // Masa:
+// seat0 = Oyuncu1 (Güney)
+// seat1 = Oyuncu2 (Doğu)
+// seat2 = Oyuncu3 (Kuzey)
+// seat3 = Oyuncu4 (Batı)
 
-    }
+const teamA = [0,2];   // 1 ve 3
+const teamB = [1,3];   // 2 ve 4
 
-    // 2 veya 4 kazandı
-    else{
+const winnerTeam =
+    teamA.includes(winnerSeat)
+        ? teamA
+        : teamB;
 
-        loserSeats=[0,2];
-
-    }
+const loserSeats =
+    winnerTeam === teamA
+        ? teamB
+        : teamA;
 
     let totalPenalty=0;
 
@@ -1130,6 +1138,8 @@ name="winner"
 value="${index}">
 
 Bu oyuncu bitti
+
+</label>
 
 <hr style="margin:12px 0;">
 
