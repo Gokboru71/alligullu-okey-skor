@@ -942,8 +942,8 @@ function calculateHand(){
 
     const multiplier = app.game.multiplier;
 
-    const teamA = [0,2];
-    const teamB = [1,3];
+    const teamA = [1,3];
+    const teamB = [2,4];
 
     const winnerTeam =
         teamA.includes(winnerSeat) ? "A" : "B";
