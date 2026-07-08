@@ -6,6 +6,18 @@
 
 <title>Allı Güllü Okey Bro Ağsatim</title>
 
+<style>
+
+:root{
+    --green:#0f6b3e;
+    --green2:#16834e;
+    --wood:#7a4d1d;
+    --bg:#eef2f3;
+    --card:#ffffff;
+    --text:#222;
+    --radius:18px;
+}
+
 /* ===== Indicator Sheet ===== */
 
 .colorItem{
@@ -33,17 +45,7 @@ background:#f5f5f5;
 }
 
 <style>
-
-:root{
-    --green:#0f6b3e;
-    --green2:#16834e;
-    --wood:#7a4d1d;
-    --bg:#eef2f3;
-    --card:#ffffff;
-    --text:#222;
-    --radius:18px;
-}
-
+    
 *{
     margin:0;
     padding:0;
@@ -837,7 +839,31 @@ function startGame(){
 
     }
 
-    alert("v0.3.7'de açılan renk ekranı açılacak.");
+    document
+    .getElementById("indicatorSheet")
+    .classList.add("show");
+
+}
+
+function closeIndicatorSheet(){
+
+    document
+    .getElementById("indicatorSheet")
+    .classList.remove("show");
+
+}
+
+function setIndicator(color,multiplier){
+
+    app.game.indicator=color;
+
+    app.game.multiplier=multiplier;
+
+    save();
+
+    renderGameInfo();
+
+    closeIndicatorSheet();
 
 }
     
@@ -1252,6 +1278,77 @@ initialize();
 <div id="sheetPlayers"></div>
 
 <button onclick="closePlayerSheet()">
+
+Kapat
+
+</button>
+
+</div>
+
+<div
+id="indicatorSheet"
+class="bottomSheet">
+
+<h2>
+
+Açılan Okey
+
+</h2>
+
+<div
+onclick="setIndicator('yellow',3)"
+class="colorItem">
+
+<span>🟡 Sarı</span>
+
+<b>×3</b>
+
+</div>
+
+<div
+onclick="setIndicator('red',4)"
+class="colorItem">
+
+<span>🔴 Kırmızı</span>
+
+<b>×4</b>
+
+</div>
+
+<div
+onclick="setIndicator('black',5)"
+class="colorItem">
+
+<span>⚫ Siyah</span>
+
+<b>×5</b>
+
+</div>
+
+<div
+onclick="setIndicator('blue',6)"
+class="colorItem">
+
+<span>🔵 Mavi</span>
+
+<b>×6</b>
+
+</div>
+
+<div
+onclick="setIndicator('fake',10)"
+class="colorItem">
+
+<span>🃏 Sahte Okey</span>
+
+<b>×10</b>
+
+</div>
+
+<br>
+
+<button
+onclick="closeIndicatorSheet()">
 
 Kapat
 
