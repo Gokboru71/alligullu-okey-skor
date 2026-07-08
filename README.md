@@ -6,6 +6,28 @@
 
 <title>Allı Güllü Okey Bro Ağsatim</title>
 
+#handEntry input[type=number]{
+
+width:100%;
+
+padding:10px;
+
+font-size:18px;
+
+margin-top:6px;
+
+}
+
+#handEntry label{
+
+display:block;
+
+margin-top:10px;
+
+font-weight:bold;
+
+}
+
 <style>
 
 :root{
@@ -570,6 +592,24 @@ onclick="startGame()">
 
 </div>
 
+<div id="handEntry" style="display:none;margin-top:20px;">
+
+<h3>🀄 El Sonucu</h3>
+
+<div id="handPlayers"></div>
+
+<br>
+
+<button
+style="background:#8e44ad;"
+onclick="calculateHand()">
+
+🧮 Eli Hesapla
+
+</button>
+
+</div>
+
 <button onclick="openPage('homePage')">
 
 ⬅ Ana Menü
@@ -841,6 +881,37 @@ function startGame(){
     .getElementById("indicatorSheet")
     .classList.add("show");
 
+    document
+.getElementById("handEntry")
+.style.display="block";
+
+renderHandEntry();
+
+}
+    
+function calculateHand(){
+
+    const winner =
+    document.querySelector(
+
+'input[name="winner"]:checked'
+
+    );
+
+    if(!winner){
+
+        alert("Biten oyuncuyu seçiniz.");
+
+        return;
+
+    }
+
+    alert(
+
+"v0.4.1'de puan motoru başlayacak."
+
+    );
+
 }
 
 function closeIndicatorSheet(){
@@ -866,6 +937,72 @@ function setIndicator(color,multiplier){
     closeIndicatorSheet();
 
 }
+
+    function renderHandEntry(){
+
+    const area =
+    document.getElementById("handPlayers");
+
+    area.innerHTML="";
+
+    app.tableSeats.forEach((id,index)=>{
+
+        const player =
+        app.players.find(p=>p.id===id);
+
+        if(!player) return;
+
+        area.innerHTML += `
+
+<div class="card" style="margin-top:10px;">
+
+<b>
+
+${player.avatar}
+
+${player.name}
+
+</b>
+
+<br><br>
+
+Kalan Taş
+
+<input
+
+id="stone${index}"
+
+type="number"
+
+min="0"
+
+max="30"
+
+value="0">
+
+<br><br>
+
+<label>
+
+<input
+
+type="radio"
+
+name="winner"
+
+value="${index}">
+
+Bu oyuncu bitti
+
+</label>
+
+</div>
+
+`;
+
+    });
+
+    }
     
 function chooseSeat(index){
 
