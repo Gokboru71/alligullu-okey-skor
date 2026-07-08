@@ -955,7 +955,7 @@ function calculateHand(){
             finish:finish
 
         });
-
+});
 
     console.log(result);
 
@@ -989,7 +989,7 @@ switch(winnerData.finish){
 
 let totalPenalty = 0;
 
-const winnerIndex =
+const winnerPos =
     result.findIndex(x=>x.winner);
 
 const partner = {
@@ -1021,7 +1021,7 @@ ${player.finish}
     if(
         app.game.mode==="team"
         &&
-        partner[winnerIndex]===index
+        partner[winnerPos]===index
     ){
         return;
     }
