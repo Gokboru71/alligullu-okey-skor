@@ -956,7 +956,6 @@ function calculateHand(){
 
         });
 
-    });
 
     console.log(result);
 
