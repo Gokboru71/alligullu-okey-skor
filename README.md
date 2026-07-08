@@ -43,8 +43,6 @@ font-size:20px;
 background:#f5f5f5;
 
 }
-
-<style>
     
 *{
     margin:0;
@@ -724,8 +722,8 @@ function renderTable(){
 
     seats.forEach((seat,index)=>{
 
-        const ready =
-    app.tableSeats.every(x=>x!==null);
+   const ready =
+app.tableSeats.every(x=>x!==null);
 
 document.getElementById("gameOptions")
 .style.display =
@@ -860,6 +858,8 @@ function setIndicator(color,multiplier){
     app.game.multiplier=multiplier;
 
     save();
+
+    renderTable();
 
     renderGameInfo();
 
