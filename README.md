@@ -1072,57 +1072,63 @@ OYUN BİTTİ
     //-----------------------------------
 
     let totalPenalty=0;
+    let loserReport = "";
 
-    report += `💀 KAYBEDEN TAKIM
+    report += `
+💀 KAYBEDEN TAKIM
 
+${loserReport}
+
+TOPLAM TAKIM CEZASI
+
+${totalPenalty}
 `;
 
     loserTeam.forEach(seat=>{
 
-        const player=
-            app.players.find(
-                p=>p.id===app.tableSeats[seat]
-            );
+    const player =
+        app.players.find(
+            p=>p.id===app.tableSeats[seat]
+        );
 
-        const stones=Number(
+    if(!player) return;
+
+    const stones =
+        Number(
             document.getElementById(
                 "stone"+seat
             ).value
         );
 
-        let penalty=0;
+    let penalty;
 
-        if(finish!="renk"){
+    if(finishMultiplier===Infinity){
 
-            penalty=
-                stones*
-                base*
-                finishMultiplier;
+        penalty = "∞";
 
-            totalPenalty+=penalty;
+    }else{
 
-            player.stats.penalty+=penalty;
+        penalty =
+            stones *
+            multiplier *
+            finishMultiplier;
 
-        }
+        totalPenalty += penalty;
 
-        player.stats.games++;
+    }
 
-        report+=
-`${player.avatar} ${player.name}
+    loserReport += `
+${player.avatar} ${player.name}
 
 Taş : ${stones}
 
-Ceza : ${
-finish=="renk"
-?
-"∞"
-:
-penalty
-}
+Ceza : ${penalty}
 
---------------------
+---------------------
 
 `;
+
+});
 
     });
 
@@ -1154,6 +1160,15 @@ ${totalPenalty}`;
         p.stats.reward+=reward;
 
     });
+
+    report += loserReport;
+
+report += `
+
+TOPLAM TAKIM CEZASI
+
+${totalPenalty}
+`;
 
     switch(finish){
 
