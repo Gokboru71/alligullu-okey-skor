@@ -799,6 +799,16 @@ renderGameInfo();
 
 function renderTable(){
 
+
+       const ready =
+app.tableSeats.every(x=>x!==null);
+
+document.getElementById("gameOptions")
+.style.display =
+ready
+? "block"
+: "none";
+    
     const seats = [
         document.getElementById("seat1"),
         document.getElementById("seat2"),
@@ -807,15 +817,6 @@ function renderTable(){
     ];
 
     seats.forEach((seat,index)=>{
-
-   const ready =
-app.tableSeats.every(x=>x!==null);
-
-document.getElementById("gameOptions")
-.style.display =
-ready
-? "block"
-: "none";
         
         const playerId = app.tableSeats[index];
 
@@ -999,29 +1000,24 @@ winnerTeam===TEAM_A
             p=>p.id===app.tableSeats[winnerSeat]
         );
 
-    let loserSeats=[];
+    let totalPenalty = 0;
 
-    // 1 veya 3 kazandı
-    if(winnerSeat===0 || winnerSeat===2){
+let report = "";
 
-    // Masa:
-// seat0 = Oyuncu1 (Güney)
-// seat1 = Oyuncu2 (Doğu)
-// seat2 = Oyuncu3 (Kuzey)
-// seat3 = Oyuncu4 (Batı)
+report += `🏆 Kazanan
 
-const teamA = [0,2];   // 1 ve 3
-const teamB = [1,3];   // 2 ve 4
+${winnerPlayer.avatar} ${winnerPlayer.name}
 
-const winnerTeam =
-    teamA.includes(winnerSeat)
-        ? teamA
-        : teamB;
+Bitiş : ${finish}
 
-const loserSeats =
-    winnerTeam === teamA
-        ? teamB
-        : teamA;
+---------------------
+
+`;
+
+const loserTeam =
+    winnerTeam === TEAM_A
+        ? TEAM_B
+        : TEAM_A;
 
     let totalPenalty=0;
 
@@ -1038,7 +1034,7 @@ Bitiş : ${finish}
 
 `;
 
-    loserSeats.forEach(seat=>{
+    loserTeam.forEach(seat=>{
 
         const player=
             app.players.find(
@@ -1068,8 +1064,6 @@ Bitiş : ${finish}
                 finishMultiplier;
 
             totalPenalty += penalty;
-
-        }
 
         report +=
 
@@ -1103,6 +1097,12 @@ ${totalPenalty}`;
 
     alert(report);
 
+    app.game.hand++;
+
+save();
+
+renderGameInfo();
+    
 }
 
 function closeIndicatorSheet(){
