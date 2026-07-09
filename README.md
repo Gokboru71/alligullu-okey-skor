@@ -795,6 +795,12 @@ function openPage(id){
 
     }
 
+    if(id==="statsPage"){
+
+    renderStats();
+
+    }
+
 }
 
 /* İlk Kurulum */
@@ -1226,12 +1232,63 @@ ${totalPenalty}`;
 
     app.game.hand++;
 
-    save();
+const gameFinished =
+    finish==="renk" ||
+    app.game.hand>5;
 
-    renderGameInfo();
+save();
+
+renderGameInfo();
+
+if(gameFinished){
+
+    finishGame();
 
     }
 
+function finishGame(){
+
+    let winner;
+
+    if(app.game.teamAScore >
+       app.game.teamBScore){
+
+        winner="Takım A";
+
+    }else if(
+        app.game.teamBScore >
+        app.game.teamAScore){
+
+        winner="Takım B";
+
+    }else{
+
+        winner="Berabere";
+
+    }
+
+    app.games.push({
+
+        type:"game",
+
+        date:new Date()
+            .toLocaleString("tr-TR"),
+
+        winner,
+
+        teamA:app.game.teamAScore,
+
+        teamB:app.game.teamBScore,
+
+        hands:5
+
+    });
+
+    save();
+
+    showGameResult(winner);
+
+}
 
 function closeIndicatorSheet(){
 
@@ -1688,6 +1745,114 @@ ${game.penalty}
 `;
 
     page.innerHTML=html;
+
+}
+
+function renderStats(){
+
+    const page =
+        document.getElementById("statsPage");
+
+    let html = `
+
+<div class="card">
+
+<h2>🏆 Oyuncu İstatistikleri</h2>
+
+`;
+
+    app.players.forEach(player=>{
+
+        const s = player.stats;
+
+        const percent =
+            s.games===0
+            ? 0
+            : Math.round(
+                s.wins*100/s.games
+              );
+
+        html += `
+
+<div class="card">
+
+<div style="font-size:24px;">
+
+${player.avatar}
+
+<b>${player.name}</b>
+
+</div>
+
+<hr>
+
+🎮 Oyun :
+${s.games}
+
+<br>
+
+🏆 Galibiyet :
+${s.wins}
+
+<br>
+
+📈 Başarı :
+%${percent}
+
+<br><br>
+
+Normal :
+${s.normal}
+
+<br>
+
+Okey :
+${s.okey}
+
+<br>
+
+Konken :
+${s.konken}
+
+<br>
+
+Konkenden Okey :
+${s.konkenOkey}
+
+<br>
+
+Renk :
+${s.renk}
+
+<br><br>
+
+🎁 Ödül :
+${s.reward}
+
+<br>
+
+💀 Ceza :
+${s.penalty}
+
+</div>
+
+`;
+
+    });
+
+    html += `
+
+<button onclick="openPage('homePage')">
+
+⬅ Ana Menü
+
+</button>
+
+</div>
+
+`;
+
+    page.innerHTML = html;
 
 }
 
