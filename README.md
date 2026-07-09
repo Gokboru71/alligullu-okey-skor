@@ -1074,16 +1074,6 @@ OYUN BİTTİ
     let totalPenalty=0;
     let loserReport = "";
 
-    report += `
-💀 KAYBEDEN TAKIM
-
-${loserReport}
-
-TOPLAM TAKIM CEZASI
-
-${totalPenalty}
-`;
-
     loserTeam.forEach(seat=>{
 
     const player =
@@ -1110,12 +1100,22 @@ ${totalPenalty}
 
         penalty =
             stones *
-            multiplier *
+            base *
             finishMultiplier;
 
         totalPenalty += penalty;
 
     }
+
+    report += `
+💀 KAYBEDEN TAKIM
+
+${loserReport}
+
+TOPLAM TAKIM CEZASI
+
+${totalPenalty}
+`;
 
     loserReport += `
 ${player.avatar} ${player.name}
@@ -1129,8 +1129,6 @@ Ceza : ${penalty}
 `;
 
 });
-
-    });
 
     //-----------------------------------
     // Takım Toplamı
