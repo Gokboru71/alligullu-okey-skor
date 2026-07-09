@@ -1073,6 +1073,10 @@ OYUN BİTTİ
 
     let totalPenalty=0;
 
+    report += `💀 KAYBEDEN TAKIM
+
+`;
+
     loserTeam.forEach(seat=>{
 
         const player=
@@ -1128,10 +1132,13 @@ penalty
 
     if(finish!="renk"){
 
-        report+=
-`TOPLAM TAKIM CEZASI
+        report +=
+`━━━━━━━━━━━━━━
+
+TOPLAM TAKIM CEZASI
 
 ${totalPenalty}`;
+        
     }
 
     //-----------------------------------
