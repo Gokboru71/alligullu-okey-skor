@@ -445,7 +445,27 @@ font-size:20px;
 background:#f3f3f3;
 
 }
-    
+
+.handSouth{
+    background:#dff5df;
+    border-left:8px solid #27ae60;
+}
+
+.handNorth{
+    background:#e3f0ff;
+    border-left:8px solid #3498db;
+}
+
+.handEast{
+    background:#fff8d8;
+    border-left:8px solid #f1c40f;
+}
+
+.handWest{
+    background:#ffe6e6;
+    border-left:8px solid #e74c3c;
+}
+
 </style>
 
 </head>
@@ -1239,7 +1259,12 @@ function setIndicator(color,multiplier){
 
         area.innerHTML += `
 
-<div class="card" style="margin-top:10px;">
+<div class="card ${[
+"handSouth",
+"handNorth",
+"handEast",
+"handWest"
+][index]}" style="margin-top:10px;">
 
 <b>
 
