@@ -1373,6 +1373,8 @@ function selectSeatPlayer(playerId){
 
     app.tableSeats[currentSeat] = playerId;
 
+    alert(JSON.stringify(app.tableSeats));
+
     save();
 
     renderTable();
