@@ -1000,6 +1000,33 @@ winnerTeam===TEAM_A
             p=>p.id===app.tableSeats[winnerSeat]
         );
 
+winnerPlayer.stats.games++;
+winnerPlayer.stats.wins++;
+
+switch(finish){
+
+    case "normal":
+        winnerPlayer.stats.normal++;
+        break;
+
+    case "okey":
+        winnerPlayer.stats.okey++;
+        break;
+
+    case "konken":
+        winnerPlayer.stats.konken++;
+        break;
+
+    case "konkenOkey":
+        winnerPlayer.stats.konkenOkey++;
+        break;
+
+    case "renk":
+        winnerPlayer.stats.renk++;
+        break;
+
+}
+
     let totalPenalty = 0;
 
 let report = "";
@@ -1023,6 +1050,8 @@ Bitiş : ${finish}
 
         if(!player) return;
 
+        player.stats.games++;
+        
         const stones=
             Number(
                 document.getElementById(
@@ -1045,6 +1074,8 @@ Bitiş : ${finish}
 
             totalPenalty += penalty;
 
+            player.stats.penalty += penalty;
+            
         }
             
         report +=
