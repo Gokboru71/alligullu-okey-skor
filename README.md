@@ -1014,26 +1014,6 @@ Bitiş : ${finish}
 
 `;
 
-const loserTeam =
-    winnerTeam === TEAM_A
-        ? TEAM_B
-        : TEAM_A;
-
-    let totalPenalty=0;
-
-    let report="";
-
-    report +=
-`🏆 Kazanan
-
-${winnerPlayer.avatar} ${winnerPlayer.name}
-
-Bitiş : ${finish}
-
----------------------
-
-`;
-
     loserTeam.forEach(seat=>{
 
         const player=
@@ -1065,6 +1045,8 @@ Bitiş : ${finish}
 
             totalPenalty += penalty;
 
+        }
+            
         report +=
 
 `${player.avatar} ${player.name}
