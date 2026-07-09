@@ -1084,24 +1084,242 @@ Bitiş : ${finish}
 
 Taş : ${stones}
 
+function calculateHand(){
+
+    const winnerRadio =
+        document.querySelector(
+            'input[name="winner"]:checked'
+        );
+
+    if(!winnerRadio){
+        alert("Biten oyuncuyu seçiniz.");
+        return;
+    }
+
+    const winnerSeat = Number(winnerRadio.value);
+
+    const finish =
+        document.querySelector(
+            'input[name="finish'+winnerSeat+'"]:checked'
+        ).value;
+
+    // Çarpan
+
+    const multiplier = app.game.multiplier;
+
+    let finishMultiplier = 1;
+
+    switch(finish){
+
+        case "okey":
+            finishMultiplier = 2;
+            break;
+
+        case "konken":
+            finishMultiplier = 2;
+            break;
+
+        case "konkenOkey":
+            finishMultiplier = 4;
+            break;
+
+        case "renk":
+            finishMultiplier = Infinity;
+            break;
+
+    }
+
+    //------------------------------------------------
+    // TAKIMLAR
+    //------------------------------------------------
+
+    const teamA=[0,2]; // Güney + Kuzey
+
+    const teamB=[1,3]; // Doğu + Batı
+
+    const winnerTeam =
+        teamA.includes(winnerSeat)
+            ? teamA
+            : teamB;
+
+    const loserTeam =
+        winnerTeam===teamA
+            ? teamB
+            : teamA;
+
+    //------------------------------------------------
+    // Kazanan Takım
+    //------------------------------------------------
+
+    const winners=[];
+
+    winnerTeam.forEach(seat=>{
+
+        winners.push(
+
+            app.players.find(
+                p=>p.id===app.tableSeats[seat]
+            )
+
+        );
+
+    });
+
+    //------------------------------------------------
+    // ÖDÜL
+    //------------------------------------------------
+
+    let reward;
+
+    if(finish=="renk"){
+
+        reward="RENK";
+
+    }else{
+
+        reward=
+            multiplier*
+            10*
+            finishMultiplier;
+
+    }
+
+    //------------------------------------------------
+    // RAPOR
+    //------------------------------------------------
+
+    let report="";
+
+    report+=
+
+`🏆 KAZANAN TAKIM
+
+${winners[0].avatar} ${winners[0].name}
+
+${winners[1].avatar} ${winners[1].name}
+
+Ödül : +${reward}
+
+━━━━━━━━━━━━━━
+
+`;
+
+    //------------------------------------------------
+    // Kaybedenler
+    //------------------------------------------------
+
+    let totalPenalty=0;
+
+    loserTeam.forEach(seat=>{
+
+        const player=
+            app.players.find(
+                p=>p.id===app.tableSeats[seat]
+            );
+
+        const stones=
+            Number(
+                document.getElementById(
+                    "stone"+seat
+                ).value
+            );
+
+        let penalty;
+
+        if(finish=="renk"){
+
+            penalty="∞";
+
+        }else{
+
+            penalty=
+                stones*
+                multiplier*
+                finishMultiplier;
+
+            totalPenalty+=penalty;
+
+            player.stats.penalty+=penalty;
+
+        }
+
+        player.stats.games++;
+
+        report+=
+
+`${player.avatar} ${player.name}
+
+Taş : ${stones}
+
 Ceza : ${penalty}
 
----------------------
+--------------------
 
 `;
 
     });
 
-    if(finishMultiplier===Infinity){
+    //------------------------------------------------
+    // Kazanan istatistikleri
+    //------------------------------------------------
 
-        report +=
-`🎉 RENK YAPILDI
+    winners.forEach(player=>{
 
-OYUN SONA ERDİ`;
+        player.stats.games++;
+
+        player.stats.wins++;
+
+        player.stats.reward+=
+            reward==="RENK"
+            ?0
+            :reward;
+
+    });
+
+    //------------------------------------------------
+    // Bitiş Türü
+    //------------------------------------------------
+
+    const finisher=winners.find(
+        p=>p.id===app.tableSeats[winnerSeat]
+    );
+
+    switch(finish){
+
+        case "normal":
+            finisher.stats.normal++;
+            break;
+
+        case "okey":
+            finisher.stats.okey++;
+            break;
+
+        case "konken":
+            finisher.stats.konken++;
+            break;
+
+        case "konkenOkey":
+            finisher.stats.konkenOkey++;
+            break;
+
+        case "renk":
+            finisher.stats.renk++;
+            break;
+
+    }
+
+    //------------------------------------------------
+
+    if(finish=="renk"){
+
+        report+=
+
+`🎉 RENK YAPILDI`;
 
     }else{
 
-        report +=
+        report+=
+
 `TOPLAM TAKIM CEZASI
 
 ${totalPenalty}`;
@@ -1112,10 +1330,10 @@ ${totalPenalty}`;
 
     app.game.hand++;
 
-save();
+    save();
 
-renderGameInfo();
-    
+    renderGameInfo();
+
 }
 
 function closeIndicatorSheet(){
