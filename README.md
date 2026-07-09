@@ -684,13 +684,13 @@ const STORAGE_KEY="alliGulluOkeyPro";
 
 const SEATS = {
 
-    SOUTH:0,   // Oyuncu 1
+    SOUTH:0,   // seat1
 
-    EAST:1,    // Oyuncu 2
+    NORTH:1,   // seat2
 
-    NORTH:2,   // Oyuncu 3
+    EAST:2,    // seat3
 
-    WEST:3     // Oyuncu 4
+    WEST:3     // seat4
 
 };
 
