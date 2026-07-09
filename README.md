@@ -1085,23 +1085,18 @@ OYUN BİTTİ
 
     const stones =
         Number(
-            document.getElementById(
-                "stone"+seat
-            ).value
+            document.getElementById("stone"+seat).value
         );
 
     let penalty;
 
-    if(finishMultiplier===Infinity){
+    if(finish=="renk"){
 
         penalty = "∞";
 
     }else{
 
-        penalty =
-            stones *
-            base *
-            finishMultiplier;
+        penalty = stones * base;
 
         totalPenalty += penalty;
 
@@ -1133,21 +1128,6 @@ ${totalPenalty}
 `;
 
     //-----------------------------------
-    // Takım Toplamı
-    //-----------------------------------
-
-    if(finish!="renk"){
-
-        report +=
-`━━━━━━━━━━━━━━
-
-TOPLAM TAKIM CEZASI
-
-${totalPenalty}`;
-        
-    }
-
-    //-----------------------------------
     // İstatistik
     //-----------------------------------
 
@@ -1160,15 +1140,6 @@ ${totalPenalty}`;
         p.stats.reward+=reward;
 
     });
-
-    report += loserReport;
-
-report += `
-
-TOPLAM TAKIM CEZASI
-
-${totalPenalty}
-`;
 
     switch(finish){
 
