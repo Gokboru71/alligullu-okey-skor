@@ -680,6 +680,36 @@ Henüz veri bulunmuyor.
 
 const STORAGE_KEY="alliGulluOkeyPro";
 
+/* ===== Masa Düzeni ===== */
+
+const SEATS = {
+
+    SOUTH:0,   // Oyuncu 1
+
+    EAST:1,    // Oyuncu 2
+
+    NORTH:2,   // Oyuncu 3
+
+    WEST:3     // Oyuncu 4
+
+};
+
+const TEAM_A = [
+
+    SEATS.SOUTH,
+
+    SEATS.NORTH
+
+];
+
+const TEAM_B = [
+
+    SEATS.EAST,
+
+    SEATS.WEST
+
+];
+
 /* Uygulama */
 
 const app={
@@ -919,6 +949,22 @@ function calculateHand(){
 
     const winnerSeat = Number(winner.value);
 
+    const winnerTeam =
+
+TEAM_A.includes(winnerSeat)
+
+? TEAM_A
+
+: TEAM_B;
+
+const loserTeam =
+
+winnerTeam===TEAM_A
+
+? TEAM_B
+
+: TEAM_A;
+    
     const finish =
         document.querySelector(
             'input[name="finish'+winnerSeat+'"]:checked'
