@@ -1107,16 +1107,6 @@ OYUN BİTTİ
 
     }
 
-    report += `
-💀 KAYBEDEN TAKIM
-
-${loserReport}
-
-TOPLAM TAKIM CEZASI
-
-${totalPenalty}
-`;
-
     loserReport += `
 ${player.avatar} ${player.name}
 
@@ -1129,6 +1119,18 @@ Ceza : ${penalty}
 `;
 
 });
+
+    report += `
+💀 KAYBEDEN TAKIM
+
+${loserReport}
+
+━━━━━━━━━━━━━━
+
+TOPLAM TAKIM CEZASI
+
+${totalPenalty}
+`;
 
     //-----------------------------------
     // Takım Toplamı
