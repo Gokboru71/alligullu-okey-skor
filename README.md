@@ -938,103 +938,97 @@ renderHandEntry();
 
 function calculateHand(){
 
-    const winnerRadio=document.querySelector(
-        'input[name="winner"]:checked'
-    );
+    const winnerRadio =
+        document.querySelector(
+            'input[name="winner"]:checked'
+        );
 
     if(!winnerRadio){
+
         alert("Biten oyuncuyu seçiniz.");
+
         return;
-    }
-
-    const winnerSeat=Number(winnerRadio.value);
-
-    const finish=document.querySelector(
-        'input[name="finish'+winnerSeat+'"]:checked'
-    ).value;
-
-    const base=app.game.multiplier;
-
-    // Ceza çarpanı
-
-    let finishMultiplier=1;
-
-    switch(finish){
-
-        case "okey":
-            finishMultiplier=2;
-            break;
-
-        case "konken":
-            finishMultiplier=2;
-            break;
-
-        case "konkenOkey":
-            finishMultiplier=4;
-            break;
-
-        case "renk":
-            finishMultiplier=Infinity;
-            break;
 
     }
 
-    // Kazanan ve Kaybeden Takım
+    const winnerSeat = Number(winnerRadio.value);
 
-    const winnerTeam=
+    const finish =
+        document.querySelector(
+            'input[name="finish'+winnerSeat+'"]:checked'
+        ).value;
+
+    const base = app.game.multiplier;
+
+    //------------------------------------------------
+    // Takımlar
+    //------------------------------------------------
+
+    const winnerTeam =
         TEAM_A.includes(winnerSeat)
         ? TEAM_A
         : TEAM_B;
 
-    const loserTeam=
+    const loserTeam =
         winnerTeam===TEAM_A
         ? TEAM_B
         : TEAM_A;
 
-    const winners=winnerTeam.map(seat=>
+    //------------------------------------------------
+    // Çarpan
+    //------------------------------------------------
+
+    let finishMultiplier = 1;
+
+    switch(finish){
+
+        case "normal":
+            finishMultiplier = 1;
+            break;
+
+        case "okey":
+            finishMultiplier = 2;
+            break;
+
+        case "konken":
+            finishMultiplier = 4;
+            break;
+
+        case "konkenOkey":
+            finishMultiplier = 8;
+            break;
+
+        case "renk":
+            finishMultiplier = Infinity;
+            break;
+
+    }
+
+    //------------------------------------------------
+    // Kazananlar
+    //------------------------------------------------
+
+    const winners = winnerTeam.map(seat=>
         app.players.find(
             p=>p.id===app.tableSeats[seat]
         )
     );
 
-    const finisher=
-        app.players.find(
-            p=>p.id===app.tableSeats[winnerSeat]
-        );
+    //------------------------------------------------
+    // Ödül
+    //------------------------------------------------
 
-    //-----------------------------------
-    // Kazanan ödülü
-    //-----------------------------------
-
-    let reward=0;
+    let reward = 0;
 
     if(finish!="renk"){
 
-        switch(finish){
-
-            case "normal":
-                reward=base*10;
-                break;
-
-            case "okey":
-                reward=base*100;
-                break;
-
-            case "konken":
-                reward=base*200;
-                break;
-
-            case "konkenOkey":
-                reward=base*400;
-                break;
-
-        }
+        reward = base * 10 * finishMultiplier;
 
     }
 
-    //-----------------------------------
+    //------------------------------------------------
     // Rapor
-    //-----------------------------------
+    //------------------------------------------------
 
     let report="";
 
@@ -1067,103 +1061,114 @@ OYUN BİTTİ
 
     report+="━━━━━━━━━━━━━━\n\n";
 
-    //-----------------------------------
+    //------------------------------------------------
     // Kaybeden Takım
-    //-----------------------------------
+    //------------------------------------------------
 
-    let totalPenalty=0;
-    let loserReport = "";
+    report+="💀 KAYBEDEN TAKIM\n\n";
+
+    let totalPenalty = 0;
 
     loserTeam.forEach(seat=>{
 
-    const player =
-        app.players.find(
-            p=>p.id===app.tableSeats[seat]
-        );
+        const player =
+            app.players.find(
+                p=>p.id===app.tableSeats[seat]
+            );
 
-    if(!player) return;
+        const stones =
+            Number(
+                document.getElementById(
+                    "stone"+seat
+                ).value
+            );
 
-    const stones =
-        Number(
-            document.getElementById("stone"+seat).value
-        );
+        let penalty;
 
-    let penalty;
+        if(finish=="renk"){
 
-    if(finish=="renk"){
+            penalty="∞";
 
-        penalty = "∞";
+        }else{
 
-    }else{
+            penalty =
+                stones *
+                base *
+                finishMultiplier;
 
-        penalty = stones * base;
+            totalPenalty += penalty;
 
-        totalPenalty += penalty;
+        }
 
-    }
-
-    loserReport += `
-${player.avatar} ${player.name}
+        report+=
+`${player.avatar} ${player.name}
 
 Taş : ${stones}
 
 Ceza : ${penalty}
 
----------------------
-
 `;
-
-});
-
-    report += `
-💀 KAYBEDEN TAKIM
-
-${loserReport}
-
-━━━━━━━━━━━━━━
-
-TOPLAM TAKIM CEZASI
-
-${totalPenalty}
-`;
-
-    //-----------------------------------
-    // İstatistik
-    //-----------------------------------
-
-    winners.forEach(p=>{
-
-        p.stats.games++;
-
-        p.stats.wins++;
-
-        p.stats.reward+=reward;
 
     });
 
-    switch(finish){
+    if(finish!="renk"){
 
-        case "normal":
-            finisher.stats.normal++;
-            break;
+        report+=
+`━━━━━━━━━━━━━━
 
-        case "okey":
-            finisher.stats.okey++;
-            break;
+TOPLAM TAKIM CEZASI
 
-        case "konken":
-            finisher.stats.konken++;
-            break;
-
-        case "konkenOkey":
-            finisher.stats.konkenOkey++;
-            break;
-
-        case "renk":
-            finisher.stats.renk++;
-            break;
+${totalPenalty}`;
 
     }
+
+    //------------------------------------------------
+    // İstatistik
+    //------------------------------------------------
+
+    winners.forEach(player=>{
+
+        player.stats.games++;
+
+        player.stats.wins++;
+
+        player.stats.reward += reward;
+
+    });
+
+    loserTeam.forEach(seat=>{
+
+        const player =
+            app.players.find(
+                p=>p.id===app.tableSeats[seat]
+            );
+
+        const stones =
+            Number(
+                document.getElementById(
+                    "stone"+seat
+                ).value
+            );
+
+        if(finish!="renk"){
+
+            player.stats.penalty +=
+                stones *
+                base *
+                finishMultiplier;
+
+        }
+
+        player.stats.games++;
+
+    });
+
+    const finisher =
+        app.players.find(
+            p=>p.id===app.tableSeats[winnerSeat]
+        );
+
+    finisher.stats[finish]++;
 
     alert(report);
 
@@ -1173,8 +1178,9 @@ ${totalPenalty}
 
     renderGameInfo();
 
-        }
-        
+    }
+
+
 function closeIndicatorSheet(){
 
     document
