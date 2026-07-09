@@ -781,13 +781,19 @@ let currentSeat=-1;
 
 function openPage(id){
 
-document.querySelectorAll(".page").forEach(p=>{
+    document
+        .querySelectorAll(".page")
+        .forEach(p=>p.classList.remove("active"));
 
-p.classList.remove("active");
+    document
+        .getElementById(id)
+        .classList.add("active");
 
-});
+    if(id==="historyPage"){
 
-document.getElementById(id).classList.add("active");
+        renderHistory();
+
+    }
 
 }
 
@@ -1190,6 +1196,32 @@ ${totalPenalty}`;
 
     finisher.stats[finish]++;
 
+    app.games.push({
+
+    hand: app.game.hand,
+
+    date: new Date().toLocaleString("tr-TR"),
+
+    indicator: app.game.indicator,
+
+    multiplier: base,
+
+    finish: finish,
+
+    winnerTeam:
+        winnerTeam===TEAM_A
+        ? "Takım A"
+        : "Takım B",
+
+    winners:
+        winners.map(p=>p.name),
+
+    reward: reward,
+
+    penalty: totalPenalty
+
+});
+    
     showResult(report);
 
     app.game.hand++;
@@ -1552,6 +1584,110 @@ style="width:45px;padding:8px;">
 `;
 
 });
+
+}
+
+function renderHistory(){
+
+    const page =
+        document.getElementById("historyPage");
+
+    if(app.games.length===0){
+
+        page.innerHTML=`
+
+<div class="card">
+
+<h2>Geçmiş</h2>
+
+Henüz oyun oynanmadı.
+
+<button onclick="openPage('homePage')">
+
+⬅ Ana Menü
+
+</button>
+
+</div>
+
+`;
+
+        return;
+
+    }
+
+    let html=`
+
+<div class="card">
+
+<h2>📜 Oyun Geçmişi</h2>
+
+`;
+
+    app.games
+        .slice()
+        .reverse()
+        .forEach(game=>{
+
+            html+=`
+
+<div class="card">
+
+<b>${game.hand}. EL</b>
+
+<br>
+
+${game.date}
+
+<hr>
+
+Kazanan :
+
+${game.winnerTeam}
+
+<br>
+
+Oyuncular :
+
+${game.winners.join(" + ")}
+
+<br>
+
+Bitiş :
+
+${game.finish}
+
+<br>
+
+Ödül :
+
++${game.reward}
+
+<br>
+
+Takım Cezası :
+
+${game.penalty}
+
+</div>
+
+`;
+
+        });
+
+    html+=`
+
+<button onclick="openPage('homePage')">
+
+⬅ Ana Menü
+
+</button>
+
+</div>
+
+`;
+
+    page.innerHTML=html;
 
 }
 
