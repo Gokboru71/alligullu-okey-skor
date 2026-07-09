@@ -1170,7 +1170,7 @@ ${totalPenalty}`;
 
     finisher.stats[finish]++;
 
-    alert(report);
+    showResult(report);
 
     app.game.hand++;
 
@@ -1186,6 +1186,24 @@ function closeIndicatorSheet(){
     document
     .getElementById("indicatorSheet")
     .classList.remove("show");
+
+}
+
+    function showResult(text){
+
+    document.getElementById("resultContent").textContent=text;
+
+    document
+        .getElementById("resultModal")
+        .classList.add("show");
+
+}
+
+function closeResultModal(){
+
+    document
+        .getElementById("resultModal")
+        .classList.remove("show");
 
 }
 
@@ -1806,6 +1824,29 @@ Kapat
 </button>
 
 </div>
+<div class="modal" id="resultModal">
 
+    <div class="modalContent">
+
+        <h2>🀄 El Sonucu</h2>
+
+        <div
+            id="resultContent"
+            style="
+                max-height:60vh;
+                overflow:auto;
+                white-space:pre-line;
+                font-size:17px;
+                line-height:1.6;
+            ">
+        </div>
+
+        <button onclick="closeResultModal()">
+            Tamam
+        </button>
+
+    </div>
+
+</div>
 </body>
 </html>
