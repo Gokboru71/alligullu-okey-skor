@@ -1815,11 +1815,13 @@ ${totalPenalty}`;
 
     reward,
 
-    penalty: totalPenalty,
+    penalty:totalPenalty,
 
     finish,
 
-    hand: app.game.hand,
+    finishMultiplier,
+
+    hand:app.game.hand,
 
     winnerSeat,
 
@@ -1827,19 +1829,9 @@ ${totalPenalty}`;
 
     losers:[...loserTeam],
 
-    loserStones: loserTeam.map(seat=>({
+    loserStones:...
 
-        seat,
-
-        stones:Number(
-            document.getElementById(
-                "stone"+seat
-            ).value
-        )
-
-    }))
-
-};
+};  
     
     showResult(report);
 
