@@ -170,6 +170,13 @@ button:hover{
 
 }
 
+.tableAvatar{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
 .playerName{
 
     font-size:18px;
@@ -1307,22 +1314,27 @@ const app = {
 /* Varsayılan oyuncular */
 
 const defaultPlayers=[
-
-["😀","Fatih"],
-["😎","Mustafa"],
-["🧔","Cumali"],
-["IMG_20260710_211030","Cemil"],
-["👨","Ali"],
-["🧑🏼‍⚖️","Şefik"],
-["👨‍🦳","Yıldırım"],
-["🤠","Hakkı"]
-
+["fatih","Fatih"],
+["mustafa","Mustafa"],
+["cumali","Cumali"],
+["cemil","Cemil"],
+["ali","Ali"],
+["sefik","Şefik"],
+["yildirim","Yıldırım"],
+["hakki","Hakkı"]
 ];
 
 const avatars=[
-"IMG_20260710_211030",
-"IMG_20260710_211058","IMG_20260710_211315","IMG_20260710_211347",
-"IMG_20260710_211122","IMG_20260710_211151","IMG_20260710_211242","IMG_20260710_211418","IMG_20260710_211450",
+"fatih",
+"mustafa",
+"cumali",
+"cemil",
+"ali",
+"sefik",
+"yildirim",
+"hakki",
+"osman",
+"halil"
 ];
 
 let editingPlayerId=null;
@@ -1458,7 +1470,9 @@ ready
         }
 
         seat.innerHTML = `
-            <div class="avatar">${player.avatar}</div>
+            <div class="avatar">
+<img src="avatarlar/${player.avatar}.png" class="tableAvatar">
+</div>
 
             <div class="name">${player.name}</div>
 
@@ -2221,7 +2235,8 @@ function renderHandEntry(){
 
 <b>
 
-${player.avatar}
+<img src="avatarlar/${player.avatar}.png"
+     class="tableAvatar">
 
 ${player.name}
 
@@ -2350,7 +2365,8 @@ function renderPlayerSheet(){
                  onclick="selectSeatPlayer(${player.id})">
 
                 <span style="font-size:34px;">
-                    ${player.avatar}
+                    <img src="avatarlar/${player.avatar}.png"
+     class="tableAvatar">
                 </span>
 
                 <span>
@@ -2516,7 +2532,8 @@ list.innerHTML+=`
 
 <div class="avatar">
 
-${player.avatar}
+<img src="avatarlar/${player.avatar}.png"
+     class="tableAvatar">
 
 </div>
 
@@ -2704,7 +2721,8 @@ function renderStats(){
 
 <div style="font-size:24px;">
 
-${player.avatar}
+<img src="avatarlar/${player.avatar}.png"
+     class="tableAvatar">
 
 <b>${player.name}</b>
 
