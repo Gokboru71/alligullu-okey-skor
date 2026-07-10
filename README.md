@@ -1324,19 +1324,19 @@ const defaultPlayers=[
 ["hakki","Hakkı"]
 ];
 
-const avatars=[
-"fatih",
-"mustafa",
-"cumali",
-"cemil",
-"ali",
-"sefik",
-"yildirim",
-"hakki",
-"osman",
-"halil"
+const avatars = [
+"avatarlar/IMG_20260710_211030.png",
+"avatarlar/IMG_20260710_211058.png",
+"avatarlar/IMG_20260710_211122.png",
+"avatarlar/IMG_20260710_211151.png",
+"avatarlar/IMG_20260710_211242.png",
+"avatarlar/IMG_20260710_211315.png",
+"avatarlar/IMG_20260710_211347.png",
+"avatarlar/IMG_20260710_211418.png",
+"avatarlar/IMG_20260710_211450.png",
+"avatarlar/avatar1.png"
 ];
-
+    
 let editingPlayerId=null;
 let selectedAvatar="😀";
 let currentSeat=-1;
@@ -2532,7 +2532,7 @@ list.innerHTML+=`
 
 <div class="avatar">
 
-<img src="avatarlar/${player.avatar}.png"
+<img src="${player.avatar}"
      class="tableAvatar">
 
 </div>
@@ -2835,14 +2835,14 @@ function renderAvatarGrid(){
     avatars.forEach(a=>{
 
         grid.innerHTML += `
-        <div
-            class="avatarItem ${selectedAvatar===a?"selected":""}"
-            onclick="selectAvatar('${a}')">
+<div
+    class="avatarItem ${selectedAvatar===a?"selected":""}"
+    onclick="selectAvatar('${a}')">
 
-            ${a}
+    <img src="${a}" class="avatar">
 
-        </div>
-        `;
+</div>
+`;
 
     });
 
