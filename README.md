@@ -2526,6 +2526,9 @@ function load(){
 
 function renderPlayers(){
 
+alert("renderPlayers çalıştı");
+alert(app.players.length);
+
 const list=document.getElementById("playerList");
 
 list.innerHTML="";
