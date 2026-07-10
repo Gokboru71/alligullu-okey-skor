@@ -2535,6 +2535,8 @@ list.innerHTML="";
 
 app.players.forEach(player=>{
 
+alert(player.name);
+
 list.innerHTML+=`
 
 <div class="playerCard">
