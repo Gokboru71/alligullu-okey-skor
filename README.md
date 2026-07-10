@@ -746,6 +746,31 @@ button:hover{
 
 </div>
 
+<div class="page" id="playersPage">
+
+    <div class="card">
+
+        <h2>👥 Oyuncular</h2>
+
+        <div id="playerList"></div>
+
+        <button class="primaryButton"
+                onclick="openPlayerModal()">
+
+            ➕ Yeni Oyuncu
+
+        </button>
+
+        <button onclick="openPage('homePage')">
+
+            ⬅ Ana Menü
+
+        </button>
+
+    </div>
+
+</div>
+
 </div>
 
 <!-- ================================================= -->
@@ -1829,7 +1854,17 @@ ${totalPenalty}`;
 
     losers:[...loserTeam],
 
-    loserStones:...
+    loserStones: loserTeam.map(seat => ({
+
+    seat,
+
+    stones: Number(
+        document.getElementById(
+            "stone"+seat
+        ).value
+    )
+
+}))
 
 };  
     
@@ -1839,7 +1874,7 @@ ${totalPenalty}`;
 
 const gameFinished =
     finish==="renk" ||
-    app.game.hand>5;
+    app.game.hand > MAX_HANDS;
 
 save();
 
