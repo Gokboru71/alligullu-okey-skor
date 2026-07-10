@@ -605,6 +605,28 @@ Profesyonel Allı Güllü Okey skor takip sistemi
 🏆 İstatistikler
 </button>
 
+<button onclick="openPage('settingsPage')">
+
+⚙️ Ayarlar
+
+</button>
+
+<button onclick="exportData()">
+📤 Verileri Dışa Aktar
+</button>
+
+<input
+type="file"
+id="importFile"
+accept=".json"
+style="display:none"
+onchange="importData(this.files[0])">
+
+<button
+onclick="document.getElementById('importFile').click()">
+📥 Verileri İçe Aktar
+</button>
+
 </div>
 
 </div>
@@ -799,11 +821,73 @@ Henüz veri bulunmuyor.
 
 </div>
 
+<div id="settingsPage" class="page">
+
+<div class="card">
+
+<h2>⚙️ Ayarlar</h2>
+
+<button onclick="exportData()">
+📤 Verileri Dışa Aktar
+</button>
+
+<input
+type="file"
+id="importFile"
+accept=".json"
+style="display:none"
+onchange="importData(this.files[0])">
+
+<button
+onclick="document.getElementById('importFile').click()">
+📥 Verileri İçe Aktar
+</button>
+
+<button onclick="resetAllData()">
+🗑️ Tüm Verileri Sil
+</button>
+
+<hr>
+
+<p>
+Sürüm :
+<b><span id="versionText"></span></b>
+</p>
+
+<hr>
+
+<p>
+
+👤 Oyuncu :
+<span id="settingsPlayerCount"></span>
+
+</p>
+
+<p>
+
+🎮 Oyun :
+<span id="settingsGameCount"></span>
+
+</p>
+
+<p>
+
+💾 Son Kayıt :
+<span id="settingsLastSave"></span>
+
+</p>
+
+</div>
+
+</div>
+
 </div>
 
 <script>
 
 const STORAGE_KEY="alliGulluOkeyPro";
+
+const APP_VERSION="0.8.1";
 
 /* ===== Masa Düzeni ===== */
 
@@ -932,6 +1016,23 @@ const saved=localStorage.getItem(STORAGE_KEY);
 if(saved){
 
 Object.assign(app,JSON.parse(saved));
+
+document.getElementById(
+    "versionText"
+).textContent=APP_VERSION;
+
+document.getElementById(
+"settingsPlayerCount"
+).textContent=app.players.length;
+
+document.getElementById(
+"settingsGameCount"
+).textContent=app.history.length;
+
+document.getElementById(
+"settingsLastSave"
+).textContent=
+new Date().toLocaleString("tr-TR");
 
 }else{
 
@@ -1421,7 +1522,7 @@ function load(){
 
     const data =
         JSON.parse(
-            localStorage.getItem("alligullu")
+            localStorage.getItem(STORAGE_KEY)
         );
 
     if(!data) return;
@@ -1961,7 +2062,7 @@ function save(){
     };
 
     localStorage.setItem(
-        "alligullu",
+        STORAGE_KEY,
         JSON.stringify(data)
     );
 
@@ -2415,7 +2516,65 @@ function startNewTable(){
 
     alert("Lütfen dört oyuncuyu masaya yerleştirin.");
 
-}    
+} 
+
+function exportData(){
+
+    const data=
+    localStorage.getItem(STORAGE_KEY);
+
+    const blob=
+    new Blob(
+        [data],
+        {type:"application/json"}
+    );
+
+    const a=
+    document.createElement("a");
+
+    a.href=
+    URL.createObjectURL(blob);
+
+    a.download=
+    "alligullu-okey-backup.json";
+
+    a.click();
+
+}
+
+function importData(file){
+
+    const reader=
+    new FileReader();
+
+    reader.onload=function(){
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            reader.result
+        );
+
+        location.reload();
+
+    };
+
+    reader.readAsText(file);
+
+}
+
+function resetAllData(){
+
+    if(!confirm(
+        "Tüm veriler silinsin mi?"
+    )) return;
+
+    localStorage.removeItem(
+        STORAGE_KEY
+    );
+
+    location.reload();
+
+}
     
 initialize();
 
