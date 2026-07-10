@@ -577,311 +577,363 @@ button:hover{
 
 </header>
 
+<!-- ========================= -->
 <!-- ANA MENÜ -->
+<!-- ========================= -->
 
 <div class="page active" id="homePage">
 
-<div class="card">
+    <div class="card">
 
-<h2>Hoş Geldiniz</h2>
+        <h1>🀄 Allı Güllü Okey Pro</h1>
 
-<p class="small">
-Profesyonel Allı Güllü Okey skor takip sistemi
-</p>
+        <p class="small">
+            Profesyonel Okey Skor Takip Sistemi
+        </p>
 
-<button onclick="openPage('playersPage')">
-👥 Oyuncular
-</button>
+        <hr>
 
-<button onclick="openPage('gamePage')">
-🎮 Yeni Oyun
-</button>
+        <button onclick="openPage('playersPage')">
+            👥 Oyuncular
+        </button>
 
-<button onclick="openPage('historyPage')">
-📜 Geçmiş
-</button>
+        <button onclick="openPage('gamePage')">
+            🎮 Yeni Oyun
+        </button>
 
-<button onclick="openPage('statsPage')">
-🏆 İstatistikler
-</button>
+        <button onclick="openPage('historyPage')">
+            📜 Oyun Geçmişi
+        </button>
 
-<button onclick="openPage('settingsPage')">
+        <button onclick="openPage('statsPage')">
+            📊 İstatistikler
+        </button>
 
-⚙️ Ayarlar
+        <button onclick="openPage('settingsPage')">
+            ⚙️ Ayarlar
+        </button>
 
-</button>
+        <hr>
 
-<button onclick="exportData()">
-📤 Verileri Dışa Aktar
-</button>
+        <p style="text-align:center">
 
-<input
-type="file"
-id="importFile"
-accept=".json"
-style="display:none"
-onchange="importData(this.files[0])">
+            Sürüm :
+            <b id="versionText"></b>
 
-<button
-onclick="document.getElementById('importFile').click()">
-📥 Verileri İçe Aktar
-</button>
+        </p>
+
+    </div>
 
 </div>
 
-</div>
-
+<!-- ========================= -->
 <!-- OYUNCULAR -->
+<!-- ========================= -->
 
 <div class="page" id="playersPage">
 
-<div class="card">
+    <div class="card">
 
-<h2>Oyuncular</h2>
+        <h2>👥 Oyuncular</h2>
 
-<div id="playerList"></div>
+        <div id="playerList"></div>
 
-<button onclick="openPlayerModal()">
-➕ Oyuncu Ekle
-</button>
+        <button onclick="openPlayerModal()">
+            ➕ Oyuncu Ekle
+        </button>
 
-<button onclick="openPage('homePage')">
-⬅ Ana Menü
-</button>
+        <button onclick="openPage('homePage')">
+            ⬅ Ana Menü
+        </button>
+
+    </div>
 
 </div>
 
-</div>
-
+<!-- ========================= -->
 <!-- YENİ OYUN -->
+<!-- ========================= -->
 
 <div class="page" id="gamePage">
 
-<div class="card">
+    <div class="card">
 
-<h2>Yeni Oyun</h2>
+        <h2>🎮 Yeni Oyun</h2>
 
-<div class="tableArea">
+        <div class="tableArea">
 
-<div class="okeyTable">
+            <div
+                class="okeyTable"
+                id="tableContainer">
 
-<div class="seat" id="seat1"></div>
+                <div
+                    id="seat0"
+                    class="seat">
+                </div>
 
-<div class="seat" id="seat2"></div>
+                <div
+                    id="seat1"
+                    class="seat">
+                </div>
 
-<div class="seat" id="seat3"></div>
+                <div
+                    id="seat2"
+                    class="seat">
+                </div>
 
-<div class="seat" id="seat4"></div>
+                <div
+                    id="seat3"
+                    class="seat">
+                </div>
 
-<div class="tableCenter">
+                <div class="tableCenter">
 
-<h2 id="centerMultiplier">
+                    <div id="gameInfo"></div>
 
-×6
+                </div>
 
-</h2>
+            </div>
 
-<div id="centerIndicator">
+        </div>
 
-🔵 Mavi
+        <button onclick="prepareTable()">
+            🪑 Masayı Hazırla
+        </button>
 
-</div>
+        <button onclick="openPage('homePage')">
+            ⬅ Ana Menü
+        </button>
 
-<div id="centerMode">
-
-👥 Eşli
-
-</div>
-
-<div id="centerHand">
-
-1. EL
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<br>
-
-<button onclick="startNewTable()">
-
-Masayı Hazırla
-
-</button>
-
-<div id="gameOptions" style="display:none;margin-top:15px;">
-
-<h3>Oyun Modu</h3>
-
-<div style="display:flex;gap:10px;">
-
-<button
-id="teamBtn"
-onclick="setGameMode('team')">
-
-👥 Eşli
-
-</button>
-
-<button
-id="soloBtn"
-onclick="setGameMode('solo')">
-
-👤 Herkes Tek
-
-</button>
+    </div>
 
 </div>
 
-<br>
-
-<button
-style="background:#d35400;"
-onclick="startGame()">
-
-▶ Oyunu Başlat
-
-</button>
-
-</div>
-
-<div id="handEntry" style="display:none;margin-top:20px;">
-
-<h3>🀄 El Sonucu</h3>
-
-<div id="handPlayers"></div>
-
-<br>
-
-<button
-class="calcButton"
-onclick="calculateHand()">
-
-🧮 Eli Hesapla
-
-</button>
-
-</div>
-
-<button onclick="openPage('homePage')">
-
-⬅ Ana Menü
-
-</button>
-
-</div>
-
-</div>
-
-<!-- GEÇMİŞ -->
+<!-- ========================= -->
+<!-- OYUN GEÇMİŞİ -->
+<!-- ========================= -->
 
 <div class="page" id="historyPage">
 
-<div class="card">
+    <div class="card">
 
-<h2>Geçmiş</h2>
+        <h2>📜 Oyun Geçmişi</h2>
 
-<p>
-Henüz oyun oynanmadı.
-</p>
+        <div id="historyList"></div>
 
-<button onclick="openPage('homePage')">
-⬅ Ana Menü
-</button>
+        <button onclick="openPage('homePage')">
+            ⬅ Ana Menü
+        </button>
 
-</div>
-
-<button onclick="undoLastHand()">
-
-↩️ Son Eli Geri Al
-
-</button>
+    </div>
 
 </div>
 
-<!-- İSTATİSTİK -->
+<!-- ========================= -->
+<!-- İSTATİSTİKLER -->
+<!-- ========================= -->
 
 <div class="page" id="statsPage">
 
-<div class="card">
+    <div class="card">
 
-<h2>İstatistikler</h2>
+        <h2>📊 İstatistikler</h2>
 
-<p>
-Henüz veri bulunmuyor.
-</p>
+        <div id="statsList"></div>
 
-<button onclick="openPage('homePage')">
-⬅ Ana Menü
-</button>
+        <hr>
 
-</div>
+        <h3>🏆 Takım İstatistikleri</h3>
 
-<div id="settingsPage" class="page">
+        <p>
 
-<div class="card">
+            Takım A Net :
 
-<h2>⚙️ Ayarlar</h2>
+            <b id="teamANet">0</b>
 
-<button onclick="exportData()">
-📤 Verileri Dışa Aktar
-</button>
+        </p>
 
-<input
-type="file"
-id="importFile"
-accept=".json"
-style="display:none"
-onchange="importData(this.files[0])">
+        <p>
 
-<button
-onclick="document.getElementById('importFile').click()">
-📥 Verileri İçe Aktar
-</button>
+            Takım B Net :
 
-<button onclick="resetAllData()">
-🗑️ Tüm Verileri Sil
-</button>
+            <b id="teamBNet">0</b>
 
-<hr>
+        </p>
 
-<p>
-Sürüm :
-<b><span id="versionText"></span></b>
-</p>
+        <hr>
 
-<hr>
+        <h3>🎮 Oyun Bilgileri</h3>
 
-<p>
+        <p>
 
-👤 Oyuncu :
-<span id="settingsPlayerCount"></span>
+            Toplam Oyun :
 
-</p>
+            <b id="totalGames">0</b>
 
-<p>
+        </p>
 
-🎮 Oyun :
-<span id="settingsGameCount"></span>
+        <p>
 
-</p>
+            Toplam El :
 
-<p>
+            <b id="totalHands">0</b>
 
-💾 Son Kayıt :
-<span id="settingsLastSave"></span>
+        </p>
 
-</p>
+        <button onclick="openPage('homePage')">
+            ⬅ Ana Menü
+        </button>
+
+    </div>
 
 </div>
 
-</div>
+<!-- ========================= -->
+<!-- AYARLAR -->
+<!-- ========================= -->
+
+<div class="page" id="settingsPage">
+
+    <div class="card">
+
+        <h2>⚙️ Ayarlar</h2>
+
+        <button onclick="exportData()">
+            📤 Verileri Dışa Aktar
+        </button>
+
+        <input
+            type="file"
+            id="importFile"
+            accept=".json"
+            style="display:none"
+            onchange="importData(this.files[0])">
+
+        <button
+            onclick="document.getElementById('importFile').click()">
+            📥 Verileri İçe Aktar
+        </button>
+
+        <button onclick="resetAllData()">
+            🗑️ Tüm Verileri Sil
+        </button>
+
+        <hr>
+
+        <h3>📱 Uygulama Bilgileri</h3>
+
+        <p>
+
+            Sürüm
+
+            <b id="versionText"></b>
+
+        </p>
+
+        <p>
+
+            Oyuncu Sayısı
+
+            <b id="settingsPlayerCount"></b>
+
+        </p>
+
+        <p>
+
+            Oynanan Oyun
+
+            <b id="settingsGameCount"></b>
+
+        </p>
+
+        <p>
+
+            Son Kayıt
+
+            <b id="settingsLastSave"></b>
+
+        </p>
+
+        <hr>
+
+        <button onclick="openPage('homePage')">
+            ⬅ Ana Menü
+        </button>
+
+    </div>
 
 </div>
+
+<!-- ========================= -->
+<!-- SON EL RAPORU -->
+<!-- ========================= -->
+
+<div
+    class="modal"
+    id="resultModal">
+
+    <div class="modalContent">
+
+        <h2>📋 El Sonucu</h2>
+
+        <div
+            id="resultContent"
+            style="
+                max-height:60vh;
+                overflow:auto;
+                white-space:pre-line;
+                line-height:1.6;
+                font-size:17px;
+            ">
+        </div>
+
+        <button onclick="closeResultModal()">
+            Tamam
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ========================= -->
+<!-- OYUN SONU -->
+<!-- ========================= -->
+
+<div
+    class="modal"
+    id="gameResultModal">
+
+    <div class="modalContent">
+
+        <h2>
+            🏆 Oyun Bitti
+        </h2>
+
+        <div id="gameResultText">
+
+        </div>
+
+        <button onclick="newGame()">
+            🀄 Yeni Oyun
+        </button>
+
+        <button onclick="openPage('historyPage')">
+            📜 Geçmiş
+        </button>
+
+        <button onclick="openPage('statsPage')">
+            📊 İstatistikler
+        </button>
+
+        <button onclick="closeGameResultModal()">
+            Kapat
+        </button>
+
+    </div>
+
+</div>
+
+<script>
 
 <script>
 
