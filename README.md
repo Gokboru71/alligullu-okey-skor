@@ -289,25 +289,35 @@ button:hover{
 
     height:340px;
 
-    background:#167a3d;
+     background:radial-gradient(
+        circle,
+        #2d8b57,
+        #156d3d
+    );
 
-    border:12px solid #6a3f17;
+    border:12px solid #6d4c2d;
 
-    border-radius:50%;
+    border-radius:40px;
 
     box-shadow:
-    inset 0 0 30px rgba(255,255,255,.15),
-    0 8px 25px rgba(0,0,0,.35);
+        0 10px 30px rgba(0,0,0,.35);
 
 }
 
 .seat{
 
-    position:absolute;
+    background:white;
 
-    width:90px;
+    border-radius:22px;
 
-    text-align:center;
+    padding:10px;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.18);
+
+    transition:.25s;
+
+}
 
 }
 
@@ -738,21 +748,39 @@ const TEAM_B = [
 
 /* Uygulama */
 
-const app={
+const app = {
 
-players:[],
+    players:[],
 
-games:[],
+    games:[],
 
-lastHand:null,
+    lastHand:null,
 
-settings:{},
+    settings:{},
 
-tableSeats:[null,null,null,null],
+    tableSeats:[null,null,null,null],
 
-game:{
-    ...
-}
+    game:{
+
+        mode:"team",
+
+        indicator:"blue",
+
+        multiplier:6,
+
+        hand:1,
+
+        startedAt: Date.now(),
+        
+        teamAReward:0,
+        teamAPenalty:0,
+
+        teamBReward:0,
+        teamBPenalty:0
+
+    }
+
+};
 
 };
 
@@ -1309,6 +1337,11 @@ function finishGame(){
     const teamBScore =
     getTeamScore("B");
 
+    const duration =
+    Math.round(
+        (Date.now() - app.game.startedAt) / 60000
+    );
+    
 let winner;
 
 if(teamAScore > teamBScore){
@@ -1439,6 +1472,7 @@ function getTeamScore(team){
 function newGame(){
 
     app.game.hand=1;
+    app.game.startedAt = Date.now();
 
     app.game.teamAReward=0;
     app.game.teamAPenalty=0;
