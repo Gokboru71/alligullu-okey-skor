@@ -1364,6 +1364,11 @@ function openPage(id){
             renderPlayers();
             break;
 
+        case "playersPage":
+    alert("renderPlayers çalıştı");
+    renderPlayers();
+    break;
+
         case "historyPage":
             renderHistory();
             break;
