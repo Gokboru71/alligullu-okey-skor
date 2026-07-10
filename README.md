@@ -601,9 +601,9 @@ button:hover{
 
 </header>
 
-<!-- ========================= -->
+<!-- ================================================= -->
 <!-- ANA MENÜ -->
-<!-- ========================= -->
+<!-- ================================================= -->
 
 <div class="page active" id="homePage">
 
@@ -639,44 +639,17 @@ button:hover{
 
         <hr>
 
-        <p style="text-align:center">
+        <div style="text-align:center;">
 
-            Sürüm :
-            <b id="homeVersion"></b>
+            <b>Allı Güllü Okey Pro</b>
 
-        </p>
+            <br>
 
-    </div>
+            <span
 
-</div>
-
-<!-- ========================= -->
-<!-- OYUNCULAR -->
-<!-- ========================= -->
-
-<div class="page" id="playersPage">
-
-    <div class="card">
-
-        <h2>👥 Oyuncular</h2>
-
-        <div id="playerList"></div>
-
-        <button onclick="openPlayerModal()">
-            ➕ Oyuncu Ekle
-        </button>
-
-        <button onclick="openPage('homePage')">
-            ⬅ Ana Menü
-        </button>
-
-    </div>
-
-</div>
-
-<!-- ========================= -->
+<!-- ================================================= -->
 <!-- YENİ OYUN -->
-<!-- ========================= -->
+<!-- ================================================= -->
 
 <div class="page" id="gamePage">
 
@@ -710,6 +683,8 @@ button:hover{
                     class="seat">
                 </div>
 
+                <!-- Masa Ortası -->
+
                 <div class="tableCenter">
 
                     <div id="gameInfo"></div>
@@ -720,21 +695,87 @@ button:hover{
 
         </div>
 
-        <button onclick="prepareTable()">
-            🪑 Masayı Hazırla
+        <br>
+
+        <button
+            class="primaryButton"
+            onclick="startNewTable()">
+
+            🪑 Yeni Masa Hazırla
+
         </button>
 
-        <button onclick="openPage('homePage')">
+        <!-- ====================================== -->
+        <!-- OYUN KONTROLLERİ -->
+        <!-- ====================================== -->
+
+        <div
+            id="gameOptions"
+            style="display:none;">
+
+            <button
+                class="primaryButton"
+                onclick="startGame()">
+
+                🎲 Oyunu Başlat
+
+            </button>
+
+            <button
+                class="calcButton"
+                onclick="undoLastHand()">
+
+                ↩ Son Eli Geri Al
+
+            </button>
+
+            <!-- ============================== -->
+            <!-- EL GİRİŞİ -->
+            <!-- ============================== -->
+
+            <div
+                id="handEntry"
+                style="display:none;">
+
+                <hr>
+
+                <h3>
+
+                    📝 El Bilgileri
+
+                </h3>
+
+                <div
+                    id="handPlayers">
+
+                </div>
+
+                <button
+                    class="calcButton"
+                    onclick="calculateHand()">
+
+                    🧮 Eli Hesapla
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <button
+            onclick="openPage('homePage')">
+
             ⬅ Ana Menü
+
         </button>
 
     </div>
 
 </div>
 
-<!-- ========================= -->
+<!-- ================================================= -->
 <!-- OYUN GEÇMİŞİ -->
-<!-- ========================= -->
+<!-- ================================================= -->
 
 <div class="page" id="historyPage">
 
@@ -742,35 +783,41 @@ button:hover{
 
         <h2>📜 Oyun Geçmişi</h2>
 
-        <div id="historyList"></div>
+        <div id="historyList">
+
+        </div>
 
         <button onclick="openPage('homePage')">
+
             ⬅ Ana Menü
+
         </button>
 
     </div>
 
 </div>
 
-<!-- ========================= -->
+<!-- ================================================= -->
 <!-- İSTATİSTİKLER -->
-<!-- ========================= -->
+<!-- ================================================= -->
 
 <div class="page" id="statsPage">
 
     <div class="card">
 
-        <h2>📊 İstatistikler</h2>
+        <h2>🏆 Oyuncu İstatistikleri</h2>
 
-        <div id="statsList"></div>
+        <div id="statsList">
+
+        </div>
 
         <hr>
 
-        <h3>🏆 Takım İstatistikleri</h3>
+        <h3>👥 Takım Durumu</h3>
 
         <p>
 
-            Takım A Net :
+            Takım A Net
 
             <b id="teamANet">0</b>
 
@@ -778,7 +825,7 @@ button:hover{
 
         <p>
 
-            Takım B Net :
+            Takım B Net
 
             <b id="teamBNet">0</b>
 
@@ -786,11 +833,11 @@ button:hover{
 
         <hr>
 
-        <h3>🎮 Oyun Bilgileri</h3>
+        <h3>📊 Genel Bilgiler</h3>
 
         <p>
 
-            Toplam Oyun :
+            Toplam Oyun
 
             <b id="totalGames">0</b>
 
@@ -798,20 +845,21 @@ button:hover{
 
         <p>
 
-            Toplam El :
+            Toplam El
 
             <b id="totalHands">0</b>
 
         </p>
 
         <button onclick="openPage('homePage')">
+
             ⬅ Ana Menü
+
         </button>
 
     </div>
 
 </div>
-
 <!-- ========================= -->
 <!-- AYARLAR -->
 <!-- ========================= -->
@@ -1058,6 +1106,10 @@ renderTable();
 
 renderGameInfo();
 
+renderHistory();
+
+renderStats();
+    
 }
 
 function renderTable(){
@@ -1137,7 +1189,7 @@ ready
 
 function renderGameInfo(){
 
-    const colors={
+    const colors = {
 
         yellow:"🟡 Sarı",
 
@@ -1151,19 +1203,39 @@ function renderGameInfo(){
 
     };
 
-    document.getElementById("centerMultiplier").textContent=
-        "×"+app.game.multiplier;
-
-    document.getElementById("centerIndicator").textContent=
-        colors[app.game.indicator];
-
-    document.getElementById("centerMode").textContent=
+    const mode =
         app.game.mode==="team"
-        ?"👥 Eşli"
-        :"👤 Herkes Tek";
+        ? "👥 Eşli"
+        : "👤 Tekli";
 
-    document.getElementById("centerHand").textContent=
-        app.game.hand+". EL";
+    document.getElementById("gameInfo").innerHTML = `
+
+<div style="
+    text-align:center;
+    color:white;
+    font-weight:bold;
+    line-height:1.6;
+">
+
+<div style="font-size:18px;">
+${app.game.hand}. EL
+</div>
+
+<div>
+${colors[app.game.indicator]}
+</div>
+
+<div>
+Çarpan ×${app.game.multiplier}
+</div>
+
+<div>
+${mode}
+</div>
+
+</div>
+
+`;
 
 }
 
@@ -1675,6 +1747,14 @@ ${getTeamScore("B")}
 
 }
 
+function closeGameResultModal(){
+
+    document
+        .getElementById("gameResultModal")
+        .classList.remove("show");
+
+}
+
 function getTeamScore(team){
 
     if(team==="A"){
@@ -1692,6 +1772,22 @@ function getTeamScore(team){
 function newGame(){
 
     resetGameScores();
+
+    app.game.hand = 1;
+
+    app.game.startedAt = Date.now();
+
+    app.lastHand = null;
+
+    app.game.indicator = DEFAULT_INDICATOR;
+
+    app.game.multiplier = DEFAULT_MULTIPLIER;
+
+    save();
+
+    renderGameInfo();
+
+    closeGameResultModal();
 
 }
 
@@ -2134,47 +2230,77 @@ style="width:45px;padding:8px;">
 
 function renderHistory(){
 
-    const page =
-        document.getElementById("historyPage");
+    const list =
+        document.getElementById("historyList");
+
+    list.innerHTML = "";
 
     if(app.games.length===0){
 
-        page.innerHTML=`
-
-<div class="card">
-
-<h2>Geçmiş</h2>
-
-Henüz oyun oynanmadı.
-
-<button onclick="openPage('homePage')">
-
-⬅ Ana Menü
-
-</button>
-
-</div>
-
-`;
+        list.innerHTML = `
+            <p>Henüz oyun oynanmadı.</p>
+        `;
 
         return;
 
     }
-
-    let html=`
-
-<div class="card">
-
-<h2>📜 Oyun Geçmişi</h2>
-
-`;
 
     app.games
         .slice()
         .reverse()
         .forEach(game=>{
 
-            html+=`
+            if(game.type==="game"){
+
+                list.innerHTML += `
+
+<div class="card">
+
+<h3>🏆 Oyun Sonucu</h3>
+
+<b>${game.date}</b>
+
+<hr>
+
+Kazanan
+
+<b>${game.winner}</b>
+
+<br><br>
+
+Takım A
+
++${game.teamAReward}
+
+-${game.teamAPenalty}
+
+Net :
+${game.teamA}
+
+<br><br>
+
+Takım B
+
++${game.teamBReward}
+
+-${game.teamBPenalty}
+
+Net :
+${game.teamB}
+
+<br><br>
+
+Toplam El
+
+${game.hands}
+
+</div>
+
+`;
+
+            }else{
+
+                list.innerHTML += `
 
 <div class="card">
 
@@ -2186,31 +2312,29 @@ ${game.date}
 
 <hr>
 
-Kazanan :
+Kazanan
 
 ${game.winnerTeam}
 
 <br>
 
-Oyuncular :
-
 ${game.winners.join(" + ")}
 
 <br>
 
-Bitiş :
+Bitiş
 
 ${game.finish}
 
 <br>
 
-Ödül :
+Ödül
 
 +${game.reward}
 
 <br>
 
-Takım Cezası :
+Takım Cezası
 
 ${game.penalty}
 
@@ -2218,36 +2342,18 @@ ${game.penalty}
 
 `;
 
+            }
+
         });
 
-    html+=`
-
-<button onclick="openPage('homePage')">
-
-⬅ Ana Menü
-
-</button>
-
-</div>
-
-`;
-
-    page.innerHTML=html;
-
 }
-
+    
 function renderStats(){
 
-    const page =
-        document.getElementById("statsPage");
+    const list =
+        document.getElementById("statsList");
 
-    let html = `
-
-<div class="card">
-
-<h2>🏆 Oyuncu İstatistikleri</h2>
-
-`;
+    list.innerHTML = "";
 
     app.players.forEach(player=>{
 
@@ -2258,9 +2364,9 @@ function renderStats(){
             ? 0
             : Math.round(
                 s.wins*100/s.games
-              );
+            );
 
-        html += `
+        list.innerHTML += `
 
 <div class="card">
 
@@ -2328,19 +2434,17 @@ ${s.penalty}
 
     });
 
-    html += `
+    document.getElementById("teamANet").textContent =
+        getTeamScore("A");
 
-<button onclick="openPage('homePage')">
+    document.getElementById("teamBNet").textContent =
+        getTeamScore("B");
 
-⬅ Ana Menü
+    document.getElementById("totalGames").textContent =
+        app.games.filter(g=>g.type==="game").length;
 
-</button>
-
-</div>
-
-`;
-
-    page.innerHTML = html;
+    document.getElementById("totalHands").textContent =
+        app.games.filter(g=>g.hand).length;
 
 }
 
@@ -2548,17 +2652,28 @@ function exportData(){
 
 function importData(file){
 
-    const reader=
-    new FileReader();
+    const reader = new FileReader();
 
-    reader.onload=function(){
+    reader.onload = function(){
 
-        localStorage.setItem(
-            STORAGE_KEY,
-            reader.result
-        );
+        try{
 
-        location.reload();
+            JSON.parse(reader.result);
+
+            localStorage.setItem(
+                STORAGE_KEY,
+                reader.result
+            );
+
+            location.reload();
+
+        }catch(e){
+
+            showMessage(
+                "Geçersiz yedek dosyası."
+            );
+
+        }
 
     };
 
