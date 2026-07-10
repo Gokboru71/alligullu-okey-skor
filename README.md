@@ -826,7 +826,7 @@ button:hover{
 
             Sürüm
 
-            <b id="versionText"></b>
+            <b id="homeVersion"></b>
 
         </p>
 
@@ -940,6 +940,12 @@ button:hover{
 const STORAGE_KEY="alliGulluOkeyPro";
 
 const APP_VERSION="0.8.1";
+
+const MAX_HANDS = 5;
+
+const DEFAULT_MULTIPLIER = 6;
+
+const DEFAULT_INDICATOR = "blue";
 
 /* ===== Masa Düzeni ===== */
 
@@ -1069,9 +1075,8 @@ if(saved){
 
 Object.assign(app,JSON.parse(saved));
 
-document.getElementById(
-    "versionText"
-).textContent=APP_VERSION;
+document.getElementById("versionText").textContent = APP_VERSION;
+document.getElementById("homeVersion").textContent = APP_VERSION;
 
 document.getElementById(
 "settingsPlayerCount"
@@ -1223,7 +1228,7 @@ function startGame(){
 
     if(app.tableSeats.includes(null)){
 
-        alert("Önce dört oyuncuyu oturtun.");
+        showMessage("Önce dört oyuncuyu oturtun.");
 
         return;
 
@@ -1250,7 +1255,7 @@ function calculateHand(){
 
     if(!winnerRadio){
 
-        alert("Biten oyuncuyu seçiniz.");
+        showMessage("Biten oyuncuyu seçiniz.");
 
         return;
 
@@ -1733,8 +1738,11 @@ function getTeamScore(team){
     
 function newGame(){
 
-    app.game.hand=1;
-    app.game.startedAt = Date.now();
+    resetGameScores();
+
+}
+
+function resetGameScores(){
 
     app.game.teamAReward=0;
     app.game.teamAPenalty=0;
@@ -1742,28 +1750,17 @@ function newGame(){
     app.game.teamBReward=0;
     app.game.teamBPenalty=0;
 
-    app.game.teamAScore=0;
+}
 
-    app.game.teamBScore=0;
+function showMessage(text){
 
-    app.tableSeats=[
-        null,
-        null,
-        null,
-        null
-    ];
+    alert(text);
 
-    save();
+}
 
-    renderTable();
+function ask(text){
 
-    renderGameInfo();
-
-    document
-    .getElementById(
-        "gameResultModal"
-    )
-    .classList.remove("show");
+    return confirm(text);
 
 }
 
@@ -1843,7 +1840,7 @@ function undoLastHand(){
 
     renderGameInfo();
 
-    alert("Son el geri alındı.");
+    showMessage("Son el geri alındı.");
 
 }
 
@@ -2473,7 +2470,7 @@ function savePlayer(){
 
     if(duplicate){
 
-        alert("Bu isimde bir oyuncu zaten var.");
+        showMessage("Bu isimde bir oyuncu zaten var.");
 
         return;
 
@@ -2566,7 +2563,7 @@ function startNewTable(){
 
     renderGameInfo();
 
-    alert("Lütfen dört oyuncuyu masaya yerleştirin.");
+    showMessage("Lütfen dört oyuncuyu masaya yerleştirin.");
 
 } 
 
