@@ -2589,6 +2589,8 @@ style="width:45px;padding:8px;">
 
 });
 
+alert(list.innerHTML.length);
+
 }
 
 function renderHistory(){
