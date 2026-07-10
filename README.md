@@ -395,6 +395,30 @@ button:hover{
 
 }
 
+#seat0{
+    bottom:-32px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+#seat1{
+    top:-32px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+#seat2{
+    right:-32px;
+    top:50%;
+    transform:translateY(-50%);
+}
+
+#seat3{
+    left:-32px;
+    top:50%;
+    transform:translateY(-50%);
+}
+
 .seat:hover{
 
     transform:scale(1.05);
@@ -618,7 +642,7 @@ button:hover{
         <p style="text-align:center">
 
             Sürüm :
-            <b id="versionText"></b>
+            <b id="homeVersion"></b>
 
         </p>
 
@@ -826,7 +850,7 @@ button:hover{
 
             Sürüm
 
-            <b id="homeVersion"></b>
+            <b id="versionText"></b>
 
         </p>
 
@@ -863,77 +887,6 @@ button:hover{
     </div>
 
 </div>
-
-<!-- ========================= -->
-<!-- SON EL RAPORU -->
-<!-- ========================= -->
-
-<div
-    class="modal"
-    id="resultModal">
-
-    <div class="modalContent">
-
-        <h2>📋 El Sonucu</h2>
-
-        <div
-            id="resultContent"
-            style="
-                max-height:60vh;
-                overflow:auto;
-                white-space:pre-line;
-                line-height:1.6;
-                font-size:17px;
-            ">
-        </div>
-
-        <button onclick="closeResultModal()">
-            Tamam
-        </button>
-
-    </div>
-
-</div>
-
-<!-- ========================= -->
-<!-- OYUN SONU -->
-<!-- ========================= -->
-
-<div
-    class="modal"
-    id="gameResultModal">
-
-    <div class="modalContent">
-
-        <h2>
-            🏆 Oyun Bitti
-        </h2>
-
-        <div id="gameResultText">
-
-        </div>
-
-        <button onclick="newGame()">
-            🀄 Yeni Oyun
-        </button>
-
-        <button onclick="openPage('historyPage')">
-            📜 Geçmiş
-        </button>
-
-        <button onclick="openPage('statsPage')">
-            📊 İstatistikler
-        </button>
-
-        <button onclick="closeGameResultModal()">
-            Kapat
-        </button>
-
-    </div>
-
-</div>
-
-<script>
 
 <script>
 
@@ -1084,7 +1037,7 @@ document.getElementById(
 
 document.getElementById(
 "settingsGameCount"
-).textContent=app.history.length;
+).textContent=app.games.length;
 
 document.getElementById(
 "settingsLastSave"
@@ -1120,10 +1073,10 @@ ready
 : "none";
     
     const seats = [
+        document.getElementById("seat0"),
         document.getElementById("seat1"),
         document.getElementById("seat2"),
-        document.getElementById("seat3"),
-        document.getElementById("seat4")
+        document.getElementById("seat3")
     ];
 
     seats.forEach((seat,index)=>{
@@ -1644,7 +1597,7 @@ teamAPenalty:app.game.teamAPenalty,
 teamBReward:app.game.teamBReward,
 teamBPenalty:app.game.teamBPenalty,
 
-        hands:5
+        hands:app.game.hand-1
 
     });
 
@@ -2102,7 +2055,7 @@ function save(){
 
     const data={
 
-        version:"0.8.0",
+        version:APP_VERSION,
 
         exportDate:new Date().toISOString(),
 
@@ -2588,6 +2541,8 @@ function exportData(){
     "alligullu-okey-backup.json";
 
     a.click();
+
+    URL.revokeObjectURL(a.href);
 
 }
 
