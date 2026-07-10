@@ -1037,6 +1037,170 @@ button:hover{
 
 </div>
 
+<!-- Oyuncu Ekle / Düzenle Modal -->
+
+<div class="modal" id="playerModal">
+
+    <div class="modalContent">
+
+        <h2 id="modalTitle">Yeni Oyuncu</h2>
+
+        <input
+            type="text"
+            id="playerName"
+            placeholder="Oyuncu adı">
+
+        <div
+            id="avatarGrid"
+            class="avatarGrid">
+        </div>
+
+        <button onclick="savePlayer()">
+            💾 Kaydet
+        </button>
+
+        <button onclick="closePlayerModal()">
+            ❌ Vazgeç
+        </button>
+
+    </div>
+
+</div>
+
+<div id="playerSheet" class="bottomSheet">
+
+<h2>Oyuncu Seç</h2>
+
+<div id="sheetPlayers"></div>
+
+<button onclick="closePlayerSheet()">
+
+Kapat
+
+</button>
+
+</div>
+
+<div
+id="indicatorSheet"
+class="bottomSheet">
+
+<h2>
+
+Açılan Okey
+
+</h2>
+
+<div
+onclick="setIndicator('yellow',3)"
+class="colorItem">
+
+<span>🟡 Sarı</span>
+
+<b>×3</b>
+
+</div>
+
+<div
+onclick="setIndicator('red',4)"
+class="colorItem">
+
+<span>🔴 Kırmızı</span>
+
+<b>×4</b>
+
+</div>
+
+<div
+onclick="setIndicator('black',5)"
+class="colorItem">
+
+<span>⚫ Siyah</span>
+
+<b>×5</b>
+
+</div>
+
+<div
+onclick="setIndicator('blue',6)"
+class="colorItem">
+
+<span>🔵 Mavi</span>
+
+<b>×6</b>
+
+</div>
+
+<div
+onclick="setIndicator('fake',10)"
+class="colorItem">
+
+<span>🃏 Sahte Okey</span>
+
+<b>×10</b>
+
+</div>
+
+<br>
+
+<button
+onclick="closeIndicatorSheet()">
+
+Kapat
+
+</button>
+
+</div>
+<div class="modal" id="resultModal">
+
+    <div class="modalContent">
+
+        <h2>🀄 El Sonucu</h2>
+
+        <div
+            id="resultContent"
+            style="
+                max-height:60vh;
+                overflow:auto;
+                white-space:pre-line;
+                font-size:17px;
+                line-height:1.6;
+            ">
+        </div>
+
+        <button onclick="closeResultModal()">
+            Tamam
+        </button>
+
+    </div>
+
+</div>
+
+<div
+class="modal"
+id="gameResultModal">
+
+<div class="modalContent">
+
+<h2>
+
+🏆 Oyun Bitti
+
+</h2>
+
+<div id="gameResultText"></div>
+
+<button
+onclick="newGame()">
+
+🀄 Yeni Oyun
+
+</button>
+
+</div>
+
+</div>
+
 <script>
 
 const STORAGE_KEY="alliGulluOkeyPro";
@@ -2806,170 +2970,6 @@ function resetAllData(){
     location.reload();
 
 }
-
-<!-- Oyuncu Ekle / Düzenle Modal -->
-
-<div class="modal" id="playerModal">
-
-    <div class="modalContent">
-
-        <h2 id="modalTitle">Yeni Oyuncu</h2>
-
-        <input
-            type="text"
-            id="playerName"
-            placeholder="Oyuncu adı">
-
-        <div
-            id="avatarGrid"
-            class="avatarGrid">
-        </div>
-
-        <button onclick="savePlayer()">
-            💾 Kaydet
-        </button>
-
-        <button onclick="closePlayerModal()">
-            ❌ Vazgeç
-        </button>
-
-    </div>
-
-</div>
-
-<div id="playerSheet" class="bottomSheet">
-
-<h2>Oyuncu Seç</h2>
-
-<div id="sheetPlayers"></div>
-
-<button onclick="closePlayerSheet()">
-
-Kapat
-
-</button>
-
-</div>
-
-<div
-id="indicatorSheet"
-class="bottomSheet">
-
-<h2>
-
-Açılan Okey
-
-</h2>
-
-<div
-onclick="setIndicator('yellow',3)"
-class="colorItem">
-
-<span>🟡 Sarı</span>
-
-<b>×3</b>
-
-</div>
-
-<div
-onclick="setIndicator('red',4)"
-class="colorItem">
-
-<span>🔴 Kırmızı</span>
-
-<b>×4</b>
-
-</div>
-
-<div
-onclick="setIndicator('black',5)"
-class="colorItem">
-
-<span>⚫ Siyah</span>
-
-<b>×5</b>
-
-</div>
-
-<div
-onclick="setIndicator('blue',6)"
-class="colorItem">
-
-<span>🔵 Mavi</span>
-
-<b>×6</b>
-
-</div>
-
-<div
-onclick="setIndicator('fake',10)"
-class="colorItem">
-
-<span>🃏 Sahte Okey</span>
-
-<b>×10</b>
-
-</div>
-
-<br>
-
-<button
-onclick="closeIndicatorSheet()">
-
-Kapat
-
-</button>
-
-</div>
-<div class="modal" id="resultModal">
-
-    <div class="modalContent">
-
-        <h2>🀄 El Sonucu</h2>
-
-        <div
-            id="resultContent"
-            style="
-                max-height:60vh;
-                overflow:auto;
-                white-space:pre-line;
-                font-size:17px;
-                line-height:1.6;
-            ">
-        </div>
-
-        <button onclick="closeResultModal()">
-            Tamam
-        </button>
-
-    </div>
-
-</div>
-
-<div
-class="modal"
-id="gameResultModal">
-
-<div class="modalContent">
-
-<h2>
-
-🏆 Oyun Bitti
-
-</h2>
-
-<div id="gameResultText"></div>
-
-<button
-onclick="newGame()">
-
-🀄 Yeni Oyun
-
-</button>
-
-</div>
-
-</div>
     
 initialize();
 
