@@ -871,8 +871,6 @@ const app = {
 
 };
 
-};
-
 /* Varsayılan oyuncular */
 
 const defaultPlayers=[
@@ -1254,21 +1252,7 @@ OYUN BİTTİ
 
         }
 
-        if(finish!="renk"){
-
-    if(winnerTeam===TEAM_A){
-
-        app.game.teamAReward += reward;
-        app.game.teamBPenalty += totalPenalty;
-
-    }else{
-
-        app.game.teamBReward += reward;
-        app.game.teamAPenalty += totalPenalty;
-
-    }
-
-        }
+        
 
         report+=
 `${player.avatar} ${player.name}
@@ -1283,6 +1267,21 @@ Ceza : ${penalty}
 
     if(finish!="renk"){
 
+    if(winnerTeam===TEAM_A){
+
+        app.game.teamAReward += reward;
+        app.game.teamBPenalty += totalPenalty;
+
+    }else{
+
+        app.game.teamBReward += reward;
+        app.game.teamAPenalty += totalPenalty;
+
+    }
+
+    }
+    
+    if(finish!="renk"){
         report+=
 `━━━━━━━━━━━━━━
 
@@ -1416,6 +1415,27 @@ if(gameFinished){
     finishGame();
 
     }
+}
+
+function load(){
+
+    const data =
+        JSON.parse(
+            localStorage.getItem("alligullu")
+        );
+
+    if(!data) return;
+
+    if(data.app){
+
+        Object.assign(app,data.app);
+
+    }else{
+
+        Object.assign(app,data);
+
+    }
+
 }
     
 function finishGame(){
@@ -1930,13 +1950,20 @@ penalty:0
 
 function save(){
 
-localStorage.setItem(
+    const data={
 
-STORAGE_KEY,
+        version:"0.8.0",
 
-JSON.stringify(app)
+        exportDate:new Date().toISOString(),
 
-);
+        app:app
+
+    };
+
+    localStorage.setItem(
+        "alligullu",
+        JSON.stringify(data)
+    );
 
 }
 
