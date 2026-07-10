@@ -1314,14 +1314,14 @@ const app = {
 /* Varsayılan oyuncular */
 
 const defaultPlayers=[
-["fatih","Fatih"],
-["mustafa","Mustafa"],
-["cumali","Cumali"],
-["cemil","Cemil"],
-["ali","Ali"],
-["sefik","Şefik"],
-["yildirim","Yıldırım"],
-["hakki","Hakkı"]
+["avatarlar/IMG_20260710_211030.png","Fatih"],
+["avatarlar/IMG_20260710_211058.png","Mustafa"],
+["avatarlar/IMG_20260710_211122.png","Cumali"],
+["avatarlar/IMG_20260710_211151.png","Cemil"],
+["avatarlar/IMG_20260710_211242.png","Ali"],
+["avatarlar/IMG_20260710_211315.png","Şefik"],
+["avatarlar/IMG_20260710_211347.png","Yıldırım"],
+["avatarlar/IMG_20260710_211418.png","Hakkı"]
 ];
 
 const avatars = [
@@ -2533,7 +2533,8 @@ list.innerHTML+=`
 <div class="avatar">
 
 <img src="${player.avatar}"
-     class="tableAvatar">
+     class="tableAvatar"
+     onerror="this.src='avatarlar/avatar1.png'">
 
 </div>
 
@@ -2839,7 +2840,8 @@ function renderAvatarGrid(){
     class="avatarItem ${selectedAvatar===a?"selected":""}"
     onclick="selectAvatar('${a}')">
 
-    <img src="${a}" class="avatar">
+    <img src="${a}"
+     class="tableAvatar">
 
 </div>
 `;
