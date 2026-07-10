@@ -1345,6 +1345,9 @@ let currentSeat=-1;
 
 function openPage(id){
 
+    console.log("Açılan sayfa:", id);
+alert(id);
+
     document
         .querySelectorAll(".page")
         .forEach(p=>p.classList.remove("active"));
