@@ -674,6 +674,12 @@ Henüz oyun oynanmadı.
 
 </div>
 
+<button onclick="undoLastHand()">
+
+↩️ Son Eli Geri Al
+
+</button>
+
 </div>
 
 <!-- İSTATİSTİK -->
@@ -738,15 +744,14 @@ players:[],
 
 games:[],
 
+lastHand:null,
+
 settings:{},
 
 tableSeats:[null,null,null,null],
 
 game:{
-    mode:"team",
-    indicator:"blue",
-    multiplier:6,
-    hand:1
+    ...
 }
 
 };
@@ -881,7 +886,7 @@ ready
 
             <div class="name">${player.name}</div>
 
-            <div class="score">0</div>
+            <div class="score" style="display:none;"></div>
 
             <div style="display:flex;gap:4px;justify-content:center;margin-top:6px;">
 
@@ -1132,6 +1137,22 @@ OYUN BİTTİ
 
         }
 
+        if(finish!="renk"){
+
+    if(winnerTeam===TEAM_A){
+
+        app.game.teamAReward += reward;
+        app.game.teamBPenalty += totalPenalty;
+
+    }else{
+
+        app.game.teamBReward += reward;
+        app.game.teamAPenalty += totalPenalty;
+
+    }
+
+        }
+
         report+=
 `${player.avatar} ${player.name}
 
@@ -1227,6 +1248,39 @@ ${totalPenalty}`;
     penalty: totalPenalty
 
 });
+
+    app.lastHand = {
+
+    winnerTeam:
+        winnerTeam===TEAM_A ? "A" : "B",
+
+    reward,
+
+    penalty: totalPenalty,
+
+    finish,
+
+    hand: app.game.hand,
+
+    winnerSeat,
+
+    winners:[...winnerTeam],
+
+    losers:[...loserTeam],
+
+    loserStones: loserTeam.map(seat=>({
+
+        seat,
+
+        stones:Number(
+            document.getElementById(
+                "stone"+seat
+            ).value
+        )
+
+    }))
+
+};
     
     showResult(report);
 
@@ -1245,27 +1299,31 @@ if(gameFinished){
     finishGame();
 
     }
-
+}
+    
 function finishGame(){
 
-    let winner;
+    const teamAScore =
+    getTeamScore("A");
 
-    if(app.game.teamAScore >
-       app.game.teamBScore){
+    const teamBScore =
+    getTeamScore("B");
 
-        winner="Takım A";
+let winner;
 
-    }else if(
-        app.game.teamBScore >
-        app.game.teamAScore){
+if(teamAScore > teamBScore){
 
-        winner="Takım B";
+    winner = "Takım A";
 
-    }else{
+}else if(teamBScore > teamAScore){
 
-        winner="Berabere";
+    winner = "Takım B";
 
-    }
+}else{
+
+    winner = "Berabere";
+
+}
 
     app.games.push({
 
@@ -1276,9 +1334,15 @@ function finishGame(){
 
         winner,
 
-        teamA:app.game.teamAScore,
+        teamA:teamAScore,
 
-        teamB:app.game.teamBScore,
+        teamB:teamBScore,
+
+teamAReward:app.game.teamAReward,
+teamAPenalty:app.game.teamAPenalty,
+
+teamBReward:app.game.teamBReward,
+teamBPenalty:app.game.teamBPenalty,
 
         hands:5
 
@@ -1298,7 +1362,7 @@ function closeIndicatorSheet(){
 
 }
 
-    function showResult(text){
+function showResult(text){
 
     document.getElementById("resultContent").textContent=text;
 
@@ -1313,6 +1377,177 @@ function closeResultModal(){
     document
         .getElementById("resultModal")
         .classList.remove("show");
+
+}
+
+function showGameResult(winner){
+
+    document
+    .getElementById(
+        "gameResultText"
+    ).innerHTML=
+
+`
+<h3>${winner}</h3>
+
+<br>
+
+Takım A
+
+Net :
+${getTeamScore("A")}
+
+(+${app.game.teamAReward})
+
+(-${app.game.teamAPenalty})
+
+<br><br>
+
+Takım B
+
+Net :
+${getTeamScore("B")}
+
+(+${app.game.teamBReward})
+
+(-${app.game.teamBPenalty})
+
+`;
+
+    document
+    .getElementById(
+        "gameResultModal"
+    )
+    .classList.add("show");
+
+}
+
+function getTeamScore(team){
+
+    if(team==="A"){
+
+        return app.game.teamAReward
+             - app.game.teamAPenalty;
+
+    }
+
+    return app.game.teamBReward
+         - app.game.teamBPenalty;
+
+}
+    
+function newGame(){
+
+    app.game.hand=1;
+
+    app.game.teamAReward=0;
+    app.game.teamAPenalty=0;
+
+    app.game.teamBReward=0;
+    app.game.teamBPenalty=0;
+
+    app.game.teamAScore=0;
+
+    app.game.teamBScore=0;
+
+    app.tableSeats=[
+        null,
+        null,
+        null,
+        null
+    ];
+
+    save();
+
+    renderTable();
+
+    renderGameInfo();
+
+    document
+    .getElementById(
+        "gameResultModal"
+    )
+    .classList.remove("show");
+
+}
+
+function undoLastHand(){
+
+    if(!app.lastHand){
+
+        alert("Geri alınacak el yok.");
+
+        return;
+
+    }
+
+    if(!confirm("Son el geri alınsın mı?")){
+
+        return;
+
+    }
+
+    app.game.hand--;
+
+    app.games.pop();
+
+    const h = app.lastHand;
+
+    h.winners.forEach(seat=>{
+
+    const player =
+        app.players.find(
+            p=>p.id===app.tableSeats[seat]
+        );
+
+    if(!player) return;
+
+    player.stats.games--;
+
+    player.stats.wins--;
+
+    player.stats.reward -= h.reward;
+
+    player.stats[h.finish]--;
+
+});
+
+    h.loserStones.forEach(item=>{
+
+    const player =
+        app.players.find(
+            p=>p.id===app.tableSeats[item.seat]
+        );
+
+    if(!player) return;
+
+    player.stats.games--;
+
+    player.stats.penalty -= item.stones *
+        app.game.multiplier;
+
+});
+    if(h.winnerTeam==="A"){
+
+    app.game.teamAReward -= h.reward;
+
+    app.game.teamBPenalty -= h.penalty;
+
+}else{
+
+    app.game.teamBReward -= h.reward;
+
+    app.game.teamAPenalty -= h.penalty;
+
+    }
+
+    app.lastHand = null;
+
+    save();
+
+    renderGameInfo();
+
+    alert("Son el geri alındı.");
 
 }
 
@@ -1332,7 +1567,7 @@ function setIndicator(color,multiplier){
 
 }
 
-    function renderHandEntry(){
+function renderHandEntry(){
 
     const area =
     document.getElementById("handPlayers");
@@ -2174,5 +2409,31 @@ Kapat
     </div>
 
 </div>
+
+<div
+class="modal"
+id="gameResultModal">
+
+<div class="modalContent">
+
+<h2>
+
+🏆 Oyun Bitti
+
+</h2>
+
+<div id="gameResultText"></div>
+
+<button
+onclick="newGame()">
+
+🀄 Yeni Oyun
+
+</button>
+
+</div>
+
+</div>
+
 </body>
 </html>
