@@ -1338,19 +1338,33 @@ function openPage(id){
         .querySelectorAll(".page")
         .forEach(p=>p.classList.remove("active"));
 
-    document
-        .getElementById(id)
-        .classList.add("active");
+    const page = document.getElementById(id);
 
-    if(id==="historyPage"){
-
-        renderHistory();
-
+    if(!page){
+        console.error("Sayfa bulunamadı:", id);
+        return;
     }
 
-    if(id==="statsPage"){
+    page.classList.add("active");
 
-    renderStats();
+    switch(id){
+
+        case "playersPage":
+            renderPlayers();
+            break;
+
+        case "historyPage":
+            renderHistory();
+            break;
+
+        case "statsPage":
+            renderStats();
+            break;
+
+        case "gamePage":
+            renderTable();
+            renderGameInfo();
+            break;
 
     }
 
