@@ -8,44 +8,6 @@
 
 <style>
 
-#handEntry input[type=number]{
-
-width:100%;
-
-padding:10px;
-
-font-size:18px;
-
-margin-top:6px;
-
-}
-
-#handEntry label{
-
-display:block;
-
-margin-top:10px;
-
-font-weight:bold;
-
-}
-
-.finishGroup{
-
-margin-top:12px;
-
-}
-
-.finishGroup label{
-
-display:block;
-
-padding:6px 0;
-
-font-size:15px;
-
-}
-
 :root{
     --green:#0f6b3e;
     --green2:#16834e;
@@ -56,32 +18,10 @@ font-size:15px;
     --radius:18px;
 }
 
-/* ===== Indicator Sheet ===== */
+/* =========================
+   GENEL
+========================= */
 
-.colorItem{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:15px;
-
-border-bottom:1px solid #ddd;
-
-cursor:pointer;
-
-font-size:20px;
-
-}
-
-.colorItem:hover{
-
-background:#f5f5f5;
-
-}
-    
 *{
     margin:0;
     padding:0;
@@ -103,6 +43,10 @@ header{
     font-weight:bold;
 }
 
+/* =========================
+   SAYFALAR
+========================= */
+
 .page{
     display:none;
     padding:15px;
@@ -112,173 +56,293 @@ header{
     display:block;
 }
 
+/* =========================
+   KARTLAR
+========================= */
+
 .card{
-    background:var(--card);
+
+    background:rgba(255,255,255,.92);
+
+    backdrop-filter:blur(10px);
+
     border-radius:var(--radius);
+
     padding:15px;
+
     margin-bottom:15px;
+
     box-shadow:0 5px 12px rgba(0,0,0,.12);
+
 }
 
+/* =========================
+   BUTONLAR
+========================= */
+
 button{
+
     width:100%;
+
     border:none;
+
     border-radius:12px;
+
     padding:15px;
+
     margin-top:10px;
+
     background:var(--green);
-    color:white;
+
+    color:#fff;
+
     font-size:17px;
+
     cursor:pointer;
+
+    transition:.25s;
+
 }
 
 button:hover{
+
     background:var(--green2);
+
 }
+
+.primaryButton{
+
+    background:#27ae60;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+.calcButton{
+
+    background:#ff9800;
+
+    color:#fff;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+/* =========================
+   OYUNCULAR
+========================= */
 
 .playerCard{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:12px;
-    border-radius:12px;
-    background:#f5f5f5;
-    margin-bottom:10px;
-}
 
-.avatar{
-    font-size:34px;
-    margin-right:10px;
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    background:#f5f5f5;
+
+    margin-bottom:10px;
+
 }
 
 .playerLeft{
+
     display:flex;
+
     align-items:center;
+
+}
+
+.avatar{
+
+    font-size:38px;
+
+    margin-right:10px;
+
+}
+
+.playerName{
+
+    font-size:18px;
+
+    font-weight:bold;
+
 }
 
 .small{
+
     color:#777;
+
     font-size:13px;
+
 }
 
-/* ===== Oyuncu Modal ===== */
+/* =========================
+   EL GİRİŞİ
+========================= */
+
+#handEntry input[type=number]{
+
+    width:100%;
+
+    padding:10px;
+
+    font-size:18px;
+
+    margin-top:6px;
+
+}
+
+#handEntry label{
+
+    display:block;
+
+    margin-top:10px;
+
+    font-weight:bold;
+
+}
+
+.finishGroup{
+
+    margin-top:12px;
+
+}
+
+.finishGroup label{
+
+    display:block;
+
+    padding:6px 0;
+
+    font-size:15px;
+
+}
+
+/* =========================
+   MODAL
+========================= */
 
 .modal{
+
     position:fixed;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
+
+    inset:0;
+
     background:rgba(0,0,0,.55);
+
     display:none;
+
     justify-content:center;
+
     align-items:center;
+
+    padding:20px;
+
     z-index:1000;
+
 }
 
 .modal.show{
+
     display:flex;
+
 }
 
 .modalContent{
-    width:92%;
+
+    width:100%;
+
     max-width:420px;
-    background:white;
+
+    background:#fff;
+
     border-radius:18px;
+
     padding:20px;
+
 }
 
 .modalContent h2{
+
     margin-bottom:15px;
+
 }
 
+.modal input,
 .modalContent input{
+
     width:100%;
+
     padding:12px;
+
     border-radius:10px;
+
     border:1px solid #ccc;
-    margin-bottom:15px;
+
     font-size:16px;
-}
 
-.avatarGrid{
-    display:grid;
-    grid-template-columns:repeat(6,1fr);
-    gap:8px;
     margin-bottom:15px;
-}
 
-.avatarItem{
-    font-size:28px;
-    text-align:center;
-    padding:10px;
-    border:2px solid #ddd;
-    border-radius:12px;
-    cursor:pointer;
-}
-
-.avatarItem.selected{
-    border-color:#0f6b3e;
-    background:#dff7e7;
-}
-
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.45);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-}
-
-.modal.show{
-    display:flex;
-}
-
-.modalContent{
-    background:#fff;
-    width:100%;
-    max-width:420px;
-    border-radius:18px;
-    padding:20px;
 }
 
 .avatarGrid{
+
     display:grid;
+
     grid-template-columns:repeat(6,1fr);
+
     gap:8px;
+
     margin:15px 0;
+
 }
 
 .avatarItem{
+
     font-size:28px;
+
     border:2px solid #ddd;
+
     border-radius:12px;
+
     text-align:center;
+
     padding:10px;
+
     cursor:pointer;
+
 }
 
 .avatarItem.selected{
+
     border-color:#0f6b3e;
-    background:#e8f5e9;
+
+    background:#dff7e7;
+
 }
 
-.modal input{
-    width:100%;
-    padding:12px;
-    border-radius:10px;
-    border:1px solid #ccc;
-    font-size:16px;
-}
-
-/* ===== OKEY MASASI ===== */
+/* =========================
+   OKEY MASASI
+========================= */
 
 .tableArea{
+
     margin-top:20px;
+
     display:flex;
+
     justify-content:center;
+
 }
 
 .okeyTable{
@@ -289,7 +353,7 @@ button:hover{
 
     height:340px;
 
-     background:radial-gradient(
+    background:radial-gradient(
         circle,
         #2d8b57,
         #156d3d
@@ -304,13 +368,25 @@ button:hover{
 
 }
 
+/* =========================
+   KOLTUKLAR
+========================= */
+
 .seat{
 
-    background:white;
+    position:absolute;
+
+    width:95px;
+
+    min-height:88px;
+
+    background:#fff;
 
     border-radius:22px;
 
     padding:10px;
+
+    text-align:center;
 
     box-shadow:
         0 4px 12px rgba(0,0,0,.18);
@@ -319,11 +395,17 @@ button:hover{
 
 }
 
+.seat:hover{
+
+    transform:scale(1.05);
+
 }
 
 .seat .avatar{
 
     font-size:42px;
+
+    margin:0;
 
 }
 
@@ -331,150 +413,157 @@ button:hover{
 
     font-weight:bold;
 
+    margin-top:4px;
+
+    font-size:15px;
+
 }
 
 .seat .score{
 
-    color:white;
-
-    font-size:14px;
-
-    margin-top:4px;
+    display:none;
 
 }
 
-#seat1{
-
-    bottom:-30px;
-    left:50%;
-    transform:translateX(-50%);
-
-}
-
-#seat2{
-
-    top:-30px;
-    left:50%;
-    transform:translateX(-50%);
-
-}
-
-#seat3{
-
-    right:-30px;
-    top:50%;
-    transform:translateY(-50%);
-
-}
-
-#seat4{
-
-    left:-30px;
-    top:50%;
-    transform:translateY(-50%);
-
-}
-
-.tableCenter{
-
-    position:absolute;
-
-    left:50%;
-    top:50%;
-
-    transform:translate(-50%,-50%);
-
-    text-align:center;
-
-    color:white;
-
-}
-
-.tableCenter h2{
-
-    font-size:22px;
-
-}
-
-/* ===== Bottom Sheet ===== */
-
-.bottomSheet{
-
-position:fixed;
-
-left:0;
-
-right:0;
-
-bottom:-100%;
-
-background:white;
-
-border-radius:20px 20px 0 0;
-
-padding:20px;
-
-box-shadow:0 -10px 30px rgba(0,0,0,.25);
-
-transition:.30s;
-
-z-index:2000;
-
-max-height:70vh;
-
-overflow:auto;
-
-}
-
-.bottomSheet.show{
-
-bottom:0;
-
-}
-
-.sheetPlayer{
-
-display:flex;
-
-align-items:center;
-
-gap:12px;
-
-padding:14px;
-
-border-bottom:1px solid #eee;
-
-cursor:pointer;
-
-font-size:20px;
-
-}
-
-.sheetPlayer:hover{
-
-background:#f3f3f3;
-
-}
+    /* =========================
+   OYUN ELİ KARTLARI
+========================= */
 
 .handSouth{
+
     background:#dff5df;
+
     border-left:8px solid #27ae60;
+
 }
 
 .handNorth{
+
     background:#e3f0ff;
+
     border-left:8px solid #3498db;
+
 }
 
 .handEast{
+
     background:#fff8d8;
+
     border-left:8px solid #f1c40f;
+
 }
 
 .handWest{
+
     background:#ffe6e6;
+
     border-left:8px solid #e74c3c;
+
 }
+
+/* =========================
+   SONUÇ MODALI
+========================= */
+
+#resultContent{
+
+    max-height:60vh;
+
+    overflow-y:auto;
+
+    white-space:pre-line;
+
+    line-height:1.6;
+
+    font-size:17px;
+
+}
+
+#gameResultText{
+
+    text-align:center;
+
+    line-height:1.8;
+
+    font-size:18px;
+
+}
+
+/* =========================
+   KAYDIRMA ÇUBUĞU
+========================= */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#bcbcbc;
+
+    border-radius:10px;
+
+}
+
+/* =========================
+   MOBİL
+========================= */
+
+@media (max-width:480px){
+
+    header{
+
+        font-size:21px;
+
+        padding:16px;
+
+    }
+
+    .okeyTable{
+
+        width:300px;
+
+        height:300px;
+
+    }
+
+    .seat{
+
+        width:88px;
+
+        min-height:82px;
+
+        padding:8px;
+
+    }
+
+    .seat .avatar{
+
+        font-size:36px;
+
+    }
+
+    .seat .name{
+
+        font-size:13px;
+
+    }
+
+    button{
+
+        font-size:16px;
+
+        padding:14px;
+
+    }
+
+}
+
+/* =========================
+   BİTİŞ
+========================= */
 
 </style>
 
@@ -647,7 +736,7 @@ onclick="startGame()">
 <br>
 
 <button
-style="background:#8e44ad;"
+class="calcButton"
 onclick="calculateHand()">
 
 🧮 Eli Hesapla
