@@ -332,6 +332,96 @@ button:hover{
 }
 
 /* =========================
+   BOTTOM SHEET
+========================= */
+
+.bottomSheet{
+
+    position:fixed;
+
+    left:0;
+
+    right:0;
+
+    bottom:-100%;
+
+    background:#fff;
+
+    border-radius:24px 24px 0 0;
+
+    padding:20px;
+
+    transition:.3s;
+
+    z-index:1200;
+
+    max-height:75vh;
+
+    overflow:auto;
+
+    box-shadow:0 -8px 30px rgba(0,0,0,.25);
+
+}
+
+.bottomSheet.show{
+
+    bottom:0;
+
+}
+
+.sheetPlayer{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    margin-bottom:10px;
+
+    background:#f4f4f4;
+
+    cursor:pointer;
+
+}
+
+.sheetPlayer:hover{
+
+    background:#e8f6ee;
+
+}
+
+.colorItem{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    margin-top:10px;
+
+    background:#f5f5f5;
+
+    cursor:pointer;
+
+}
+
+.colorItem:hover{
+
+    background:#e8f6ee;
+
+}
+
+/* =========================
    OKEY MASASI
 ========================= */
 
@@ -645,7 +735,18 @@ button:hover{
 
             <br>
 
-            <span
+            <span class="small">
+
+        Sürüm :
+        <span id="homeVersion"></span>
+
+    </span>
+
+</div>
+
+</div>
+
+</div>
 
 <!-- ================================================= -->
 <!-- YENİ OYUN -->
@@ -1789,7 +1890,7 @@ function showMessage(text){
 
 function ask(text){
 
-    return ask(text);
+    return confirm(text);
 
 }
 
@@ -1845,9 +1946,10 @@ function undoLastHand(){
 
     player.stats.games--;
 
-    player.stats.penalty -= item.stones *
-        app.game.multiplier;
-        h.finishMultiplier
+    player.stats.penalty -=
+    item.stones *
+    app.game.multiplier *
+    h.finishMultiplier;
 
 });
     if(h.winnerTeam==="A"){
@@ -2603,7 +2705,7 @@ function deletePlayer(id){
 
     if(!player) return;
 
-    if(!confirm(`"${player.name}" adlı oyuncu silinsin mi?`))
+    if(!ask(`"${player.name}" adlı oyuncu silinsin mi?`))
         return;
 
     app.players = app.players.filter(p => p.id !== id);
@@ -2693,7 +2795,7 @@ function importData(file){
 
 function resetAllData(){
 
-    if(!confirm(
+    if(!ask(
         "Tüm veriler silinsin mi?"
     )) return;
 
@@ -2704,10 +2806,6 @@ function resetAllData(){
     location.reload();
 
 }
-    
-initialize();
-
-</script>
 
 <!-- Oyuncu Ekle / Düzenle Modal -->
 
@@ -2872,6 +2970,10 @@ onclick="newGame()">
 </div>
 
 </div>
+    
+initialize();
+
+</script>
 
 </body>
 </html>
