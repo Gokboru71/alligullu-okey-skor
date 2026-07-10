@@ -2451,13 +2451,29 @@ function load(){
 
         const data = JSON.parse(raw);
 
-        if(data.app){
+        if (data.app) {
 
-            Object.assign(app,data.app);
+    Object.assign(app, data.app);
 
-        }else{
+    app.game = {
 
-            Object.assign(app,data);
+        mode: "team",
+        indicator: DEFAULT_INDICATOR,
+        multiplier: DEFAULT_MULTIPLIER,
+        hand: 1,
+        startedAt: Date.now(),
+
+        teamAReward: 0,
+        teamAPenalty: 0,
+        teamBReward: 0,
+        teamBPenalty: 0,
+
+        ...app.game
+    };
+
+} else {
+
+    Object.assign(app, data);
 
         }
 
