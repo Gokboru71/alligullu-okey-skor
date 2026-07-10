@@ -1070,46 +1070,41 @@ function openPage(id){
 
 function initialize(){
 
-const saved=localStorage.getItem(STORAGE_KEY);
+    load();
 
-if(saved){
+    if(app.players.length===0){
 
-Object.assign(app,JSON.parse(saved));
+        createDefaultPlayers();
 
-document.getElementById("versionText").textContent = APP_VERSION;
-document.getElementById("homeVersion").textContent = APP_VERSION;
+        save();
 
-document.getElementById(
-"settingsPlayerCount"
-).textContent=app.players.length;
+    }
 
-document.getElementById(
-"settingsGameCount"
-).textContent=app.games.length;
+    document.getElementById("versionText").textContent =
+        APP_VERSION;
 
-document.getElementById(
-"settingsLastSave"
-).textContent=
-new Date().toLocaleString("tr-TR");
+    document.getElementById("homeVersion").textContent =
+        APP_VERSION;
 
-}else{
+    document.getElementById("settingsPlayerCount").textContent =
+        app.players.length;
 
-createDefaultPlayers();
+    document.getElementById("settingsGameCount").textContent =
+        app.games.filter(g=>g.type==="game").length;
 
-save();
+    document.getElementById("settingsLastSave").textContent =
+        new Date().toLocaleString("tr-TR");
 
-}
+    renderPlayers();
 
-renderPlayers();
+    renderTable();
 
-renderTable();
+    renderGameInfo();
 
-renderGameInfo();
+    renderHistory();
 
-renderHistory();
+    renderStats();
 
-renderStats();
-    
 }
 
 function renderTable(){
@@ -1599,27 +1594,6 @@ if(gameFinished){
 
     }
 }
-
-function load(){
-
-    const data =
-        JSON.parse(
-            localStorage.getItem(STORAGE_KEY)
-        );
-
-    if(!data) return;
-
-    if(data.app){
-
-        Object.assign(app,data.app);
-
-    }else{
-
-        Object.assign(app,data);
-
-    }
-
-}
     
 function finishGame(){
 
@@ -1789,6 +1763,12 @@ function newGame(){
 
     closeGameResultModal();
 
+    renderHistory();
+
+renderStats();
+
+renderTable();
+
 }
 
 function resetGameScores(){
@@ -1809,7 +1789,7 @@ function showMessage(text){
 
 function ask(text){
 
-    return confirm(text);
+    return ask(text);
 
 }
 
@@ -1817,13 +1797,13 @@ function undoLastHand(){
 
     if(!app.lastHand){
 
-        alert("Geri alınacak el yok.");
+        showMessage("Geri alınacak el yok.");
 
         return;
 
     }
 
-    if(!confirm("Son el geri alınsın mı?")){
+    if(!ask("Son el geri alınsın mı?")){
 
         return;
 
@@ -1867,6 +1847,7 @@ function undoLastHand(){
 
     player.stats.penalty -= item.stones *
         app.game.multiplier;
+        h.finishMultiplier
 
 });
     if(h.winnerTeam==="A"){
@@ -2163,6 +2144,35 @@ function save(){
         STORAGE_KEY,
         JSON.stringify(data)
     );
+
+}
+
+function load(){
+
+    const raw =
+        localStorage.getItem(STORAGE_KEY);
+
+    if(!raw) return;
+
+    try{
+
+        const data = JSON.parse(raw);
+
+        if(data.app){
+
+            Object.assign(app,data.app);
+
+        }else{
+
+            Object.assign(app,data);
+
+        }
+
+    }catch(e){
+
+        console.error(e);
+
+    }
 
 }
 
@@ -2514,7 +2524,7 @@ function savePlayer(){
 
     if(name===""){
 
-        alert("Lütfen oyuncu adı giriniz.");
+        showMessage("Lütfen oyuncu adı giriniz.");
 
         return;
 
