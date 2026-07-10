@@ -1,0 +1,3053 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Allı Güllü Okey Bro Ağsatim</title>
+
+<style>
+
+:root{
+    --green:#0f6b3e;
+    --green2:#16834e;
+    --wood:#7a4d1d;
+    --bg:#eef2f3;
+    --card:#ffffff;
+    --text:#222;
+    --radius:18px;
+}
+
+/* =========================
+   GENEL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+}
+
+header{
+    background:linear-gradient(90deg,var(--green),var(--green2));
+    color:#fff;
+    padding:20px;
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
+}
+
+/* =========================
+   SAYFALAR
+========================= */
+
+.page{
+    display:none;
+    padding:15px;
+}
+
+.page.active{
+    display:block;
+}
+
+/* =========================
+   KARTLAR
+========================= */
+
+.card{
+
+    background:rgba(255,255,255,.92);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:var(--radius);
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+    box-shadow:0 5px 12px rgba(0,0,0,.12);
+
+}
+
+/* =========================
+   BUTONLAR
+========================= */
+
+button{
+
+    width:100%;
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    margin-top:10px;
+
+    background:var(--green);
+
+    color:#fff;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+button:hover{
+
+    background:var(--green2);
+
+}
+
+.primaryButton{
+
+    background:#27ae60;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+.calcButton{
+
+    background:#ff9800;
+
+    color:#fff;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+/* =========================
+   OYUNCULAR
+========================= */
+
+.playerCard{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    background:#f5f5f5;
+
+    margin-bottom:10px;
+
+}
+
+.playerLeft{
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.avatar{
+
+    font-size:38px;
+
+    margin-right:10px;
+
+}
+
+.tableAvatar{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.playerName{
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+.small{
+
+    color:#777;
+
+    font-size:13px;
+
+}
+
+/* =========================
+   EL GİRİŞİ
+========================= */
+
+#handEntry input[type=number]{
+
+    width:100%;
+
+    padding:10px;
+
+    font-size:18px;
+
+    margin-top:6px;
+
+}
+
+#handEntry label{
+
+    display:block;
+
+    margin-top:10px;
+
+    font-weight:bold;
+
+}
+
+.finishGroup{
+
+    margin-top:12px;
+
+}
+
+.finishGroup label{
+
+    display:block;
+
+    padding:6px 0;
+
+    font-size:15px;
+
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.55);
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+    z-index:1000;
+
+}
+
+.modal.show{
+
+    display:flex;
+
+}
+
+.modalContent{
+
+    width:100%;
+
+    max-width:420px;
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:20px;
+
+}
+
+.modalContent h2{
+
+    margin-bottom:15px;
+
+}
+
+.modal input,
+.modalContent input{
+
+    width:100%;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    border:1px solid #ccc;
+
+    font-size:16px;
+
+    margin-bottom:15px;
+
+}
+
+.avatarGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(6,1fr);
+
+    gap:8px;
+
+    margin:15px 0;
+
+}
+
+.avatarItem{
+
+    font-size:28px;
+
+    border:2px solid #ddd;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    padding:10px;
+
+    cursor:pointer;
+
+}
+
+.avatarItem.selected{
+
+    border-color:#0f6b3e;
+
+    background:#dff7e7;
+
+}
+
+/* =========================
+   BOTTOM SHEET
+========================= */
+
+.bottomSheet{
+
+    position:fixed;
+
+    left:0;
+
+    right:0;
+
+    bottom:-100%;
+
+    background:#fff;
+
+    border-radius:24px 24px 0 0;
+
+    padding:20px;
+
+    transition:.3s;
+
+    z-index:1200;
+
+    max-height:75vh;
+
+    overflow:auto;
+
+    box-shadow:0 -8px 30px rgba(0,0,0,.25);
+
+}
+
+.bottomSheet.show{
+
+    bottom:0;
+
+}
+
+.sheetPlayer{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    margin-bottom:10px;
+
+    background:#f4f4f4;
+
+    cursor:pointer;
+
+}
+
+.sheetPlayer:hover{
+
+    background:#e8f6ee;
+
+}
+
+.colorItem{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    margin-top:10px;
+
+    background:#f5f5f5;
+
+    cursor:pointer;
+
+}
+
+.colorItem:hover{
+
+    background:#e8f6ee;
+
+}
+
+/* =========================
+   OKEY MASASI
+========================= */
+
+.tableArea{
+
+    margin-top:20px;
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+.okeyTable{
+
+    position:relative;
+
+    width:340px;
+
+    height:340px;
+
+    background:radial-gradient(
+        circle,
+        #2d8b57,
+        #156d3d
+    );
+
+    border:12px solid #6d4c2d;
+
+    border-radius:40px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.35);
+
+}
+
+/* =========================
+   KOLTUKLAR
+========================= */
+
+.seat{
+
+    position:absolute;
+
+    width:95px;
+
+    min-height:88px;
+
+    background:#fff;
+
+    border-radius:22px;
+
+    padding:10px;
+
+    text-align:center;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.18);
+
+    transition:.25s;
+
+}
+
+#seat0{
+    bottom:-32px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+#seat1{
+    top:-32px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+#seat2{
+    right:-32px;
+    top:50%;
+    transform:translateY(-50%);
+}
+
+#seat3{
+    left:-32px;
+    top:50%;
+    transform:translateY(-50%);
+}
+
+.seat:hover{
+
+    transform:scale(1.05);
+
+}
+
+.seat .avatar{
+
+    font-size:42px;
+
+    margin:0;
+
+}
+
+.seat .name{
+
+    font-weight:bold;
+
+    margin-top:4px;
+
+    font-size:15px;
+
+}
+
+.seat .score{
+
+    display:none;
+
+}
+
+    /* =========================
+   OYUN ELİ KARTLARI
+========================= */
+
+.handSouth{
+
+    background:#dff5df;
+
+    border-left:8px solid #27ae60;
+
+}
+
+.handNorth{
+
+    background:#e3f0ff;
+
+    border-left:8px solid #3498db;
+
+}
+
+.handEast{
+
+    background:#fff8d8;
+
+    border-left:8px solid #f1c40f;
+
+}
+
+.handWest{
+
+    background:#ffe6e6;
+
+    border-left:8px solid #e74c3c;
+
+}
+
+/* =========================
+   SONUÇ MODALI
+========================= */
+
+#resultContent{
+
+    max-height:60vh;
+
+    overflow-y:auto;
+
+    white-space:pre-line;
+
+    line-height:1.6;
+
+    font-size:17px;
+
+}
+
+#gameResultText{
+
+    text-align:center;
+
+    line-height:1.8;
+
+    font-size:18px;
+
+}
+
+/* =========================
+   KAYDIRMA ÇUBUĞU
+========================= */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#bcbcbc;
+
+    border-radius:10px;
+
+}
+
+/* =========================
+   MOBİL
+========================= */
+
+@media (max-width:480px){
+
+    header{
+
+        font-size:21px;
+
+        padding:16px;
+
+    }
+
+    .okeyTable{
+
+        width:300px;
+
+        height:300px;
+
+    }
+
+    .seat{
+
+        width:88px;
+
+        min-height:82px;
+
+        padding:8px;
+
+    }
+
+    .seat .avatar{
+
+        font-size:36px;
+
+    }
+
+    .seat .name{
+
+        font-size:13px;
+
+    }
+
+    button{
+
+        font-size:16px;
+
+        padding:14px;
+
+    }
+
+}
+
+/* =========================
+   BİTİŞ
+========================= */
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+🀄 ALLI GÜLLÜ OKEY AAĞSATİM
+
+</header>
+
+<!-- ================================================= -->
+<!-- ANA MENÜ -->
+<!-- ================================================= -->
+
+<div class="page active" id="homePage">
+
+    <div class="card">
+
+        <h1>🀄 Allı Güllü Okey Pro</h1>
+
+        <p class="small">
+            Profesyonel Okey Skor Takip Sistemi
+        </p>
+
+        <hr>
+
+        <button onclick="openPage('playersPage')">
+            👥 Oyuncular
+        </button>
+
+        <button onclick="openPage('gamePage')">
+            🎮 Yeni Oyun
+        </button>
+
+        <button onclick="openPage('historyPage')">
+            📜 Oyun Geçmişi
+        </button>
+
+        <button onclick="openPage('statsPage')">
+            📊 İstatistikler
+        </button>
+
+        <button onclick="openPage('settingsPage')">
+            ⚙️ Ayarlar
+        </button>
+
+        <hr>
+
+        <div style="text-align:center;">
+
+            <b>Allı Güllü Okey Pro</b>
+
+            <br>
+
+            <span class="small">
+
+        Sürüm :
+        <span id="homeVersion"></span>
+
+    </span>
+
+</div>
+
+</div>
+
+<div class="page" id="playersPage">
+
+    <div class="card">
+
+        <h2>👥 Oyuncular</h2>
+
+        <div id="playerList"></div>
+
+        <button class="primaryButton"
+                onclick="openPlayerModal()">
+
+            ➕ Yeni Oyuncu
+
+        </button>
+
+        <button onclick="openPage('homePage')">
+
+            ⬅ Ana Menü
+
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- ================================================= -->
+<!-- YENİ OYUN -->
+<!-- ================================================= -->
+
+<div class="page" id="gamePage">
+
+    <div class="card">
+
+        <h2>🎮 Yeni Oyun</h2>
+
+        <div class="tableArea">
+
+            <div
+                class="okeyTable"
+                id="tableContainer">
+
+                <div
+                    id="seat0"
+                    class="seat">
+                </div>
+
+                <div
+                    id="seat1"
+                    class="seat">
+                </div>
+
+                <div
+                    id="seat2"
+                    class="seat">
+                </div>
+
+                <div
+                    id="seat3"
+                    class="seat">
+                </div>
+
+                <!-- Masa Ortası -->
+
+                <div class="tableCenter">
+
+                    <div id="gameInfo"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <br>
+
+        <button
+            class="primaryButton"
+            onclick="startNewTable()">
+
+            🪑 Yeni Masa Hazırla
+
+        </button>
+
+        <!-- ====================================== -->
+        <!-- OYUN KONTROLLERİ -->
+        <!-- ====================================== -->
+
+        <div
+            id="gameOptions"
+            style="display:none;">
+
+            <button
+                class="primaryButton"
+                onclick="startGame()">
+
+                🎲 Oyunu Başlat
+
+            </button>
+
+            <button
+                class="calcButton"
+                onclick="undoLastHand()">
+
+                ↩ Son Eli Geri Al
+
+            </button>
+
+            <!-- ============================== -->
+            <!-- EL GİRİŞİ -->
+            <!-- ============================== -->
+
+            <div
+                id="handEntry"
+                style="display:none;">
+
+                <hr>
+
+                <h3>
+
+                    📝 El Bilgileri
+
+                </h3>
+
+                <div
+                    id="handPlayers">
+
+                </div>
+
+                <button
+                    class="calcButton"
+                    onclick="calculateHand()">
+
+                    🧮 Eli Hesapla
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <button
+            onclick="openPage('homePage')">
+
+            ⬅ Ana Menü
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ================================================= -->
+<!-- OYUN GEÇMİŞİ -->
+<!-- ================================================= -->
+
+<div class="page" id="historyPage">
+
+    <div class="card">
+
+        <h2>📜 Oyun Geçmişi</h2>
+
+        <div id="historyList">
+
+        </div>
+
+        <button onclick="openPage('homePage')">
+
+            ⬅ Ana Menü
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ================================================= -->
+<!-- İSTATİSTİKLER -->
+<!-- ================================================= -->
+
+<div class="page" id="statsPage">
+
+    <div class="card">
+
+        <h2>🏆 Oyuncu İstatistikleri</h2>
+
+        <div id="statsList">
+
+        </div>
+
+        <hr>
+
+        <h3>👥 Takım Durumu</h3>
+
+        <p>
+
+            Takım A Net
+
+            <b id="teamANet">0</b>
+
+        </p>
+
+        <p>
+
+            Takım B Net
+
+            <b id="teamBNet">0</b>
+
+        </p>
+
+        <hr>
+
+        <h3>📊 Genel Bilgiler</h3>
+
+        <p>
+
+            Toplam Oyun
+
+            <b id="totalGames">0</b>
+
+        </p>
+
+        <p>
+
+            Toplam El
+
+            <b id="totalHands">0</b>
+
+        </p>
+
+        <button onclick="openPage('homePage')">
+
+            ⬅ Ana Menü
+
+        </button>
+
+    </div>
+
+</div>
+<!-- ========================= -->
+<!-- AYARLAR -->
+<!-- ========================= -->
+
+<div class="page" id="settingsPage">
+
+    <div class="card">
+
+        <h2>⚙️ Ayarlar</h2>
+
+        <button onclick="exportData()">
+            📤 Verileri Dışa Aktar
+        </button>
+
+        <input
+            type="file"
+            id="importFile"
+            accept=".json"
+            style="display:none"
+            onchange="importData(this.files[0])">
+
+        <button
+            onclick="document.getElementById('importFile').click()">
+            📥 Verileri İçe Aktar
+        </button>
+
+        <button onclick="resetAllData()">
+            🗑️ Tüm Verileri Sil
+        </button>
+
+        <hr>
+
+        <h3>📱 Uygulama Bilgileri</h3>
+
+        <p>
+
+            Sürüm
+
+            <b id="versionText"></b>
+
+        </p>
+
+        <p>
+
+            Oyuncu Sayısı
+
+            <b id="settingsPlayerCount"></b>
+
+        </p>
+
+        <p>
+
+            Oynanan Oyun
+
+            <b id="settingsGameCount"></b>
+
+        </p>
+
+        <p>
+
+            Son Kayıt
+
+            <b id="settingsLastSave"></b>
+
+        </p>
+
+        <hr>
+
+        <button onclick="openPage('homePage')">
+            ⬅ Ana Menü
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Oyuncu Ekle / Düzenle Modal -->
+
+<div class="modal" id="playerModal">
+
+    <div class="modalContent">
+
+        <h2 id="modalTitle">Yeni Oyuncu</h2>
+
+        <input
+            type="text"
+            id="playerName"
+            placeholder="Oyuncu adı">
+
+        <div
+            id="avatarGrid"
+            class="avatarGrid">
+        </div>
+
+        <button onclick="savePlayer()">
+            💾 Kaydet
+        </button>
+
+        <button onclick="closePlayerModal()">
+            ❌ Vazgeç
+        </button>
+
+    </div>
+
+</div>
+
+<div id="playerSheet" class="bottomSheet">
+
+<h2>Oyuncu Seç</h2>
+
+<div id="sheetPlayers"></div>
+
+<button onclick="closePlayerSheet()">
+
+Kapat
+
+</button>
+
+</div>
+
+<div
+id="indicatorSheet"
+class="bottomSheet">
+
+<h2>
+
+Açılan Okey
+
+</h2>
+
+<div
+onclick="setIndicator('yellow',3)"
+class="colorItem">
+
+<span>🟡 Sarı</span>
+
+<b>×3</b>
+
+</div>
+
+<div
+onclick="setIndicator('red',4)"
+class="colorItem">
+
+<span>🔴 Kırmızı</span>
+
+<b>×4</b>
+
+</div>
+
+<div
+onclick="setIndicator('black',5)"
+class="colorItem">
+
+<span>⚫ Siyah</span>
+
+<b>×5</b>
+
+</div>
+
+<div
+onclick="setIndicator('blue',6)"
+class="colorItem">
+
+<span>🔵 Mavi</span>
+
+<b>×6</b>
+
+</div>
+
+<div
+onclick="setIndicator('fake',10)"
+class="colorItem">
+
+<span>🃏 Sahte Okey</span>
+
+<b>×10</b>
+
+</div>
+
+<br>
+
+<button
+onclick="closeIndicatorSheet()">
+
+Kapat
+
+</button>
+
+</div>
+<div class="modal" id="resultModal">
+
+    <div class="modalContent">
+
+        <h2>🀄 El Sonucu</h2>
+
+        <div
+            id="resultContent"
+            style="
+                max-height:60vh;
+                overflow:auto;
+                white-space:pre-line;
+                font-size:17px;
+                line-height:1.6;
+            ">
+        </div>
+
+        <button onclick="closeResultModal()">
+            Tamam
+        </button>
+
+    </div>
+
+</div>
+
+<div
+class="modal"
+id="gameResultModal">
+
+<div class="modalContent">
+
+<h2>
+
+🏆 Oyun Bitti
+
+</h2>
+
+<div id="gameResultText"></div>
+
+<button
+onclick="newGame()">
+
+🀄 Yeni Oyun
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+const STORAGE_KEY="alliGulluOkeyPro";
+
+const APP_VERSION="0.8.1";
+
+const MAX_HANDS = 5;
+
+const DEFAULT_MULTIPLIER = 6;
+
+const DEFAULT_INDICATOR = "blue";
+
+/* ===== Masa Düzeni ===== */
+
+const SEATS = {
+
+    SOUTH:0,   // seat1
+
+    NORTH:1,   // seat2
+
+    EAST:2,    // seat3
+
+    WEST:3     // seat4
+
+};
+
+const TEAM_A = [
+
+    SEATS.SOUTH,
+
+    SEATS.NORTH
+
+];
+
+const TEAM_B = [
+
+    SEATS.EAST,
+
+    SEATS.WEST
+
+];
+
+/* Uygulama */
+
+const app = {
+
+    players:[],
+
+    games:[],
+
+    lastHand:null,
+
+    settings:{},
+
+    tableSeats:[null,null,null,null],
+
+    game:{
+
+        mode:"team",
+
+        indicator:"blue",
+
+        multiplier:6,
+
+        hand:1,
+
+        startedAt: Date.now(),
+        
+        teamAReward:0,
+        teamAPenalty:0,
+
+        teamBReward:0,
+        teamBPenalty:0
+
+    }
+
+};
+
+/* Varsayılan oyuncular */
+
+const defaultPlayers=[
+["fatih","Fatih"],
+["mustafa","Mustafa"],
+["cumali","Cumali"],
+["cemil","Cemil"],
+["ali","Ali"],
+["sefik","Şefik"],
+["yildirim","Yıldırım"],
+["hakki","Hakkı"]
+];
+
+const avatars=[
+"fatih",
+"mustafa",
+"cumali",
+"cemil",
+"ali",
+"sefik",
+"yildirim",
+"hakki",
+"osman",
+"halil"
+];
+
+let editingPlayerId=null;
+let selectedAvatar="😀";
+let currentSeat=-1;
+    
+/* Sayfa Aç */
+
+function openPage(id){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(p=>p.classList.remove("active"));
+
+    const page = document.getElementById(id);
+
+    if(!page){
+        console.error("Sayfa bulunamadı:", id);
+        return;
+    }
+
+    page.classList.add("active");
+
+    switch(id){
+
+        case "playersPage":
+            renderPlayers();
+            break;
+
+        case "historyPage":
+            renderHistory();
+            break;
+
+        case "statsPage":
+            renderStats();
+            break;
+
+        case "gamePage":
+            renderTable();
+            renderGameInfo();
+            break;
+
+    }
+
+}
+
+/* İlk Kurulum */
+
+function initialize(){
+
+    load();
+
+    if(app.players.length===0){
+
+        createDefaultPlayers();
+
+        save();
+
+    }
+
+    document.getElementById("versionText").textContent =
+        APP_VERSION;
+
+    document.getElementById("homeVersion").textContent =
+        APP_VERSION;
+
+    document.getElementById("settingsPlayerCount").textContent =
+        app.players.length;
+
+    document.getElementById("settingsGameCount").textContent =
+        app.games.filter(g=>g.type==="game").length;
+
+    document.getElementById("settingsLastSave").textContent =
+        new Date().toLocaleString("tr-TR");
+
+    renderPlayers();
+
+    renderTable();
+
+    renderGameInfo();
+
+    renderHistory();
+
+    renderStats();
+
+}
+
+function renderTable(){
+
+
+       const ready =
+app.tableSeats.every(x=>x!==null);
+
+document.getElementById("gameOptions")
+.style.display =
+ready
+? "block"
+: "none";
+    
+    const seats = [
+        document.getElementById("seat0"),
+        document.getElementById("seat1"),
+        document.getElementById("seat2"),
+        document.getElementById("seat3")
+    ];
+
+    seats.forEach((seat,index)=>{
+        
+        const playerId = app.tableSeats[index];
+
+        if(playerId === null){
+
+            seat.innerHTML = `
+                <button onclick="chooseSeat(${index})">
+                    ➕<br>Oyuncu Seç
+                </button>
+            `;
+
+            return;
+        }
+
+        const player = app.players.find(p=>p.id===playerId);
+
+        if(!player){
+
+            seat.innerHTML = `
+                <button onclick="chooseSeat(${index})">
+                    ➕<br>Oyuncu Seç
+                </button>
+            `;
+
+            return;
+        }
+
+        seat.innerHTML = `
+            <div class="avatar">
+<img src="avatarlar/${player.avatar}.png" class="tableAvatar">
+</div>
+
+            <div class="name">${player.name}</div>
+
+            <div class="score" style="display:none;"></div>
+
+            <div style="display:flex;gap:4px;justify-content:center;margin-top:6px;">
+
+    <button
+        style="padding:4px 6px;font-size:11px;width:auto;"
+        onclick="chooseSeat(${index})">
+        🔄
+    </button>
+
+    <button
+        style="padding:4px 6px;font-size:11px;width:auto;"
+        onclick="clearSeat(${index})">
+        ❌
+    </button>
+
+</div>
+        `;
+
+    });
+
+}
+
+function renderGameInfo(){
+
+    const colors = {
+
+        yellow:"🟡 Sarı",
+
+        red:"🔴 Kırmızı",
+
+        black:"⚫ Siyah",
+
+        blue:"🔵 Mavi",
+
+        fake:"🃏 Sahte Okey"
+
+    };
+
+    const mode =
+        app.game.mode==="team"
+        ? "👥 Eşli"
+        : "👤 Tekli";
+
+    document.getElementById("gameInfo").innerHTML = `
+
+<div style="
+    text-align:center;
+    color:white;
+    font-weight:bold;
+    line-height:1.6;
+">
+
+<div style="font-size:18px;">
+${app.game.hand}. EL
+</div>
+
+<div>
+${colors[app.game.indicator]}
+</div>
+
+<div>
+Çarpan ×${app.game.multiplier}
+</div>
+
+<div>
+${mode}
+</div>
+
+</div>
+
+`;
+
+}
+
+function setGameMode(mode){
+
+    app.game.mode=mode;
+
+    save();
+
+    renderGameInfo();
+
+}
+
+function startGame(){
+
+    if(app.tableSeats.includes(null)){
+
+        showMessage("Önce dört oyuncuyu oturtun.");
+
+        return;
+
+    }
+
+    document
+    .getElementById("indicatorSheet")
+    .classList.add("show");
+
+    document
+.getElementById("handEntry")
+.style.display="block";
+
+renderHandEntry();
+
+}
+
+function calculateHand(){
+
+    const winnerRadio =
+        document.querySelector(
+            'input[name="winner"]:checked'
+        );
+
+    if(!winnerRadio){
+
+        showMessage("Biten oyuncuyu seçiniz.");
+
+        return;
+
+    }
+
+    const winnerSeat = Number(winnerRadio.value);
+
+    const finish =
+        document.querySelector(
+            'input[name="finish'+winnerSeat+'"]:checked'
+        ).value;
+
+    const base = app.game.multiplier;
+
+    //------------------------------------------------
+    // Takımlar
+    //------------------------------------------------
+
+    const winnerTeam =
+        TEAM_A.includes(winnerSeat)
+        ? TEAM_A
+        : TEAM_B;
+
+    const loserTeam =
+        winnerTeam===TEAM_A
+        ? TEAM_B
+        : TEAM_A;
+
+    //------------------------------------------------
+    // Çarpan
+    //------------------------------------------------
+
+    let finishMultiplier = 1;
+
+    switch(finish){
+
+        case "normal":
+            finishMultiplier = 1;
+            break;
+
+        case "okey":
+            finishMultiplier = 2;
+            break;
+
+        case "konken":
+            finishMultiplier = 4;
+            break;
+
+        case "konkenOkey":
+            finishMultiplier = 8;
+            break;
+
+        case "renk":
+            finishMultiplier = Infinity;
+            break;
+
+    }
+
+    //------------------------------------------------
+    // Kazananlar
+    //------------------------------------------------
+
+    const winners = winnerTeam.map(seat=>
+        app.players.find(
+            p=>p.id===app.tableSeats[seat]
+        )
+    );
+
+    //------------------------------------------------
+    // Ödül
+    //------------------------------------------------
+
+    let reward = 0;
+
+    if(finish!="renk"){
+
+        reward = base * 10 * finishMultiplier;
+
+    }
+
+    //------------------------------------------------
+    // Rapor
+    //------------------------------------------------
+
+    let report="";
+
+    report+=
+`🏆 KAZANAN TAKIM
+
+${winners[0].avatar} ${winners[0].name}
+
+${winners[1].avatar} ${winners[1].name}
+
+`;
+
+    if(finish=="renk"){
+
+        report+=
+`🎉 RENK YAPILDI
+
+OYUN BİTTİ
+
+`;
+
+    }else{
+
+        report+=
+`ÖDÜL : +${reward}
+
+`;
+
+    }
+
+    report+="━━━━━━━━━━━━━━\n\n";
+
+    //------------------------------------------------
+    // Kaybeden Takım
+    //------------------------------------------------
+
+    report+="💀 KAYBEDEN TAKIM\n\n";
+
+    let totalPenalty = 0;
+
+    loserTeam.forEach(seat=>{
+
+        const player =
+            app.players.find(
+                p=>p.id===app.tableSeats[seat]
+            );
+
+        const stones =
+            Number(
+                document.getElementById(
+                    "stone"+seat
+                ).value
+            );
+
+        let penalty;
+
+        if(finish=="renk"){
+
+            penalty="∞";
+
+        }else{
+
+            penalty =
+                stones *
+                base *
+                finishMultiplier;
+
+            totalPenalty += penalty;
+
+        }
+
+        
+
+        report+=
+`${player.avatar} ${player.name}
+
+Taş : ${stones}
+
+Ceza : ${penalty}
+
+`;
+
+    });
+
+    if(finish!="renk"){
+
+    if(winnerTeam===TEAM_A){
+
+        app.game.teamAReward += reward;
+        app.game.teamBPenalty += totalPenalty;
+
+    }else{
+
+        app.game.teamBReward += reward;
+        app.game.teamAPenalty += totalPenalty;
+
+    }
+
+    }
+    
+    if(finish!="renk"){
+        report+=
+`━━━━━━━━━━━━━━
+
+TOPLAM TAKIM CEZASI
+
+${totalPenalty}`;
+
+    }
+
+    //------------------------------------------------
+    // İstatistik
+    //------------------------------------------------
+
+    winners.forEach(player=>{
+
+        player.stats.games++;
+
+        player.stats.wins++;
+
+        player.stats.reward += reward;
+
+    });
+
+    loserTeam.forEach(seat=>{
+
+        const player =
+            app.players.find(
+                p=>p.id===app.tableSeats[seat]
+            );
+
+        const stones =
+            Number(
+                document.getElementById(
+                    "stone"+seat
+                ).value
+            );
+
+        if(finish!="renk"){
+
+            player.stats.penalty +=
+                stones *
+                base *
+                finishMultiplier;
+
+        }
+
+        player.stats.games++;
+
+    });
+
+    const finisher =
+        app.players.find(
+            p=>p.id===app.tableSeats[winnerSeat]
+        );
+
+    finisher.stats[finish]++;
+
+    app.games.push({
+
+    hand: app.game.hand,
+
+    date: new Date().toLocaleString("tr-TR"),
+
+    indicator: app.game.indicator,
+
+    multiplier: base,
+
+    finish: finish,
+
+    winnerTeam:
+        winnerTeam===TEAM_A
+        ? "Takım A"
+        : "Takım B",
+
+    winners:
+        winners.map(p=>p.name),
+
+    reward: reward,
+
+    penalty: totalPenalty
+
+});
+
+    app.lastHand = {
+
+    winnerTeam:
+        winnerTeam===TEAM_A ? "A" : "B",
+
+    reward,
+
+    penalty:totalPenalty,
+
+    finish,
+
+    finishMultiplier,
+
+    hand:app.game.hand,
+
+    winnerSeat,
+
+    winners:[...winnerTeam],
+
+    losers:[...loserTeam],
+
+    loserStones: loserTeam.map(seat => ({
+
+    seat,
+
+    stones: Number(
+        document.getElementById(
+            "stone"+seat
+        ).value
+    )
+
+}))
+
+};  
+    
+    showResult(report);
+
+    app.game.hand++;
+
+const gameFinished =
+    finish==="renk" ||
+    app.game.hand > MAX_HANDS;
+
+save();
+
+renderGameInfo();
+
+if(gameFinished){
+
+    finishGame();
+
+    }
+}
+    
+function finishGame(){
+
+    const teamAScore =
+    getTeamScore("A");
+
+    const teamBScore =
+    getTeamScore("B");
+
+    const duration =
+    Math.round(
+        (Date.now() - app.game.startedAt) / 60000
+    );
+    
+let winner;
+
+if(teamAScore > teamBScore){
+
+    winner = "Takım A";
+
+}else if(teamBScore > teamAScore){
+
+    winner = "Takım B";
+
+}else{
+
+    winner = "Berabere";
+
+}
+
+    app.games.push({
+
+        type:"game",
+
+        date:new Date()
+            .toLocaleString("tr-TR"),
+
+        winner,
+
+        teamA:teamAScore,
+
+        teamB:teamBScore,
+
+teamAReward:app.game.teamAReward,
+teamAPenalty:app.game.teamAPenalty,
+
+teamBReward:app.game.teamBReward,
+teamBPenalty:app.game.teamBPenalty,
+
+        hands:app.game.hand-1
+
+    });
+
+    save();
+
+    showGameResult(winner);
+
+}
+
+function closeIndicatorSheet(){
+
+    document
+    .getElementById("indicatorSheet")
+    .classList.remove("show");
+
+}
+
+function showResult(text){
+
+    document.getElementById("resultContent").textContent=text;
+
+    document
+        .getElementById("resultModal")
+        .classList.add("show");
+
+}
+
+function closeResultModal(){
+
+    document
+        .getElementById("resultModal")
+        .classList.remove("show");
+
+}
+
+function showGameResult(winner){
+
+    document
+    .getElementById(
+        "gameResultText"
+    ).innerHTML=
+
+`
+<h3>${winner}</h3>
+
+<br>
+
+Takım A
+
+Net :
+${getTeamScore("A")}
+
+(+${app.game.teamAReward})
+
+(-${app.game.teamAPenalty})
+
+<br><br>
+
+Takım B
+
+Net :
+${getTeamScore("B")}
+
+(+${app.game.teamBReward})
+
+(-${app.game.teamBPenalty})
+
+`;
+
+    document
+    .getElementById(
+        "gameResultModal"
+    )
+    .classList.add("show");
+
+}
+
+function closeGameResultModal(){
+
+    document
+        .getElementById("gameResultModal")
+        .classList.remove("show");
+
+}
+
+function getTeamScore(team){
+
+    if(team==="A"){
+
+        return app.game.teamAReward
+             - app.game.teamAPenalty;
+
+    }
+
+    return app.game.teamBReward
+         - app.game.teamBPenalty;
+
+}
+    
+function newGame(){
+
+    resetGameScores();
+
+    app.game.hand = 1;
+
+    app.game.startedAt = Date.now();
+
+    app.lastHand = null;
+
+    app.game.indicator = DEFAULT_INDICATOR;
+
+    app.game.multiplier = DEFAULT_MULTIPLIER;
+
+    save();
+
+    renderGameInfo();
+
+    closeGameResultModal();
+
+    renderHistory();
+
+renderStats();
+
+renderTable();
+
+}
+
+function resetGameScores(){
+
+    app.game.teamAReward=0;
+    app.game.teamAPenalty=0;
+
+    app.game.teamBReward=0;
+    app.game.teamBPenalty=0;
+
+}
+
+function showMessage(text){
+
+    alert(text);
+
+}
+
+function ask(text){
+
+    return confirm(text);
+
+}
+
+function undoLastHand(){
+
+    if(!app.lastHand){
+
+        showMessage("Geri alınacak el yok.");
+
+        return;
+
+    }
+
+    if(!ask("Son el geri alınsın mı?")){
+
+        return;
+
+    }
+
+    app.game.hand--;
+
+    app.games.pop();
+
+    const h = app.lastHand;
+
+    h.winners.forEach(seat=>{
+
+    const player =
+        app.players.find(
+            p=>p.id===app.tableSeats[seat]
+        );
+
+    if(!player) return;
+
+    player.stats.games--;
+
+    player.stats.wins--;
+
+    player.stats.reward -= h.reward;
+
+    player.stats[h.finish]--;
+
+});
+
+    h.loserStones.forEach(item=>{
+
+    const player =
+        app.players.find(
+            p=>p.id===app.tableSeats[item.seat]
+        );
+
+    if(!player) return;
+
+    player.stats.games--;
+
+    player.stats.penalty -=
+    item.stones *
+    app.game.multiplier *
+    h.finishMultiplier;
+
+});
+    if(h.winnerTeam==="A"){
+
+    app.game.teamAReward -= h.reward;
+
+    app.game.teamBPenalty -= h.penalty;
+
+}else{
+
+    app.game.teamBReward -= h.reward;
+
+    app.game.teamAPenalty -= h.penalty;
+
+    }
+
+    app.lastHand = null;
+
+    save();
+
+    renderGameInfo();
+
+    showMessage("Son el geri alındı.");
+
+}
+
+function setIndicator(color,multiplier){
+
+    app.game.indicator=color;
+
+    app.game.multiplier=multiplier;
+
+    save();
+
+    renderTable();
+
+    renderGameInfo();
+
+    closeIndicatorSheet();
+
+}
+
+function renderHandEntry(){
+
+    const area =
+    document.getElementById("handPlayers");
+
+    area.innerHTML="";
+
+    app.tableSeats.forEach((id,index)=>{
+
+        const player =
+        app.players.find(p=>p.id===id);
+
+        if(!player) return;
+
+        area.innerHTML += `
+
+<div class="card ${[
+"handSouth",
+"handNorth",
+"handEast",
+"handWest"
+][index]}" style="margin-top:10px;">
+
+<b>
+
+<img src="avatarlar/${player.avatar}.png"
+     class="tableAvatar">
+
+${player.name}
+
+</b>
+
+<br><br>
+
+Kalan Taş
+
+<input
+
+id="stone${index}"
+
+type="number"
+
+min="0"
+
+max="30"
+
+value="0">
+
+<br><br>
+
+<label>
+
+<input
+
+type="radio"
+
+name="winner"
+
+value="${index}">
+
+Bu oyuncu bitti
+
+</label>
+
+<hr style="margin:12px 0;">
+
+<b>Bitiş Türü</b>
+
+<label>
+<input type="radio"
+name="finish${index}"
+value="normal"
+checked>
+
+Normal
+</label>
+
+<label>
+<input type="radio"
+name="finish${index}"
+value="okey">
+
+Okey
+</label>
+
+<label>
+<input type="radio"
+name="finish${index}"
+value="konken">
+
+Konken (7 Çift)
+</label>
+
+<label>
+<input type="radio"
+name="finish${index}"
+value="konkenOkey">
+
+Konkenden Okey
+</label>
+
+<label>
+<input type="radio"
+name="finish${index}"
+value="renk">
+
+Renk
+</label>
+
+</label>
+
+</div>
+
+`;
+
+    });
+
+    }
+    
+function chooseSeat(index){
+
+currentSeat=index;
+
+renderPlayerSheet();
+
+document
+.getElementById("playerSheet")
+.classList.add("show");
+
+}
+
+function closePlayerSheet(){
+
+    document
+        .getElementById("playerSheet")
+        .classList.remove("show");
+
+}
+
+function renderPlayerSheet(){
+
+    const area = document.getElementById("sheetPlayers");
+
+    area.innerHTML = "";
+
+    app.players.forEach(player=>{
+
+        if(app.tableSeats.includes(player.id))
+            return;
+
+        area.innerHTML += `
+            <div class="sheetPlayer"
+                 onclick="selectSeatPlayer(${player.id})">
+
+                <span style="font-size:34px;">
+                    <img src="avatarlar/${player.avatar}.png"
+     class="tableAvatar">
+                </span>
+
+                <span>
+                    ${player.name}
+                </span>
+
+            </div>
+        `;
+
+    });
+
+}
+
+function selectSeatPlayer(playerId){
+
+    app.tableSeats[currentSeat] = playerId;
+
+    save();
+
+    renderTable();
+
+    renderGameInfo();
+    
+    closePlayerSheet();
+
+}
+
+function clearSeat(index){
+
+    app.tableSeats[index] = null;
+
+    save();
+
+    renderTable();
+
+}
+    
+/* Varsayılan Oyuncular */
+
+function createDefaultPlayers(){
+
+app.players=[];
+
+defaultPlayers.forEach((p,index)=>{
+
+app.players.push({
+
+id:Date.now()+index,
+
+avatar:p[0],
+
+name:p[1],
+
+stats:{
+
+games:0,
+
+wins:0,
+
+normal:0,
+
+okey:0,
+
+konken:0,
+
+konkenOkey:0,
+
+renk:0,
+
+reward:0,
+
+penalty:0
+
+}
+
+});
+
+});
+
+}
+
+/* Kaydet */
+
+function save(){
+
+    const data={
+
+        version:APP_VERSION,
+
+        exportDate:new Date().toISOString(),
+
+        app:app
+
+    };
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+    );
+
+}
+
+function load(){
+
+    const raw =
+        localStorage.getItem(STORAGE_KEY);
+
+    if(!raw) return;
+
+    try{
+
+        const data = JSON.parse(raw);
+
+        if (data.app) {
+
+    Object.assign(app, data.app);
+
+    app.game = {
+
+        mode: "team",
+        indicator: DEFAULT_INDICATOR,
+        multiplier: DEFAULT_MULTIPLIER,
+        hand: 1,
+        startedAt: Date.now(),
+
+        teamAReward: 0,
+        teamAPenalty: 0,
+        teamBReward: 0,
+        teamBPenalty: 0,
+
+        ...app.game
+    };
+
+} else {
+
+    Object.assign(app, data);
+
+        }
+
+    }catch(e){
+
+        console.error(e);
+
+    }
+
+}
+
+/* Oyuncuları Listele */
+
+function renderPlayers(){
+
+const list=document.getElementById("playerList");
+
+list.innerHTML="";
+
+app.players.forEach(player=>{
+
+list.innerHTML+=`
+
+<div class="playerCard">
+
+<div class="playerLeft">
+
+<div class="avatar">
+
+<img src="avatarlar/${player.avatar}.png"
+     class="tableAvatar">
+
+</div>
+
+<div>
+
+<b>${player.name}</b>
+
+<br>
+
+<span class="small">
+
+${player.stats.games} oyun
+
+</span>
+
+</div>
+
+</div>
+
+<div style="display:flex;gap:6px;">
+
+<button
+onclick="editPlayer(${player.id})"
+style="width:45px;padding:8px;">
+✏️
+</button>
+
+<button
+onclick="deletePlayer(${player.id})"
+style="width:45px;padding:8px;">
+🗑️
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function renderHistory(){
+
+    const list =
+        document.getElementById("historyList");
+
+    list.innerHTML = "";
+
+    if(app.games.length===0){
+
+        list.innerHTML = `
+            <p>Henüz oyun oynanmadı.</p>
+        `;
+
+        return;
+
+    }
+
+    app.games
+        .slice()
+        .reverse()
+        .forEach(game=>{
+
+            if(game.type==="game"){
+
+                list.innerHTML += `
+
+<div class="card">
+
+<h3>🏆 Oyun Sonucu</h3>
+
+<b>${game.date}</b>
+
+<hr>
+
+Kazanan
+
+<b>${game.winner}</b>
+
+<br><br>
+
+Takım A
+
++${game.teamAReward}
+
+-${game.teamAPenalty}
+
+Net :
+${game.teamA}
+
+<br><br>
+
+Takım B
+
++${game.teamBReward}
+
+-${game.teamBPenalty}
+
+Net :
+${game.teamB}
+
+<br><br>
+
+Toplam El
+
+${game.hands}
+
+</div>
+
+`;
+
+            }else{
+
+                list.innerHTML += `
+
+<div class="card">
+
+<b>${game.hand}. EL</b>
+
+<br>
+
+${game.date}
+
+<hr>
+
+Kazanan
+
+${game.winnerTeam}
+
+<br>
+
+${game.winners.join(" + ")}
+
+<br>
+
+Bitiş
+
+${game.finish}
+
+<br>
+
+Ödül
+
++${game.reward}
+
+<br>
+
+Takım Cezası
+
+${game.penalty}
+
+</div>
+
+`;
+
+            }
+
+        });
+
+}
+    
+function renderStats(){
+
+    const list =
+        document.getElementById("statsList");
+
+    list.innerHTML = "";
+
+    app.players.forEach(player=>{
+
+        const s = player.stats;
+
+        const percent =
+            s.games===0
+            ? 0
+            : Math.round(
+                s.wins*100/s.games
+            );
+
+        list.innerHTML += `
+
+<div class="card">
+
+<div style="font-size:24px;">
+
+<img src="avatarlar/${player.avatar}.png"
+     class="tableAvatar">
+
+<b>${player.name}</b>
+
+</div>
+
+<hr>
+
+🎮 Oyun :
+${s.games}
+
+<br>
+
+🏆 Galibiyet :
+${s.wins}
+
+<br>
+
+📈 Başarı :
+%${percent}
+
+<br><br>
+
+Normal :
+${s.normal}
+
+<br>
+
+Okey :
+${s.okey}
+
+<br>
+
+Konken :
+${s.konken}
+
+<br>
+
+Konkenden Okey :
+${s.konkenOkey}
+
+<br>
+
+Renk :
+${s.renk}
+
+<br><br>
+
+🎁 Ödül :
+${s.reward}
+
+<br>
+
+💀 Ceza :
+${s.penalty}
+
+</div>
+
+`;
+
+    });
+
+    document.getElementById("teamANet").textContent =
+        getTeamScore("A");
+
+    document.getElementById("teamBNet").textContent =
+        getTeamScore("B");
+
+    document.getElementById("totalGames").textContent =
+        app.games.filter(g=>g.type==="game").length;
+
+    document.getElementById("totalHands").textContent =
+        app.games.filter(g=>g.hand).length;
+
+}
+
+function openPlayerModal(player = null){
+
+    editingPlayerId = player ? player.id : null;
+
+    selectedAvatar = player ? player.avatar : "😀";
+
+    document.getElementById("playerName").value =
+        player ? player.name : "";
+
+    document.getElementById("modalTitle").textContent =
+        player ? "Oyuncuyu Düzenle" : "Yeni Oyuncu";
+
+    renderAvatarGrid();
+
+    document
+        .getElementById("playerModal")
+        .classList.add("show");
+
+}
+    
+function closePlayerModal(){
+
+    document
+        .getElementById("playerModal")
+        .classList.remove("show");
+
+}
+
+function renderAvatarGrid(){
+
+    const grid=document.getElementById("avatarGrid");
+
+    grid.innerHTML="";
+
+    avatars.forEach(a=>{
+
+        grid.innerHTML += `
+        <div
+            class="avatarItem ${selectedAvatar===a?"selected":""}"
+            onclick="selectAvatar('${a}')">
+
+            ${a}
+
+        </div>
+        `;
+
+    });
+
+}
+
+function selectAvatar(avatar){
+
+    selectedAvatar = avatar;
+
+    renderAvatarGrid();
+
+} 
+
+function savePlayer(){
+
+    const name = document.getElementById("playerName")
+        .value
+        .trim();
+
+    if(name===""){
+
+        showMessage("Lütfen oyuncu adı giriniz.");
+
+        return;
+
+    }
+
+    const duplicate = app.players.find(p =>
+        p.name.toLowerCase() === name.toLowerCase() &&
+        p.id !== editingPlayerId
+    );
+
+    if(duplicate){
+
+        showMessage("Bu isimde bir oyuncu zaten var.");
+
+        return;
+
+    }
+
+    if(editingPlayerId){
+
+        const player = app.players.find(p=>p.id===editingPlayerId);
+
+        player.name = name;
+
+        player.avatar = selectedAvatar;
+
+    }else{
+
+        app.players.push({
+
+            id:Date.now(),
+
+            avatar:selectedAvatar,
+
+            name:name,
+
+            stats:{
+                games:0,
+                wins:0,
+                normal:0,
+                okey:0,
+                konken:0,
+                konkenOkey:0,
+                renk:0,
+                reward:0,
+                penalty:0
+            }
+
+        });
+
+    }
+
+    save();
+
+renderPlayers();
+
+renderTable();
+
+closePlayerModal();
+
+}
+
+function editPlayer(id){
+
+    const player = app.players.find(p => p.id === id);
+
+    if(!player) return;
+
+    openPlayerModal(player);
+
+}
+
+function deletePlayer(id){
+
+    const player = app.players.find(p => p.id === id);
+
+    if(!player) return;
+
+    if(!ask(`"${player.name}" adlı oyuncu silinsin mi?`))
+        return;
+
+    app.players = app.players.filter(p => p.id !== id);
+
+    app.tableSeats = app.tableSeats.map(seat =>
+    seat === id ? null : seat
+);
+    
+    save();
+
+    renderPlayers();
+
+renderTable();
+    
+}
+
+function startNewTable(){
+
+    app.tableSeats = [null,null,null,null];
+
+    save();
+
+    renderTable();
+
+    renderGameInfo();
+
+    showMessage("Lütfen dört oyuncuyu masaya yerleştirin.");
+
+} 
+
+function exportData(){
+
+    const data=
+    localStorage.getItem(STORAGE_KEY);
+
+    const blob=
+    new Blob(
+        [data],
+        {type:"application/json"}
+    );
+
+    const a=
+    document.createElement("a");
+
+    a.href=
+    URL.createObjectURL(blob);
+
+    a.download=
+    "alligullu-okey-backup.json";
+
+    a.click();
+
+    URL.revokeObjectURL(a.href);
+
+}
+
+function importData(file){
+
+    const reader = new FileReader();
+
+    reader.onload = function(){
+
+        try{
+
+            JSON.parse(reader.result);
+
+            localStorage.setItem(
+                STORAGE_KEY,
+                reader.result
+            );
+
+            location.reload();
+
+        }catch(e){
+
+            showMessage(
+                "Geçersiz yedek dosyası."
+            );
+
+        }
+
+    };
+
+    reader.readAsText(file);
+
+}
+
+function resetAllData(){
+
+    if(!ask(
+        "Tüm veriler silinsin mi?"
+    )) return;
+
+    localStorage.removeItem(
+        STORAGE_KEY
+    );
+
+    location.reload();
+
+}
+    
+initialize();
+
+</script>
+
+</body>
+</html>
