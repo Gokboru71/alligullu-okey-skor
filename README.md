@@ -2532,72 +2532,90 @@ function load(){
 
 function renderPlayers(){
 
-alert("renderPlayers çalıştı");
-alert(app.players.length);
+    const list = document.getElementById("playerList");
 
-const list = document.getElementById("playerList");
+    if(!list){
+        console.error("playerList bulunamadı");
+        return;
+    }
 
-alert(list ? "playerList bulundu" : "playerList BULUNAMADI");
+    list.innerHTML = "";
 
-list.innerHTML="";
+    if(app.players.length===0){
 
-app.players.forEach(player=>{
+        list.innerHTML=`
+        <div class="card">
+            Henüz oyuncu eklenmemiş.
+        </div>
+        `;
 
-alert(player.name);
+        return;
+    }
 
-list.innerHTML+=`
+    app.players.forEach(player=>{
+
+        if(!player.stats){
+
+            player.stats={
+                games:0,
+                wins:0,
+                normal:0,
+                okey:0,
+                konken:0,
+                konkenOkey:0,
+                renk:0,
+                reward:0,
+                penalty:0
+            };
+
+        }
+
+        list.innerHTML += `
 
 <div class="playerCard">
 
-<div class="playerLeft">
+    <div class="playerLeft">
 
-<div class="avatar">
+        <img
+            src="avatarlar/${player.avatar}.png"
+            class="tableAvatar"
+            onerror="this.src='avatarlar/avatar1.png'">
 
-<img src="avatarlar/${player.avatar}.png"
-     class="tableAvatar"
-     onerror="this.src='avatarlar/avatar1.png'">
+        <div style="margin-left:12px;">
 
-</div>
+            <div class="playerName">
+                ${player.name}
+            </div>
 
-<div>
+            <div class="small">
+                🎮 ${player.stats.games} oyun
+            </div>
 
-<b>${player.name}</b>
+        </div>
 
-<br>
+    </div>
 
-<span class="small">
+    <div style="display:flex;gap:8px;">
 
-${player.stats.games} oyun
+        <button
+            style="width:48px;padding:8px"
+            onclick="editPlayer(${player.id})">
+            ✏️
+        </button>
 
-</span>
+        <button
+            style="width:48px;padding:8px"
+            onclick="deletePlayer(${player.id})">
+            🗑️
+        </button>
 
-</div>
-
-</div>
-
-<div style="display:flex;gap:6px;">
-
-<button
-onclick="editPlayer(${player.id})"
-style="width:45px;padding:8px;">
-✏️
-</button>
-
-<button
-onclick="deletePlayer(${player.id})"
-style="width:45px;padding:8px;">
-🗑️
-</button>
-
-</div>
+    </div>
 
 </div>
 
 `;
 
-});
-
-alert(list.innerHTML.length);
+    });
 
 }
 
