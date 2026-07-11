@@ -1233,6 +1233,14 @@ onclick="newGame()">
 
 <script>
 
+window.onerror = function(message, source, line, column, error) {
+    alert(
+        "HATA:\n" +
+        message +
+        "\nSatır: " + line
+    );
+};
+
 const STORAGE_KEY="alliGulluOkeyPro";
 
 const APP_VERSION="0.8.1";
