@@ -1361,6 +1361,11 @@ alert(id);
 
     page.classList.add("active");
 
+    page.style.display = "block";
+page.style.visibility = "visible";
+page.style.opacity = "1";
+page.style.position = "relative";
+    
     switch(id){
 
         case "playersPage":
