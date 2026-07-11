@@ -2535,7 +2535,9 @@ function renderPlayers(){
 alert("renderPlayers çalıştı");
 alert(app.players.length);
 
-const list=document.getElementById("playerList");
+const list = document.getElementById("playerList");
+
+alert(list ? "playerList bulundu" : "playerList BULUNAMADI");
 
 list.innerHTML="";
 
