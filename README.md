@@ -164,17 +164,48 @@ button:hover{
 
 .avatar{
 
-    font-size:38px;
+    width:56px;
 
-    margin-right:10px;
+    height:56px;
+
+    border-radius:50%;
+
+    overflow:hidden;
+
+    flex-shrink:0;
+
+    margin-right:12px;
+
+}
+
+.avatar img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
 
 }
 
 .tableAvatar{
+
     width:56px;
+
     height:56px;
+
     border-radius:50%;
+
     object-fit:cover;
+
+    display:block;
+
+    margin:auto;
+
+    border:2px solid white;
+
 }
 
 .playerName{
@@ -396,6 +427,12 @@ button:hover{
 
 }
 
+.sheetPlayer img{
+
+    flex-shrink:0;
+
+}
+
 .sheetPlayer:hover{
 
     background:#e8f6ee;
@@ -518,7 +555,7 @@ button:hover{
 
 .seat:hover{
 
-    transform:scale(1.05);
+    box-shadow:0 8px 18px rgba(0,0,0,.25);
 
 }
 
@@ -1339,43 +1376,43 @@ const avatars = [
 "IMG_20260710_211315",
 "IMG_20260710_211347",
 "IMG_20260710_211418",
-"IMG_20260710_211450",
-"avatar1"
+"IMG_20260710_211450"
 ];
     
 let editingPlayerId=null;
-let selectedAvatar="avatar1";
+let selectedAvatar = avatars[0];
 let currentSeat=-1;
     
 /* Sayfa Aç */
 
-function openPage(id){
+function openPage(pageId){
 
-    console.log("Açılan sayfa:", id);
-alert(id);
+    // Tüm sayfaları gizle
+    document.querySelectorAll(".page").forEach(page=>{
+        page.classList.remove("active");
+    });
 
-    document
-        .querySelectorAll(".page")
-        .forEach(p=>p.classList.remove("active"));
-
-    const page = document.getElementById(id);
+    // İstenen sayfayı bul
+    const page=document.getElementById(pageId);
 
     if(!page){
-        console.error("Sayfa bulunamadı:", id);
+        console.error("Sayfa bulunamadı:",pageId);
         return;
     }
 
+    // Sayfayı göster
     page.classList.add("active");
 
-    page.style.display = "block";
-page.style.visibility = "visible";
-page.style.opacity = "1";
-page.style.position = "relative";
-    
-    switch(id){
+    // Sayfaya özel işlemler
+    switch(pageId){
 
         case "playersPage":
             renderPlayers();
+            break;
+
+        case "gamePage":
+            renderTable();
+            renderGameInfo();
             break;
 
         case "historyPage":
@@ -1386,12 +1423,28 @@ page.style.position = "relative";
             renderStats();
             break;
 
-        case "gamePage":
-            renderTable();
-            renderGameInfo();
+        case "settingsPage":
+            updateSettingsPage();
             break;
 
     }
+
+}
+
+function updateSettingsPage(){
+
+    document.getElementById("versionText").textContent=APP_VERSION;
+
+    document.getElementById("homeVersion").textContent=APP_VERSION;
+
+    document.getElementById("settingsPlayerCount").textContent=
+        app.players.length;
+
+    document.getElementById("settingsGameCount").textContent=
+        app.games.filter(g=>g.type==="game").length;
+
+    document.getElementById("settingsLastSave").textContent=
+        new Date().toLocaleString("tr-TR");
 
 }
 
@@ -1409,20 +1462,7 @@ function initialize(){
 
     }
 
-    document.getElementById("versionText").textContent =
-        APP_VERSION;
-
-    document.getElementById("homeVersion").textContent =
-        APP_VERSION;
-
-    document.getElementById("settingsPlayerCount").textContent =
-        app.players.length;
-
-    document.getElementById("settingsGameCount").textContent =
-        app.games.filter(g=>g.type==="game").length;
-
-    document.getElementById("settingsLastSave").textContent =
-        new Date().toLocaleString("tr-TR");
+    updateSettingsPage();
 
     renderPlayers();
 
@@ -1438,78 +1478,94 @@ function initialize(){
 
 function renderTable(){
 
+    const ready = app.tableSeats.every(seat => seat !== null);
 
-       const ready =
-app.tableSeats.every(x=>x!==null);
+    document.getElementById("gameOptions").style.display =
+        ready ? "block" : "none";
 
-document.getElementById("gameOptions")
-.style.display =
-ready
-? "block"
-: "none";
-    
-    const seats = [
-        document.getElementById("seat0"),
-        document.getElementById("seat1"),
-        document.getElementById("seat2"),
-        document.getElementById("seat3")
-    ];
+    for(let i=0;i<4;i++){
 
-    seats.forEach((seat,index)=>{
-        
-        const playerId = app.tableSeats[index];
+        const seat=document.getElementById("seat"+i);
 
-        if(playerId === null){
+        const playerId=app.tableSeats[i];
 
-            seat.innerHTML = `
-                <button onclick="chooseSeat(${index})">
-                    ➕<br>Oyuncu Seç
-                </button>
-            `;
+        if(playerId===null){
 
-            return;
+            seat.innerHTML=`
+
+<button
+onclick="chooseSeat(${i})">
+
+➕<br>Oyuncu Seç
+
+</button>
+
+`;
+
+            continue;
+
         }
 
-        const player = app.players.find(p=>p.id===playerId);
+        const player=
+            app.players.find(p=>p.id===playerId);
 
         if(!player){
 
-            seat.innerHTML = `
-                <button onclick="chooseSeat(${index})">
-                    ➕<br>Oyuncu Seç
-                </button>
-            `;
+            seat.innerHTML=`
 
-            return;
+<button
+onclick="chooseSeat(${i})">
+
+➕<br>Oyuncu Seç
+
+</button>
+
+`;
+
+            continue;
+
         }
 
-        seat.innerHTML = `
-            <div class="avatar">
-<img src="avatarlar/${player.avatar}.png" class="tableAvatar">
-</div>
+        seat.innerHTML=`
 
-            <div class="name">${player.name}</div>
+<div class="avatar">
 
-            <div class="score" style="display:none;"></div>
-
-            <div style="display:flex;gap:4px;justify-content:center;margin-top:6px;">
-
-    <button
-        style="padding:4px 6px;font-size:11px;width:auto;"
-        onclick="chooseSeat(${index})">
-        🔄
-    </button>
-
-    <button
-        style="padding:4px 6px;font-size:11px;width:auto;"
-        onclick="clearSeat(${index})">
-        ❌
-    </button>
+<img
+src="avatarlar/${player.avatar}.png"
+class="tableAvatar">
 
 </div>
-        `;
 
-    });
+<div class="name">
+
+${player.name}
+
+</div>
+
+<div
+style="display:flex;justify-content:center;gap:6px;margin-top:8px;">
+
+<button
+style="width:auto;padding:6px 8px;"
+onclick="chooseSeat(${i})">
+
+🔄
+
+</button>
+
+<button
+style="width:auto;padding:6px 8px;"
+onclick="clearSeat(${i})">
+
+❌
+
+</button>
+
+</div>
+
+`;
+
+    }
 
 }
 
@@ -2345,13 +2401,13 @@ Renk
     
 function chooseSeat(index){
 
-currentSeat=index;
+    currentSeat = index;
 
-renderPlayerSheet();
+    renderPlayerSheet();
 
-document
-.getElementById("playerSheet")
-.classList.add("show");
+    document
+        .getElementById("playerSheet")
+        .classList.add("show");
 
 }
 
@@ -2361,6 +2417,8 @@ function closePlayerSheet(){
         .getElementById("playerSheet")
         .classList.remove("show");
 
+    currentSeat = -1;
+
 }
 
 function renderPlayerSheet(){
@@ -2369,26 +2427,53 @@ function renderPlayerSheet(){
 
     area.innerHTML = "";
 
-    app.players.forEach(player=>{
+    const availablePlayers = app.players.filter(player =>
+        !app.tableSeats.includes(player.id)
+    );
 
-        if(app.tableSeats.includes(player.id))
-            return;
+    if(availablePlayers.length===0){
 
-        area.innerHTML += `
-            <div class="sheetPlayer"
-                 onclick="selectSeatPlayer(${player.id})">
-
-                <span style="font-size:34px;">
-                    <img src="avatarlar/${player.avatar}.png"
-     class="tableAvatar">
-                </span>
-
-                <span>
-                    ${player.name}
-                </span>
-
+        area.innerHTML = `
+            <div class="card">
+                Seçilebilecek oyuncu kalmadı.
             </div>
         `;
+
+        return;
+
+    }
+
+    availablePlayers.forEach(player=>{
+
+        area.innerHTML += `
+
+<div
+class="sheetPlayer"
+onclick="selectSeatPlayer(${player.id})">
+
+    <img
+        src="avatarlar/${player.avatar}.png"
+        class="tableAvatar">
+
+    <div>
+
+        <div class="playerName">
+
+            ${player.name}
+
+        </div>
+
+        <div class="small">
+
+            ${player.stats.games} oyun
+
+        </div>
+
+    </div>
+
+</div>
+
+`;
 
     });
 
@@ -2400,11 +2485,9 @@ function selectSeatPlayer(playerId){
 
     save();
 
-    renderTable();
-
-    renderGameInfo();
-    
     closePlayerSheet();
+
+    renderTable();
 
 }
 
@@ -2579,7 +2662,7 @@ function renderPlayers(){
         <img
             src="avatarlar/${player.avatar}.png"
             class="tableAvatar"
-            onerror="this.src='avatarlar/avatar1.png'">
+            onerror="this.src='avatarlar/IMG_20260710_211030.png'"
 
         <div style="margin-left:12px;">
 
@@ -2844,7 +2927,7 @@ function openPlayerModal(player = null){
 
     editingPlayerId = player ? player.id : null;
 
-    selectedAvatar = player ? player.avatar : "😀";
+    selectedAvatar = player ? player.avatar : avatars[0];
 
     document.getElementById("playerName").value =
         player ? player.name : "";
