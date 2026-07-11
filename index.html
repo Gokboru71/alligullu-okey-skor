@@ -16,6 +16,60 @@
 
 <div id="app">
 
+<div class="page active" id="homePage">
+
+    <div class="card">
+        <h2>🏠 Ana Menü</h2>
+
+        <button onclick="openPage('playersPage')">👥 Oyuncular</button>
+        <button onclick="openPage('gamePage')">🎮 Yeni Oyun</button>
+        <button onclick="openPage('historyPage')">📜 Geçmiş</button>
+        <button onclick="openPage('statsPage')">📊 İstatistikler</button>
+        <button onclick="openPage('settingsPage')">⚙️ Ayarlar</button>
+    </div>
+
+</div>
+
+<div class="page" id="playersPage">
+    <h2>Oyuncular</h2>
+
+    <div id="playerList"></div>
+
+    <button onclick="openPage('homePage')">⬅ Geri</button>
+</div>
+
+<div class="page" id="gamePage">
+    <h2>Yeni Oyun</h2>
+
+    <div id="gameArea"></div>
+
+    <button onclick="openPage('homePage')">⬅ Geri</button>
+</div>
+
+<div class="page" id="historyPage">
+    <h2>Oyun Geçmişi</h2>
+
+    <div id="historyList"></div>
+
+    <button onclick="openPage('homePage')">⬅ Geri</button>
+</div>
+
+<div class="page" id="statsPage">
+    <h2>İstatistikler</h2>
+
+    <div id="statsContent"></div>
+
+    <button onclick="openPage('homePage')">⬅ Geri</button>
+</div>
+
+<div class="page" id="settingsPage">
+    <h2>Ayarlar</h2>
+
+    <div id="settingsContent"></div>
+
+    <button onclick="openPage('homePage')">⬅ Geri</button>
+</div>
+    
 </div>
 
 <script src="app.js"></script>
