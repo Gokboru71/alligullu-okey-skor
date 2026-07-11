@@ -778,8 +778,6 @@ button:hover{
 
 </div>
 
-</div>
-
 <!-- ================================================= -->
 <!-- YENİ OYUN -->
 <!-- ================================================= -->
@@ -1313,32 +1311,32 @@ const app = {
 
 /* Varsayılan oyuncular */
 
-const defaultPlayers=[
-["avatarlar/IMG_20260710_211030.png","Fatih"],
-["avatarlar/IMG_20260710_211058.png","Mustafa"],
-["avatarlar/IMG_20260710_211122.png","Cumali"],
-["avatarlar/IMG_20260710_211151.png","Cemil"],
-["avatarlar/IMG_20260710_211242.png","Ali"],
-["avatarlar/IMG_20260710_211315.png","Şefik"],
-["avatarlar/IMG_20260710_211347.png","Yıldırım"],
-["avatarlar/IMG_20260710_211418.png","Hakkı"]
+const defaultPlayers = [
+["IMG_20260710_211030","Fatih"],
+["IMG_20260710_211058","Mustafa"],
+["IMG_20260710_211122","Cumali"],
+["IMG_20260710_211151","Cemil"],
+["IMG_20260710_211242","Ali"],
+["IMG_20260710_211315","Şefik"],
+["IMG_20260710_211347","Yıldırım"],
+["IMG_20260710_211418","Hakkı"]
 ];
 
 const avatars = [
-"avatarlar/IMG_20260710_211030.png",
-"avatarlar/IMG_20260710_211058.png",
-"avatarlar/IMG_20260710_211122.png",
-"avatarlar/IMG_20260710_211151.png",
-"avatarlar/IMG_20260710_211242.png",
-"avatarlar/IMG_20260710_211315.png",
-"avatarlar/IMG_20260710_211347.png",
-"avatarlar/IMG_20260710_211418.png",
-"avatarlar/IMG_20260710_211450.png",
-"avatarlar/avatar1.png"
+"IMG_20260710_211030",
+"IMG_20260710_211058",
+"IMG_20260710_211122",
+"IMG_20260710_211151",
+"IMG_20260710_211242",
+"IMG_20260710_211315",
+"IMG_20260710_211347",
+"IMG_20260710_211418",
+"IMG_20260710_211450",
+"avatar1"
 ];
     
 let editingPlayerId=null;
-let selectedAvatar="😀";
+let selectedAvatar="avatar1";
 let currentSeat=-1;
     
 /* Sayfa Aç */
@@ -1371,11 +1369,6 @@ page.style.position = "relative";
         case "playersPage":
             renderPlayers();
             break;
-
-        case "playersPage":
-    alert("renderPlayers çalıştı");
-    renderPlayers();
-    break;
 
         case "historyPage":
             renderHistory();
@@ -2550,7 +2543,7 @@ list.innerHTML+=`
 
 <div class="avatar">
 
-<img src="${player.avatar}"
+<img src="avatarlar/${player.avatar}.png"
      class="tableAvatar"
      onerror="this.src='avatarlar/avatar1.png'">
 
@@ -2860,7 +2853,7 @@ function renderAvatarGrid(){
     class="avatarItem ${selectedAvatar===a?"selected":""}"
     onclick="selectAvatar('${a}')">
 
-    <img src="${a}"
+    <img src="avatarlar/${a}.png"
      class="tableAvatar">
 
 </div>
