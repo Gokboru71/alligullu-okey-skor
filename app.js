@@ -1,3 +1,5 @@
+alert("app.js başladı");
+
 /* ==========================================
    ALLI GÜLLÜ OKEY PRO
    Version 1.0
