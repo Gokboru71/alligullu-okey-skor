@@ -943,6 +943,13 @@ function renderGameInfo(){
         multiplier.textContent=app.game.multiplier;
 
 }
+
+function openHandEntry(){
+
+    openPage("handEntryPage");
+
+}
+
 /* ==========================================
    EL EKLE
 ========================================== */
