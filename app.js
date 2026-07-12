@@ -3036,31 +3036,10 @@ function safeExecute(callback){
 
 function initializeApp(){
 
-    load();
-
-    if(app.players.length===0){
-
-        createDefaultPlayers();
-
-        save();
-
-    }
-
-    renderPlayers();
-
-    renderTable();
-
-    renderHistory();
-
-    renderStats();
-
-    renderSettings();
-
-    renderGameInfo();
-
-    openPage("homePage");
+    alert("initializeApp çalıştı");
 
 }
+
 /* ==========================================
    UYGULAMAYI BAŞLAT
 ========================================== */
@@ -3073,4 +3052,3 @@ document.addEventListener(
 
 );
 
-window.openPage = openPage;
