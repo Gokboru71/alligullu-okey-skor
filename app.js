@@ -425,32 +425,6 @@ function deletePlayer(id){
 }
 
 /* ==========================================
-   MODAL
-========================================== */
-
-function openPlayerModal(player=null){
-
-    app.editingPlayer=player;
-
-    app.selectedAvatar=
-
-        player
-        ? player.avatar
-        : AVATARS[0];
-
-    document.getElementById("playerModal")
-        .classList.add("show");
-
-}
-
-function closePlayerModal(){
-
-    document.getElementById("playerModal")
-        .classList.remove("show");
-
-}
-
-/* ==========================================
    AVATAR SEÇ
 ========================================== */
 
@@ -809,7 +783,7 @@ function clearSeat(index){
 
 function renderPlayerSheet(){
 
-    const area=document.getElementById("sheetPlayers");
+    const area=document.getElementById("sheetPlayerList");
 
     if(!area) return;
 
@@ -950,28 +924,25 @@ function newGame(){
 
 function renderGameInfo(){
 
-    const area = document.getElementById("gameInfo");
+    const hand =
+        document.getElementById("handNumber");
 
-    if(!area) return;
+    const indicator =
+        document.getElementById("indicatorText");
 
-    area.innerHTML = `
+    const multiplier =
+        document.getElementById("multiplierText");
 
-<div class="card">
+    if(hand)
+        hand.textContent=app.game.hand;
 
-    <h3>Oyun Bilgisi</h3>
+    if(indicator)
+        indicator.textContent=app.game.indicator;
 
-    <p><b>El:</b> ${app.game.hand}</p>
-
-    <p><b>Çarpan:</b> ${app.game.multiplier}</p>
-
-    <p><b>Gösterge:</b> ${app.game.indicator}</p>
-
-</div>
-
-`;
+    if(multiplier)
+        multiplier.textContent=app.game.multiplier;
 
 }
-
 /* ==========================================
    EL EKLE
 ========================================== */
