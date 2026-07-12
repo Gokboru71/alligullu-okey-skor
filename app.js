@@ -153,6 +153,17 @@ const RULES={
 
     },
 
+    special:{
+
+    konkenPenalty:2,
+
+    konkenReward:20,
+
+    konkenOkeyPenalty:2,
+
+    konkenOkeyReward:2
+
+},
     fakeOkeyMultiplier:10
 
 };
@@ -591,6 +602,33 @@ function savePlayer(){
     app.selectedAvatar=AVATARS[0];
 
     closePlayerModal();
+
+}
+
+function renderAvatarGrid(){
+
+    const grid=document.getElementById("avatarGrid");
+
+    if(!grid) return;
+
+    grid.innerHTML="";
+
+    AVATARS.forEach(avatar=>{
+
+        grid.innerHTML+=`
+
+<div class="avatarItem">
+
+<img
+src="avatarlar/${avatar}.png"
+class="tableAvatar"
+onclick="selectAvatar('${avatar}')">
+
+</div>
+
+`;
+
+    });
 
 }
 
@@ -1033,7 +1071,6 @@ function cancelGame(){
 }
 
 /* ==========================================
-/* ==========================================
    EL HESAPLAMA MOTORU
 ========================================== */
 
@@ -1299,76 +1336,6 @@ function addPenalty(team){
         app.game.teamBPenalty++;
 
     save();
-
-}
-
-/* ==========================================
-   OYUN SONU HESAPLAMA
-========================================== */
-
-function calculateGameResult(){
-
-    const result={
-
-        teamA:{
-
-            reward:0,
-
-            penalty:0,
-
-            total:0
-
-        },
-
-        teamB:{
-
-            reward:0,
-
-            penalty:0,
-
-            total:0
-
-        },
-
-        winner:null,
-
-        loser:null
-
-    };
-
-    app.game.hands.forEach(hand=>{
-
-        result.teamA.reward += hand.rewardA;
-        result.teamA.penalty += hand.penaltyA;
-
-        result.teamB.reward += hand.rewardB;
-        result.teamB.penalty += hand.penaltyB;
-
-    });
-
-    result.teamA.total =
-        result.teamA.penalty +
-        result.teamA.reward;
-
-    result.teamB.total =
-        result.teamB.penalty +
-        result.teamB.reward;
-
-    if(result.teamA.total < result.teamB.total){
-
-        result.winner="A";
-        result.loser="B";
-
-    }
-
-    else if(result.teamB.total < result.teamA.total){
-
-        result.winner="B";
-        result.loser="A";
-
-    }
-
-    return result;
 
 }
 
@@ -2191,34 +2158,6 @@ function createGameResult(){
         },
 
         winner:null,
-
-        loser:null,
-
-        finished:false,
-
-        endedBy:"normal"
-
-    };
-
-}
-
-function createGameResult(){
-
-    return{
-
-        teamA:{
-            reward:0,
-            penalty:0,
-            total:0
-        },
-
-        teamB:{
-            reward:0,
-            penalty:0,
-            total:0
-        },
-
-        winner:null,
         loser:null
 
     };
@@ -3023,6 +2962,23 @@ function setLoading(state){
         state
 
     );
+
+}
+
+function renderSettings(){
+
+    const version=document.getElementById("appVersion");
+    const playerCount=document.getElementById("playerCount");
+    const gameCount=document.getElementById("gameCount");
+
+    if(version)
+        version.textContent=APP_VERSION;
+
+    if(playerCount)
+        playerCount.textContent=app.players.length;
+
+    if(gameCount)
+        gameCount.textContent=app.games.length;
 
 }
 
