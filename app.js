@@ -3056,3 +3056,7 @@ document.addEventListener(
 );
 
 console.log("app.js yüklendi");
+
+abc
+
+
