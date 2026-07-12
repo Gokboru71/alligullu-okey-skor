@@ -3073,8 +3073,4 @@ document.addEventListener(
 
 );
 
-console.log("app.js yüklendi");
-
-abc
-
-
+window.openPage = openPage;
