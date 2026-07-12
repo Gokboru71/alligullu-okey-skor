@@ -1,78 +1,520 @@
 <!DOCTYPE html>
 <html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Allı Güllü Okey Bro Ağaşatım</title>
 
-    <link rel="stylesheet" href="style.css">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Allı Güllü Okey Pro
+
+</title>
+
+<link
+rel="stylesheet"
+href="style.css">
+
 </head>
 
 <body>
 
-<header>
-    🎁 ALLI GÜLLÜ OKEY AĞAŞATIM
-</header>
-
 <div id="app">
 
-<div class="page active" id="homePage">
+<!-- ==========================
+     HOME PAGE
+========================== -->
 
-    <div class="card">
-        <h2>🏠 Ana Menü</h2>
+<section
+class="page active"
+id="homePage">
 
-        <button onclick="openPage('playersPage')">👥 Oyuncular</button>
-        <button onclick="openPage('gamePage')">🎮 Yeni Oyun</button>
-        <button onclick="openPage('historyPage')">📜 Geçmiş</button>
-        <button onclick="openPage('statsPage')">📊 İstatistikler</button>
-        <button onclick="openPage('settingsPage')">⚙️ Ayarlar</button>
+<header>
+
+<h1>
+
+🎲 ALLI GÜLLÜ OKEY PRO
+
+</h1>
+
+</header>
+
+<div class="menu">
+
+<button
+onclick="openPage('playersPage')">
+
+👥 Oyuncular
+
+</button>
+
+<button
+onclick="openPage('gamePage')">
+
+🎮 Yeni Oyun
+
+</button>
+
+<button
+onclick="openPage('historyPage')">
+
+📜 Geçmiş
+
+</button>
+
+<button
+onclick="openPage('statsPage')">
+
+📊 İstatistik
+
+</button>
+
+<button
+onclick="openPage('settingsPage')">
+
+⚙️ Ayarlar
+
+</button>
+
+</div>
+
+</section>
+
+<section
+class="page"
+id="playersPage">
+
+<header>
+
+<button
+onclick="openPage('homePage')">
+
+⬅
+
+</button>
+
+<h2>
+
+Oyuncular
+
+</h2>
+
+</header>
+
+<div id="playerList">
+
+</div>
+
+<button
+onclick="openPlayerModal()">
+
+➕
+
+Yeni Oyuncu
+
+</button>
+
+</section>
+
+<!-- ==========================
+     GAME PAGE
+========================== -->
+
+<section class="page" id="gamePage">
+
+<header class="pageHeader">
+
+<button onclick="openPage('homePage')">
+⬅
+</button>
+
+<h2>🎮 Yeni Oyun</h2>
+
+</header>
+
+<div class="card">
+
+<h3>Oyun Bilgileri</h3>
+
+<p>
+El :
+<span id="handNumber">1</span>
+/
+5
+</p>
+
+<p>
+Gösterge :
+<span id="indicatorText">-</span>
+</p>
+
+<p>
+Çarpan :
+<span id="multiplierText">1</span>
+</p>
+
+</div>
+
+<div class="tableArea">
+
+<div class="okeyTable">
+
+<div class="seat" id="seat0"></div>
+
+<div class="seat" id="seat1"></div>
+
+<div class="seat" id="seat2"></div>
+
+<div class="seat" id="seat3"></div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>İşlemler</h3>
+
+<button class="primaryButton"
+onclick="startNewGame()">
+
+🎲 Yeni Oyun Başlat
+
+</button>
+
+<button
+onclick="openHandEntry()">
+
+✍️ El Sonucunu Gir
+
+</button>
+
+<button
+onclick="finishGame()">
+
+🏁 Oyunu Bitir
+
+</button>
+
+</div>
+
+</section>
+
+<section class="page" id="handEntryPage">
+
+<header class="pageHeader">
+
+<button onclick="openPage('gamePage')">
+⬅
+</button>
+
+<h2>✍️ El Girişi</h2>
+
+</header>
+
+<div id="handEntry">
+
+</div>
+
+</section>
+
+<!-- ==========================
+     HISTORY PAGE
+========================== -->
+
+<section class="page" id="historyPage">
+
+<header class="pageHeader">
+
+<button onclick="openPage('homePage')">
+⬅
+</button>
+
+<h2>📜 Oyun Geçmişi</h2>
+
+</header>
+
+<div class="card">
+
+<h3>Kaydedilen Oyunlar</h3>
+
+<div id="historyList">
+
+<p class="small">
+Henüz kayıtlı oyun yok.
+</p>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<button onclick="exportHistory()">
+
+📤 Geçmişi Dışa Aktar
+
+</button>
+
+<button onclick="clearHistory()">
+
+🗑️ Geçmişi Temizle
+
+</button>
+
+</div>
+
+</section>
+
+<!-- ==========================
+     STATS PAGE
+========================== -->
+
+<section class="page" id="statsPage">
+
+<header class="pageHeader">
+
+<button onclick="openPage('homePage')">
+⬅
+</button>
+
+<h2>📊 İstatistikler</h2>
+
+</header>
+
+<div class="card">
+
+<h3>Genel İstatistikler</h3>
+
+<p>Toplam Oyun : <span id="totalGames">0</span></p>
+
+<p>Tamamlanan El : <span id="totalHands">0</span></p>
+
+<p>Normal Bitiş : <span id="normalFinishCount">0</span></p>
+
+<p>Renk Bitiş : <span id="renkFinishCount">0</span></p>
+
+</div>
+
+<div class="card">
+
+<h3>Takımlar</h3>
+
+<div id="teamStats">
+
+<p class="small">
+Henüz veri yok.
+</p>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Oyuncular</h3>
+
+<div id="playerStats">
+
+<p class="small">
+Henüz veri yok.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ==========================
+     SETTINGS PAGE
+========================== -->
+
+<section class="page" id="settingsPage">
+
+<header class="pageHeader">
+
+<button onclick="openPage('homePage')">
+⬅
+</button>
+
+<h2>⚙️ Ayarlar</h2>
+
+</header>
+
+<div class="card">
+
+<button onclick="backupData()">
+
+💾 Yedek Al
+
+</button>
+
+<button onclick="restoreData()">
+
+📂 Yedekten Yükle
+
+</button>
+
+<button onclick="resetApplication()">
+
+🗑️ Tüm Verileri Sıfırla
+
+</button>
+
+</div>
+
+<div class="card">
+
+<p>
+Versiyon :
+<b id="appVersion"></b>
+</p>
+
+<p>
+Toplam Oyuncu :
+<span id="playerCount">0</span>
+</p>
+
+<p>
+Toplam Oyun :
+<span id="gameCount">0</span>
+</p>
+
+</div>
+
+</section>
+
+<!-- ==========================
+     PLAYER MODAL
+========================== -->
+
+<div class="modal" id="playerModal">
+
+<div class="modalContent">
+
+<h2>Oyuncu Ekle / Düzenle</h2>
+
+<input
+id="playerName"
+type="text"
+placeholder="Oyuncu Adı">
+
+<div id="avatarGrid"
+class="avatarGrid">
+
+</div>
+
+<button onclick="savePlayer()">
+
+Kaydet
+
+</button>
+
+<button onclick="closePlayerModal()">
+
+İptal
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ==========================
+     RESULT MODAL
+========================== -->
+
+<div class="modal" id="resultModal">
+
+<div class="modalContent">
+
+<h2>Oyun Sonucu</h2>
+
+<div id="gameResultText">
+
+</div>
+
+<button onclick="closeResultModal()">
+
+Kapat
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ==========================
+     BOTTOM SHEET
+========================== -->
+
+<div
+class="bottomSheet"
+id="playerSheet">
+
+<h2>Oyuncu Seç</h2>
+
+<div id="sheetPlayerList">
+
+</div>
+
+<button onclick="closePlayerSheet()">
+
+Kapat
+
+</button>
+
+</div>
+
+<!-- ==========================
+     REPORT MODAL
+========================== -->
+
+<div class="modal" id="reportModal">
+
+    <div class="modalContent reportModal">
+
+        <button
+            class="closeButton"
+            onclick="closeReport()">
+
+            ✖
+
+        </button>
+
+        <div id="reportBody">
+
+        </div>
+
     </div>
 
 </div>
 
-<div class="page" id="playersPage">
-    <h2>Oyuncular</h2>
+<!-- ==========================
+     LOADING
+========================== -->
 
-    <div id="playerList"></div>
+<div id="loadingScreen" class="loadingScreen">
 
-    <button onclick="openPage('homePage')">⬅ Geri</button>
+    <div class="loadingBox">
+
+        <div class="spinner"></div>
+
+        <p>Yükleniyor...</p>
+
+    </div>
+
 </div>
 
-<div class="page" id="gamePage">
-    <h2>Yeni Oyun</h2>
-
-    <div id="gameArea"></div>
-
-    <button onclick="openPage('homePage')">⬅ Geri</button>
-</div>
-
-<div class="page" id="historyPage">
-    <h2>Oyun Geçmişi</h2>
-
-    <div id="historyList"></div>
-
-    <button onclick="openPage('homePage')">⬅ Geri</button>
-</div>
-
-<div class="page" id="statsPage">
-    <h2>İstatistikler</h2>
-
-    <div id="statsContent"></div>
-
-    <button onclick="openPage('homePage')">⬅ Geri</button>
-</div>
-
-<div class="page" id="settingsPage">
-    <h2>Ayarlar</h2>
-
-    <div id="settingsContent"></div>
-
-    <button onclick="openPage('homePage')">⬅ Geri</button>
-</div>
-    
 </div>
 
 <script src="app.js"></script>
 
 </body>
-</html>
+
+</html>    
