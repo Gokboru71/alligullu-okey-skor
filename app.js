@@ -1296,42 +1296,6 @@ function addPenalty(team){
 }
 
 /* ==========================================
-   TOPLAM SKOR
-========================================== */
-
-function calculateGameScore(){
-
-    let teamA=0;
-
-    let teamB=0;
-
-    app.game.hands.forEach(hand=>{
-
-        teamA+=hand.result.teamA;
-
-        teamB+=hand.result.teamB;
-
-    });
-
-    teamA+=app.game.teamAReward;
-
-    teamA-=app.game.teamAPenalty;
-
-    teamB+=app.game.teamBReward;
-
-    teamB-=app.game.teamBPenalty;
-
-    return{
-
-        teamA,
-
-        teamB
-
-    };
-
-}
-
-/* ==========================================
    OYUN SONU HESAPLAMA
 ========================================== */
 
