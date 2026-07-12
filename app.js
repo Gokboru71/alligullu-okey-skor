@@ -2202,21 +2202,64 @@ function createGameResult(){
 
 }
 
+function createGameResult(){
+
+    return{
+
+        teamA:{
+            reward:0,
+            penalty:0,
+            total:0
+        },
+
+        teamB:{
+            reward:0,
+            penalty:0,
+            total:0
+        },
+
+        winner:null,
+        loser:null
+
+    };
+
+}
+
 function applyHandToResult(result,hand){
 
-    result.teamA.reward+=hand.rewardA;
-    result.teamA.penalty+=hand.penaltyA;
+    result.teamA.reward += hand.rewardA;
+    result.teamA.penalty += hand.penaltyA;
 
-    result.teamB.reward+=hand.rewardB;
-    result.teamB.penalty+=hand.penaltyB;
+    result.teamB.reward += hand.rewardB;
+    result.teamB.penalty += hand.penaltyB;
 
-    result.teamA.total=
-        result.teamA.penalty+
+}
+
+function finalizeResult(result){
+
+    result.teamA.total =
+        result.teamA.penalty +
         result.teamA.reward;
 
-    result.teamB.total=
-        result.teamB.penalty+
+    result.teamB.total =
+        result.teamB.penalty +
         result.teamB.reward;
+
+    if(result.teamA.total > result.teamB.total){
+
+        result.winner="B";
+        result.loser="A";
+
+    }else if(result.teamB.total > result.teamA.total){
+
+        result.winner="A";
+        result.loser="B";
+
+    }else{
+
+        result.winner="BERABERE";
+
+    }
 
 }
 
@@ -2282,6 +2325,26 @@ function calculateGameResult(){
 /* ==========================================
    STATISTICS ENGINE
 ========================================== */
+
+function renderStats(){
+
+    const stats = rebuildStatistics();
+
+    const totalGames =
+        document.getElementById("totalGames");
+
+    const totalHands =
+        document.getElementById("totalHands");
+
+    if(totalGames)
+        totalGames.textContent =
+            stats.totalGames;
+
+    if(totalHands)
+        totalHands.textContent =
+            stats.totalHands;
+
+}
 
 function createStatistics(){
 
@@ -3005,14 +3068,25 @@ function initializeApp(){
 
         createDefaultPlayers();
 
+        save();
+
     }
 
-    refreshUI();
+    renderPlayers();
+
+    renderTable();
+
+    renderHistory();
+
+    renderStats();
+
+    renderSettings();
+
+    renderGameInfo();
 
     openPage("homePage");
 
 }
-
 /* ==========================================
    UYGULAMAYI BAŞLAT
 ========================================== */
