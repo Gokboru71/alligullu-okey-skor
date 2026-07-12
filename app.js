@@ -217,11 +217,59 @@ function openPage(id){
 
     page.classList.add("active");
 
-    switch(id){
+        function openPage(id){
 
-        case "playersPage":
-            renderPlayers();
-            break;
+    document
+        .querySelectorAll(".page")
+        .forEach(page => page.classList.remove("active"));
+
+    const page = document.getElementById(id);
+
+    if(!page){
+        alert("Sayfa bulunamadı : " + id);
+        return;
+    }
+
+    page.classList.add("active");
+
+    try{
+
+        switch(id){
+
+            case "playersPage":
+                renderPlayers();
+                break;
+
+            case "gamePage":
+                renderTable();
+                renderGameInfo();
+                break;
+
+            case "historyPage":
+                renderHistory();
+                break;
+
+            case "statsPage":
+                renderStats();
+                break;
+
+            case "settingsPage":
+                renderSettings();
+                break;
+
+        }
+
+    }catch(error){
+
+        alert(
+            "HATA\n\n" +
+            error.message +
+            "\n\nFonksiyon : " + id
+        );
+
+    }
+
+        }
 
         case "gamePage":
             renderTable();
