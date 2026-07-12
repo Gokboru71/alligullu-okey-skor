@@ -209,18 +209,6 @@ function openPage(id){
 
     document
         .querySelectorAll(".page")
-        .forEach(page=>page.classList.remove("active"));
-
-    const page=document.getElementById(id);
-
-    if(!page) return;
-
-    page.classList.add("active");
-
-        function openPage(id){
-
-    document
-        .querySelectorAll(".page")
         .forEach(page => page.classList.remove("active"));
 
     const page = document.getElementById(id);
@@ -266,26 +254,6 @@ function openPage(id){
             error.message +
             "\n\nFonksiyon : " + id
         );
-
-    }
-
-        }
-
-        case "gamePage":
-            renderTable();
-            break;
-
-        case "historyPage":
-            renderHistory();
-            break;
-
-        case "statsPage":
-            renderStats();
-            break;
-
-        case "settingsPage":
-            renderSettings();
-            break;
 
     }
 
